@@ -11,8 +11,8 @@ any derivative work from Kibella, please contact Frank Vanden Berghen at frank@t
 namespace kibella;
 // Read the configuration file to define constants needed for this page (such as DATADIR)
 
-require_once __DIR__ . '/../../../../src/configreadinifile.php';
-require_once __DIR__ . '/../../../../src/users/user.php';
+require_once __DIR__ . '/../../../../JSON_SQL_Bridge/configreadinifile.php';
+require_once __DIR__ . '/../../../../JSON_SQL_Bridge/users/user.php';
 $user = new User();
 ?>
 <html>
@@ -27,7 +27,7 @@ $user = new User();
 
 <h2>Register a new table or update an already registered table</h2>
  <!-- Ref for forms: http://www.w3schools.com/html/html_forms.asp -->
- <form name="document.forms.RegisterTable" action="/kibella/src/formRegisterTableSubmit.php" autocomplete="off" method="POST" novalidate>
+ <form name="document.forms.RegisterTable" action="/kibella/JSON_SQL_Bridge/formRegisterTableSubmit.php" autocomplete="off" method="POST" novalidate>
 	<b>Database:</b><span style="font-size:14px"> (case sensitive under Linux server)</span><br>
 	<input type="text" name="db"></input><br>
 	<?php

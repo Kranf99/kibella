@@ -10,12 +10,12 @@
  */
 namespace kibella;
 
-require_once(__DIR__ . '/../../src/users/user.php');
+require_once(__DIR__ . '/../../JSON_SQL_Bridge/users/user.php');
 
 $user = new User();
 
 if($user->isAdmin()) {
-  require_once(__DIR__ . '/../../src/users/manager.php');
+  require_once(__DIR__ . '/../../JSON_SQL_Bridge/users/manager.php');
 
   $user_manager = new UserManager();
 

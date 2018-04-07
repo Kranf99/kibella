@@ -7,8 +7,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     
     dev: __dirname + '/dev',
-    dist: __dirname + '/../kibella',
-//    dist: '/mnt/f/soft/wamp64/www/kibella',
+    dist: '/mnt/f/soft/wamp64/www/kibella',
+//    dist: __dirname + '/../kibella',
     interface: __dirname + '/interface',
     
     clean: {
@@ -21,13 +21,13 @@ module.exports = function(grunt) {
     },
     copy: {
       root: {
-        src: ['public/**', 'tempdata/**', 'index.php', 'kibella.ini', 'LICENSE_KIBELLA.txt','.ovhconfig'],
-        dest: 'dist',
+        src: ['public/**', 'tempdata/kibella.sqlite', 'tempdata/.htaccess', 'index.php', 'kibella.ini', 'LICENSE.txt','.ovhconfig'],
+        dest: '<%= dist %>',
         expand: true
       },
       backend: {
-        src: ['src/**'],
-        dest: 'dist',
+        src: ['JSON_SQL_Bridge/**'],
+        dest: '<%= dist %>',
         expand: true  
       },
       interface: {
@@ -39,12 +39,12 @@ module.exports = function(grunt) {
 
 
        droot: {
-        src: ['public/**', 'index.php', 'kibella.ini', 'LICENSE_KIBELLA.txt'],
+        src: ['public/**', 'index.php', 'kibella.ini', 'LICENSE.txt'],
         dest: 'dev',
         expand: true
       },
       dbackend: {
-        src: ['src/**'],
+        src: ['JSON_SQL_Bridge/**'],
         dest: 'dev',
         expand: true  
       },

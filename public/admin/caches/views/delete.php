@@ -11,7 +11,7 @@ any derivative work from Kibella, please contact Frank Vanden Berghen at frank@t
 namespace kibella;
 
 // Read the configuration file to define constants needed for this page (such as CACHEMODE used in views/delete.php)
-require_once __DIR__ . '/../../../../src/config.php';
+require_once __DIR__ . '/../../../../JSON_SQL_Bridge/config.php';
 ?>
 <html>
 <head>

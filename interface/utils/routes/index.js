@@ -36,10 +36,10 @@ define(function (require) {
               
             var defer = $q.defer();
 
-            $http.post(kbnPath + '/src/users/actions/isLoggedIn.php').then(function(res) {
+            $http.post(kbnPath + '/JSON_SQL_Bridge/users/actions/isLoggedIn.php').then(function(res) {
               if(!res.data) {
                 if(dashboard) {
-                  $http.post(kbnPath + '/src/dashboard/actions/isShared.php', { id: $route.current.params.id }).then(function(_res) {
+                  $http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/isShared.php', { id: $route.current.params.id }).then(function(_res) {
                     if(_res.data !== "1") {
                       window.location = loginPath;
                       defer.resolve(false);

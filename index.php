@@ -12,7 +12,7 @@ any derivative work from Kibella, please contact Frank Vanden Berghen at frank@t
 namespace kibella;
 
 // Check user authentication
-require_once 'src/users/user.php';
+require_once 'JSON_SQL_Bridge/users/user.php';
 
 $user = new User();
 
@@ -21,7 +21,7 @@ if(!$user->isLoggedIn()) {
   die();
 }
 
-require_once "src/config.php";
+require_once "JSON_SQL_Bridge/config.php";
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -58,9 +58,9 @@ require_once "src/config.php";
       </div>
     </div>
   </div>
-  <form action="src/users/actions/logout.php" method="POST">
+  <form action="JSON_SQL_Bridge/users/actions/logout.php" method="POST">
     <button type="submit" id="logout" name="logout"><i class="fa fa-chevron-left" aria-hidden="true"></i> Logout</button>
   </form>
-  <a href="LICENSE_KIBELLA.txt" target="_bank" class="license">© Frank Vanden Berghen</a>
+  <a href="LICENSE.txt" target="_bank" class="license">© Frank Vanden Berghen</a>
 </body>
 </html>

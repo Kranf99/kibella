@@ -195,7 +195,7 @@ define(function (require) {
           addSearch: $scope.addSearch,
           isShared: $scope.shared,
           changeShared: function() {
-            $http.post(kbnPath + '/src/dashboard/actions/changeShared.php', { id: $route.current.params.id, sharedValue: $scope.opts.isShared });
+            $http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/changeShared.php', { id: $route.current.params.id, sharedValue: $scope.opts.isShared });
           },
           shareData: function () {
             return {
