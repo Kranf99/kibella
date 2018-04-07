@@ -40,12 +40,12 @@ RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
 
 2. Windows/WAMP Installation
 
-2.1. Automated install
+ 2.1. Automated install
    * Download the ZIP from the latest Kibella release and unzip it in "c:\WAMP"
    * run the file "InstallWamp64.exe" located in "c:\WAMP"
    * run the file "wampmanager.exe" located in "c:\WAMP"
 
-2.2. Manual install
+ 2.2. Manual install
    * Download&Install a classic WAMP server from 
         http://www.wampserver.com/en/
    * Download the files from the GitHub Project named "Kibella_WAMP" and copy these files
@@ -53,7 +53,6 @@ RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
    * Run the file "InstallWamp64.exe" (from the Project named "Kibella_WAMP").
    * Copy the Kibella files inside a directory XX served by Apache.
    * unzip the file "default_data/income.zip" inside the directory XX/../data
-
 
 
 # Installation for Developpers
@@ -101,6 +100,50 @@ and keep the process alive for watching your modifications (webpack --watch)*
 (`/public`,`/src`...) and transpile the bundle within `/dist/interface`*
 
 ---
+
+
+# Troubleshooting.
+
+1. Troubleshooting Linux Installation
+
+ 1.1. Enable .htaccess application-specific configuration in the Apache server
+
+Since Kibella contains a .htaccess configuration file (present in Kibella’s 
+installation directory), Apache needs to be configured to enable its use.
+To this end, verify that the Apache configuration file 
+```
+/etc/apache2/sites-available/default 
+```
+has the AllowOverride directive set to All inside the Directory directive block 
+for the webserver directory (e.g. /var/www). This means that that part of the 
+file should (typically) look like this:
+```
+<Directory /var/www>
+      Options Indexes FollowSymLinks MultiViews
+      AllowOverride All
+      Order allow,deny
+      Allow from all
+</Directory>
+```
+If not, edit the "/etc/apache2/httpd.conf" configuration file (normally empty) 
+and add the following lines:
+```
+<Directory /var/www/kibella>
+      AllowOverride All
+</Directory>
+```
+
+ 1.2. Enable Apache’s rewrite module
+
+Verify that the rewrite module is enabled by running:
+```
+sudo apache2ctl -M
+```
+where a module called "rewrite" should appear in the list.
+If it does not appear, enable it with:
+```
+sudo a2enmod rewrite
+```
 
 
 Copyright 2017 Frank Vanden berghen
