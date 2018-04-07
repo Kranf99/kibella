@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+  <!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+		<!--
+			KIBELLA 1.0
+			Copyright 2016 Frank Vanden berghen
+			All Right reserved.
+
+			Kibella is not a free software. The Kibella software is NOT licensed under the "Apache License". 
+			If you are interested in distributing, reselling, modifying, contibuting or in general creating 
+			any derivative work from Kibella, please contact Frank Vanden Berghen at frank@timi.eu.
+		-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <title>Kibella 1.0</title>
+    <link rel="stylesheet" href="styles/loading.css">
+	<style>
+		/* cyrillic-ext */
+		@font-face {
+			font-family: 'Comfortaa';
+			font-style: normal;
+			font-weight: 400;
+			src: url(styles/fonts/Comfortaa-Regular.ttf);
+			unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
+		}
+		/* cyrillic */
+		@font-face {
+			font-family: 'Comfortaa';
+			font-style: normal;
+			font-weight: 400;
+			src: url(styles/fonts/Comfortaa-Regular.ttf);
+			unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+		}
+		/* greek */
+		@font-face {
+			font-family: 'Comfortaa';
+			font-style: normal;
+			font-weight: 400;
+			src: url(styles/fonts/Comfortaa-Regular.ttf);
+			unicode-range: U+0370-03FF;
+		}
+		/* latin-ext */
+		@font-face {
+			font-family: 'Comfortaa';
+			font-style: normal;
+			font-weight: 400;
+			src: url(styles/fonts/Comfortaa-Regular.ttf);
+			unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+		}
+		/* latin */
+		@font-face {
+			font-family: 'Comfortaa';
+			font-style: normal;
+			font-weight: 400;
+			src: url(styles/fonts/Comfortaa-Regular.ttf);
+			unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+		}
+	</style>
+  </head>
+  <body kibana ng-class="'application-' + activeApp.id">
+
+  	<div id="loading-background">
+  	<div id="glow"></div>
+	  <div id="loading">
+		<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+		<!-- Hexagon -->
+		<svg
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:cc="http://creativecommons.org/ns#"
+			xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:svg="http://www.w3.org/2000/svg"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 101.37676 101.37676"
+			height="101.37676"
+			width="101.37676"
+			version="1.1"
+			id="logo_hexs">
+			<metadata
+				id="metadata4205">
+				<rdf:RDF>
+					<cc:Work
+						rdf:about="">
+						<dc:format>image/svg+xml</dc:format>
+						<dc:type
+							rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+						<dc:title></dc:title>
+					</cc:Work>
+				</rdf:RDF>
+			</metadata>
+			<defs
+				id="defs4203" />
+			<g
+				transform="matrix(0.99999862,0,0,0.99999713,0.69346288,16.620622)"
+				id="g4634">
+				<path
+					style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="M 47.515382,1.1342019 22.72245,15.453114 47.559576,29.727832 Z"
+					id="hex5" />
+				<path
+					style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="M 77.265097,15.441496 52.468089,1.1296439 52.524383,29.776584 Z"
+					id="hex0" />
+				<path
+					style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="M 79.752147,48.29155 79.74807,19.660783 54.967238,34.033005 Z"
+					id="hex1" />
+				<path
+					style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="M 52.585963,66.974602 77.378896,52.655688 52.541771,38.380968 Z"
+					id="hex2" />
+				<path
+					style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 22.749053,52.751979 24.79701,14.311854 -0.05629,-28.646942 z"
+					id="hex3" />
+				<path
+					style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+					d="m 20.238065,19.794524 0.0041,28.630768 24.780834,-14.37222 z"
+					id="hex4" />
+			</g>
+		</svg>
+
+		<!-- Triangles -->
+		<svg
+			xmlns:dc="http://purl.org/dc/elements/1.1/"
+			xmlns:cc="http://creativecommons.org/ns#"
+			xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+			xmlns:svg="http://www.w3.org/2000/svg"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 202.75352 202.75353"
+			height="202.75352"
+			width="202.75352"
+			version="1.1"
+			id="logo_triangles">
+			<metadata
+				id="metadata4205">
+				<rdf:RDF>
+					<cc:Work
+						rdf:about="">
+						<dc:format>image/svg+xml</dc:format>
+						<dc:type
+							rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+						<dc:title></dc:title>
+					</cc:Work>
+				</rdf:RDF>
+			</metadata>
+			<defs
+				id="defs4203" />
+			<g
+				transform="matrix(1.0000024,0,0,1,50.68826,-60.811737)"
+				id="triangles">
+				<g
+					id="triangle_bottom"
+					style="fill:#d473ff;fill-opacity:1"
+					transform="translate(-10.865122,95.459738)">
+					<path
+						id="path4481"
+						d="m 60.811183,92.521632 18.915106,-9.63433 c 0,0 -9.99222,16.529163 -12.856254,20.536568 -2.864033,4.0074 -6.058852,3.86934 -6.058852,3.86934 z"
+						style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+					<path
+						id="path4481-3"
+						d="m 60.811183,92.521631 -18.915106,-9.63433 c 0,0 9.99222,16.529168 12.856254,20.536569 2.864033,4.0074 6.058852,3.86934 6.058852,3.86934 l 2.12132,-7.788899 z"
+						style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+				</g>
+				<g
+					transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,38.187641,221.98474)"
+					id="triangle_right"
+					style="fill:#d473ff;fill-opacity:1">
+					<g
+						id="g4599">
+						<path
+							style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+							d="m 60.811183,92.521632 18.915106,-9.63433 c 0,0 -9.99222,16.529163 -12.856254,20.536568 -2.864033,4.0074 -6.058852,3.86934 -6.058852,3.86934 z"
+							id="path4481-0" />
+						<path
+							style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+							d="m 60.811183,92.521631 -18.915106,-9.63433 c 0,0 9.99222,16.529168 12.856254,20.536569 2.864033,4.0074 6.058852,3.86934 6.058852,3.86934 l 1.81978,-7.731415 z"
+							id="path4481-3-6" />
+					</g>
+				</g>
+				<g
+					transform="matrix(0.5,-0.8660254,-0.8660254,-0.5,63.189119,222.56741)"
+					id="triangle_left"
+					style="fill:#d473ff;fill-opacity:1">
+					<path
+						id="path4481-0-6"
+						d="m 60.811183,92.521632 18.915106,-9.63433 c 0,0 -9.99222,16.529163 -12.856254,20.536568 -2.864033,4.0074 -6.058852,3.86934 -6.058852,3.86934 z"
+						style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+					<path
+						id="path4481-3-6-1"
+						d="m 60.811183,92.521631 -18.915106,-9.63433 c 0,0 9.99222,16.529168 12.856254,20.536569 2.864033,4.0074 6.058852,3.86934 6.058852,3.86934 l 1.231091,-8.280312 z"
+						style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+				</g>
+			</g>
+		</svg>
+	</div>
+
+	<h1 id="title"><div id="name">Kibella</div><br/><div id="load_text">Loading<div id="wait">...</div></div></h1>
+	<!--<span id="version">v1.0</span>-->
+	</div>
+
+  <script>
+  		window.KIBANA_VERSION='4.1.2-es-2.0';
+      window.KIBANA_BUILD_NUM='7562';
+      window.KIBANA_COMMIT_SHA='34af16e285598b21b9449a3e57560c89b0d11eb8';
+	</script>
+	
+	<script>
+      dots();
+
+      function dots(){
+      	return window.setInterval(function() {
+					var wait = document.getElementById("wait");
+					if(wait)
+						if ( wait.innerHTML.length >= 3 ) 
+								wait.innerHTML = "";
+						else 
+								wait.innerHTML += ".";
+					else
+						clear();
+				}, 200);
+      }
+
+      function clear() {
+      	window.clearInterval(dots());
+      }
+	  
+    </script>
+
+		<!-- Kibella Application -->
+		<script src="index.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<!--
+KIBELLA 1.0
+Copyright 2016 Frank Vanden berghen
+All Right reserved.
+
+Kibella is not a free software. The Kibella software is NOT licensed under the "Apache License". 
+If you are interested in distributing, reselling, modifying, contibuting or in general creating 
+any derivative work from Kibella, please contact Frank Vanden Berghen at frank@timi.eu.
+-->
+<head>
+<meta charset="utf-8">
+<title>ElasticSearch Input Form</title>
+</head>
+<body>
+
+ <!-- Ref for forms: http://www.w3schools.com/html/html_forms.asp -->
+ <form name="document.forms.EsJsonQuery" action="../src/formEsJsonQuerySubmit.php" autocomplete="off" method="POST" novalidate>
+  Enter ES JSON code here to perform a query to table T in database D:<br>
+  <input type="text" name="name"></input><br>
+  <textarea name="esjson" rows="10" cols="30"></textarea>
+  <br><br>
+  <input type="submit" value="Submit ES JSON Query"></input>
+</form>
+
+</body>
+</html>

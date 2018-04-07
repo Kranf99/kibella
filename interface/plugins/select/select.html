@@ -1,0 +1,17 @@
+<div ng-controller="KblSelectController" class="output-vis">
+
+  <!--{{ metrics }}-->
+  <!--{{ vis.params }}-->
+
+  <select fieldselect class="form-control" ng-model="selected_field" ng-change="filter(selected_field)" >
+    <!--<option ng-repeat="output in vis.params.outputs | filter:{enabled:true}" value="{{output.value}}">{{output.value}}</option>-->
+
+    <option value="">All</option>
+    <option ng-repeat="metric in metrics" value="{{metric.label}}">{{metric.label}}</option>
+  </select>
+
+  <!--<div class="output-container" ng-repeat="output in vis.params.outputs | filter:{enabled:true}">
+      <div class="output-value" ng-style="{'font-size': vis.params.fontSize+'pt'}">{{output.value}}</div>
+      <div>{{output.label}}</div>
+  </div>-->
+</div>

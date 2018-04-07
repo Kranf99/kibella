@@ -1,0 +1,46 @@
+<div class="slider-vis-options" ng-init="$parent.sidebar.section='options'">
+    <div class="form-group">
+        <label for="field">Field</label>
+        <select
+                class="form-control"
+                name="field"
+                required
+                ng-model="vis.params.field"
+                ng-show="$root.plugin.sliderPlugin.indexedFields.length"
+                auto-select-if-only-one="$root.plugin.sliderPlugin.indexedFields"
+                ng-options="field as field.displayName group by field.type for field in $root.plugin.sliderPlugin.indexedFields">
+        </select>
+    </div>
+    <table class="vis-editor-agg-editor-ranges form-group">
+        <tbody><tr>
+            <th>
+                <label>From</label>
+            </th>
+            <th colspan="2">
+                <label>To</label>
+            </th>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="number" step="any" name="minValue" class="form-control" ng-model="vis.params.minValue">
+            </td>
+            <td>
+                <input type="number" step="any" name="maxValue" class="form-control" ng-model="vis.params.maxValue">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="form-group">
+        <label for="step">Step</label>
+        <input type="number" min="0" step="any" name="step" class="form-control" ng-model="vis.params.step">
+    </div>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" ng-model="vis.params.title" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="icon">Font Awesome Icon Code</label>
+        <input type="text" ng-model="vis.params.icon" class="form-control" placeholder="fa-coffee">
+    </div>
+</div>

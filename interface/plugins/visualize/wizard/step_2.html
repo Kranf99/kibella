@@ -1,0 +1,59 @@
+<div class="background-step-1"></div>
+<a class="go-back" ng-href="#/visualize"></a>
+
+<h1 class="wizard-title" style="text-align: center; margin-top: 60px; font-size: 36px;">
+  Select a Search source
+  <!-- <span class="pull-right label label-default hidden-xs">Step 2</span> -->
+  <!-- <span class="label label-default visible-xs">Step 2</span> -->
+</h1>
+<ul class="list-group list-group-menu select-searchs" ng-switch on="stepTwoMode" style="  margin-top: 30px;  text-align: center;">
+  <li ng-click="stepTwoMode='new'"
+      ng-class="{'active': stepTwoMode=='new'} "
+      class="square">
+
+    <div class="square-heading">
+      <!-- <i aria-hidden="true" class="fa fa-plus icon" ng-class="type.icon"></i> -->
+      <h2 style="position: absolute; top: 50%; left: 0; right: 0; color: #fff; margin: 0; font-family: 'Comfortaa'; transform: translateY(-50%);">New</h2>
+    </div>
+  </li>
+  <li class="list-group-item select-index" ng-switch-when="new">
+    <!-- Index patterns -->
+    Select an index pattern
+    <div class="form-group">
+      <select
+              class="form-control"
+              ng-model="indexPattern.selection"
+              ng-options="pattern as pattern for pattern in indexPattern.list | orderBy:'toString()'">
+      </select>
+    </div>
+  </li>
+
+  <li ng-click="stepTwoMode='saved'"
+      ng-class="{'active': stepTwoMode=='saved'}"
+      class="square col-lg-2">
+    <div class="square-heading">
+      <!-- <i aria-hidden="true" class="fa fa-add icon" ng-class="type.icon"></i> -->
+      <!-- From a saved search -->
+      <h2 style="position: absolute; top: 50%; left: 0; right: 0; color: #fff; margin: 0; font-family: 'Comfortaa'; transform: translateY(-50%);">Open</h2>
+    </div>
+  </li>
+  <li class="list-group-item open-box" ng-switch-when="saved">
+    <!-- Saved searches -->
+    <saved-object-finder
+            title="Saved Searches"
+            type="searches"
+            make-url="step2WithSearchUrl">
+    </saved-object-finder>
+  </li>
+</ul>
+
+
+<script>
+  makeSquares();
+
+  $(window).resize(makeSquares);
+
+  function makeSquares() {
+    $('.square-heading').css({'height':$('.square-heading').css('width')});
+  }
+</script>

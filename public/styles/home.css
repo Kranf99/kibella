@@ -1,0 +1,99 @@
+@import url('../fonts/Comfortaa.css');
+
+.container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.logo {
+  width: 150px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+table {
+  font-size: 25px;
+  margin: auto;
+  margin-top: 40px;
+}
+
+table tr {
+  padding: 15px;
+}
+
+table tr td {
+  padding: 10px 10px;
+}
+
+ul.second {
+  margin-top: 30px;
+}
+
+.license {
+  position: fixed;
+  right: 10px;
+  bottom: 5px;
+}
+
+a, a:focus, a:visited {
+  color: #666;
+  transition: color .2s;
+  font-family: 'Comfortaa', Arial;
+  text-decoration: initial;
+}
+
+a:hover {
+  text-decoration: initial;
+  color: #333;
+}
+
+table i.fa {
+  color: #d473ff;
+  transition: color .2s;
+  margin-right: 5px;
+}
+
+.cache-settings {
+  margin-top: 50px;
+  font-family: 'Comfortaa', Arial;
+  color: #afafaf;
+}
+
+.welcome {
+  color: #666;
+  font-family: 'Comfortaa', Arial;
+  margin-top: 30px;
+}
+
+.welcome > em {
+  color: #d473ff;
+  font-style: normal;
+  font-size: 50px;
+}
+
+#logout {
+  font-family: 'Comfortaa', Arial;
+  position: fixed;
+  left: 10px;
+  bottom: 5px;
+  background: transparent;
+  border: 0;
+  color: #666;
+  cursor: pointer;
+  transition: color .2s;
+}
+
+#logout:hover {
+  color: #333;
+}
+
+#logout:focus {
+  outline: none;
+}
+
+#logout > i.fa {
+  margin-right: 5px;
+}

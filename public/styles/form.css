@@ -1,0 +1,64 @@
+input.input {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid #ddd;
+  outline: none;
+  padding-left: 40px;
+  margin-top: 20px;
+}
+
+input.input:focus {
+  border-color: #d473ff;
+}
+
+form .icon {
+  padding: 8px 13px;
+  width: 30px;
+  position: absolute;
+}
+
+button.submit-button {
+  border: 0;
+  background-color: #d473ff;
+  border: 1px solid #d473ff;
+  color: #fff;
+  padding: 8px 25px;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: auto;
+  margin-top: 40px;
+  display: block;
+  transition: background-color .3s, border-color .3s, color .3s;
+}
+
+button.submit-button:focus {
+  outline: none;
+}
+
+button.submit-button:hover {
+  background-color: #fff;
+  border-color: #d473ff;
+  color: #d473ff;
+}
+
+.checkbox {
+  color: #777;
+  margin-left: 15px;
+}
+
+.checkbox > label {
+  cursor: pointer;
+}
+
+.message {
+  color: #999;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.message em {
+  color: #d473ff;
+  font-style: normal;
+}

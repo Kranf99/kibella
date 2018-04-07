@@ -1,0 +1,314 @@
+'use strict';
+
+L.Control.SetView = L.Control.extend({
+  options: {
+    position: 'topleft'
+  },
+  initialize: function initialize(options) {
+    this._toolbar = new L.SetViewToolbar(options);
+  },
+  onAdd: function onAdd(map) {
+    var container = L.DomUtil.create('div', 'leaflet-draw');
+    container.appendChild(this._toolbar.addToolbar(map));
+    return container;
+  },
+  onRemove: function onRemove(map) {
+    this._toolbar.removeToolbar();
+  }
+});
+
+L.SetViewToolbar = L.Class.extend({
+  initialize: function initialize(options) {
+    this._decimalDegrees = true;
+  },
+  addToolbar: function addToolbar(map) {
+    var container = L.DomUtil.create('div', 'leaflet-draw-section');
+    this._toolbarContainer = L.DomUtil.create('div', 'leaflet-bar');
+    this._actionsContainer = L.DomUtil.create('ul', 'leaflet-draw-actions');
+    container.appendChild(this._toolbarContainer);
+    container.appendChild(this._actionsContainer);
+
+    var self = this;
+    this._map = map;
+    this._tools = [];
+
+    this._tools.push(this._createButton({
+      title: "Fit Data Bounds",
+      className: 'fa fa-crop',
+      container: this._toolbarContainer,
+      callback: function callback() {
+        self._hideActionsToolbar();
+        self._map.fire('setview:fitBounds', {});
+      },
+      context: {}
+    }));
+    this._tools.push(this._createButton({
+      title: "Set View Location",
+      className: 'fa fa-eye',
+      container: this._toolbarContainer,
+      callback: function callback() {
+        self._showInputs();
+      },
+      context: {}
+    }));
+
+    return container;
+  },
+  removeToolbar: function removeToolbar() {
+    this._tools.forEach(function (tool) {
+      this._dispose(tool);
+    });
+  },
+  _createButton: function _createButton(options) {
+    var link = L.DomUtil.create('a', options.className || '', options.container);
+    link.href = '#';
+    if (options.text) {
+      link.innerHTML = options.text;
+    }
+    if (options.title) {
+      link.title = options.title;
+    }
+
+    L.DomEvent.on(link, 'click', L.DomEvent.stopPropagation).on(link, 'mousedown', L.DomEvent.stopPropagation).on(link, 'dblclick', L.DomEvent.stopPropagation).on(link, 'click', L.DomEvent.preventDefault).on(link, 'click', options.callback, options.context);
+
+    return link;
+  },
+  _createInput: function _createInput(options) {
+    var input = L.DomUtil.create('input', options.className || '', options.container);
+    input.type = options.inputType;
+    if (options.placeholder) {
+      input.placeholder = options.placeholder;
+      input.title = options.placeholder;
+    }
+    if (options.value) {
+      input.value = options.value;
+    }
+    L.DomEvent.on(input, 'mousedown', L.DomEvent.stopPropagation).on(input, 'dblclick', L.DomEvent.stopPropagation);
+    if (options.callback) {
+      L.DomEvent.on(input, 'change', options.callback);
+    }
+    return input;
+  },
+  _createSelect: function _createSelect(options) {
+    var select = L.DomUtil.create('select', options.className || '', options.container);
+    if (options.title) {
+      select.title = options.title;
+    }
+    options.choices.forEach(function (choice) {
+      var option = L.DomUtil.create('option', '', select);
+      option.innerHTML = choice.display;
+      option.value = choice.value;
+      if (options.selectedValue === choice.value) {
+        option.selected = 'selected';
+      }
+    });
+    if (options.callback) {
+      L.DomEvent.on(select, 'change', options.callback);
+    }
+    return select;
+  },
+  _dispose: function _dispose(button, callback) {
+    L.DomEvent.off(button, 'click', L.DomEvent.stopPropagation).off(button, 'mousedown', L.DomEvent.stopPropagation).off(button, 'dblclick', L.DomEvent.stopPropagation).off(button, 'click', L.DomEvent.preventDefault).off(button, 'click', callback);
+  },
+  _hideActionsToolbar: function _hideActionsToolbar() {
+    this._actionsContainer.style.display = 'none';
+
+    L.DomUtil.removeClass(this._toolbarContainer, 'leaflet-draw-toolbar-notop');
+    L.DomUtil.removeClass(this._toolbarContainer, 'leaflet-draw-toolbar-nobottom');
+    L.DomUtil.removeClass(this._actionsContainer, 'leaflet-draw-actions-top');
+    L.DomUtil.removeClass(this._actionsContainer, 'leaflet-draw-actions-bottom');
+  },
+  _showInputs: function _showInputs() {
+    var self = this;
+    var container = this._actionsContainer;
+    // Clean up any old stuff
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+
+    var listItemClass = '';
+    if (this._map.getSize().x < 375) {
+      listItemClass = 'small-screen';
+    }
+
+    var center = this._map.getCenter();
+    this._lat = L.Util.formatNum(center.lat, 5);
+    this._lon = L.Util.formatNum(center.lng, 5);
+    this._zoom = this._map.getZoom();
+
+    var unitValue = 'dd';
+    if (!this._decimalDegrees) unitValue = 'dms';
+    this._createSelect({
+      container: L.DomUtil.create('li', listItemClass, container),
+      name: 'unit',
+      title: 'Select coordinate units; decimal degrees (dd) or degrees minutes seconds (dms)',
+      selectedValue: unitValue,
+      choices: [{ display: 'dd', value: 'dd' }, { display: 'dms', value: 'dms' }],
+      callback: function callback(event) {
+        self._decimalDegrees = !self._decimalDegrees;
+        self._hideActionsToolbar();
+        self._showInputs();
+      }
+    });
+    if (this._decimalDegrees) {
+      this._createInput({
+        container: L.DomUtil.create('li', listItemClass, container),
+        inputType: 'number',
+        placeholder: 'lat',
+        name: 'lat',
+        value: this._lat,
+        callback: function callback(event) {
+          self._setLat(self._getValue(event));
+        }
+      });
+      this._createInput({
+        container: L.DomUtil.create('li', listItemClass, container),
+        inputType: 'number',
+        name: 'lon',
+        placeholder: 'lon',
+        value: this._lon,
+        callback: function callback(event) {
+          self._setLon(self._getValue(event));
+        }
+      });
+    } else {
+      this._latDms = this._ddToDms(this._lat);
+      this._createInput({
+        container: L.DomUtil.create('li', listItemClass, container),
+        inputType: 'text',
+        placeholder: 'lat DDMMSS',
+        name: 'latDms',
+        value: this._latDms,
+        callback: function callback(event) {
+          self._latDms = self._getValue(event);
+        }
+      });
+      this._latDirection = 'n';
+      if (this._lat < 0) this._latDirection = 's';
+      this._createSelect({
+        container: L.DomUtil.create('li', listItemClass, container),
+        name: 'latDirection',
+        title: 'Latitude: North or South',
+        selectedValue: this._latDirection,
+        choices: [{ display: 'n', value: 'n' }, { display: 's', value: 's' }],
+        callback: function callback(event) {
+          self._latDirection = self._getValue(event);
+        }
+      });
+      this._lonDms = this._ddToDms(this._lon);
+      this._createInput({
+        container: L.DomUtil.create('li', listItemClass, container),
+        inputType: 'text',
+        placeholder: 'lon DDMMSS',
+        name: 'lonDms',
+        value: this._lonDms,
+        callback: function callback(event) {
+          self._lonDms = self._getValue(event);
+        }
+      });
+      this._lonDirection = 'e';
+      if (this._lon < 0) this._lonDirection = 'w';
+      this._createSelect({
+        container: L.DomUtil.create('li', listItemClass, container),
+        name: 'lonDirection',
+        title: 'Longitude: East or West',
+        selectedValue: this._lonDirection,
+        choices: [{ display: 'e', value: 'e' }, { display: 'w', value: 'w' }],
+        callback: function callback(event) {
+          self._lonDirection = self._getValue(event);
+        }
+      });
+    }
+    var choices = [];
+    for (var i = this._map.getMinZoom(); i <= this._map.getMaxZoom(); i++) {
+      choices.push({
+        display: i,
+        value: i
+      });
+    }
+    this._createSelect({
+      container: L.DomUtil.create('li', listItemClass, container),
+      name: 'zoom',
+      title: 'zoom level',
+      selectedValue: this._map.getZoom(),
+      choices: choices,
+      callback: function callback(event) {
+        self._zoom = self._getValue(event);
+      }
+    });
+    this._createButton({
+      title: "Click to set map view to provided values.",
+      text: "Set View",
+      container: L.DomUtil.create('li', listItemClass, container),
+      callback: function callback() {
+        if (!self._decimalDegrees) {
+          self._setLat(self._dmsToDd(self._latDms, self._latDirection));
+          self._setLon(self._dmsToDd(self._lonDms, self._lonDirection));
+        }
+        self._map.setView(L.latLng(self._lat, self._lon), self._zoom);
+        self._hideActionsToolbar();
+      }
+    });
+    this._createButton({
+      title: "Click to cancel.",
+      text: "Cancel",
+      container: L.DomUtil.create('li', listItemClass, container),
+      callback: function callback() {
+        self._hideActionsToolbar();
+      }
+    });
+    L.DomUtil.addClass(this._toolbarContainer, 'leaflet-draw-toolbar-nobottom');
+    L.DomUtil.addClass(this._actionsContainer, 'leaflet-draw-actions-bottom');
+    this._actionsContainer.style.top = '25px';
+    this._actionsContainer.style.display = 'block';
+  },
+  _getValue: function _getValue(event) {
+    var el = event.target || event.srcElement;
+    return el.value;
+  },
+  _setLat: function _setLat(lat) {
+    if (lat < -90) lat = -90;
+    if (lat > 90) lat = 90;
+    this._lat = lat;
+  },
+  _setLon: function _setLon(lon) {
+    if (lon < -180) lon = -180;
+    if (lon > 180) lon = 180;
+    this._lon = lon;
+  },
+  _formatNumber: function _formatNumber(num) {
+    var sNum = parseInt(num, 10) + '';
+    if (num < 10) sNum = '0' + sNum;
+    return sNum;
+  },
+  _ddToDms: function _ddToDms(dd) {
+    var deg = parseInt(Math.abs(dd), 10);
+    var frac = Math.abs(Math.abs(dd) - deg);
+    var min = parseInt(frac * 60, 10);
+    var sec = frac * 3600 - min * 60;
+    if (sec >= 60) sec = 0;
+    return this._formatNumber(deg) + this._formatNumber(min) + this._formatNumber(sec);
+  },
+  _dmsToDd: function _dmsToDd(dms, dir) {
+    var safeDms = '';
+    //remove any non-numerical characters
+    dms.split('').forEach(function (char) {
+      if (char >= '0' && char <= '9') safeDms += char;
+    });
+    //Ensure dms is at least 6 characters
+    while (safeDms.length < 6) {
+      safeDms += '0';
+    }
+
+    var degLength = 2;
+    if (safeDms.length > 6) {
+      degLength = 3;
+    }
+    var deg = parseInt(safeDms.substring(0, degLength), 10);
+    var min = parseInt(safeDms.substring(degLength, degLength + 2), 10);
+    var sec = parseInt(safeDms.substring(degLength + 2, degLength + 4), 10);
+    var dd = deg + min / 60.0 + sec / 3600.0;
+    if (dir.toLowerCase() === 'w' || dir.toLowerCase() === 's') dd = dd * -1;
+    return dd;
+  }
+});

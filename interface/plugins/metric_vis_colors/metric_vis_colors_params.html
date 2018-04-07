@@ -1,0 +1,29 @@
+<div class="form-group">
+  <label>Font Size - {{ vis.params.fontSize }}pt</label>
+  <input type="range" ng-model="vis.params.fontSize" class="form-control" min="12" max="120" />
+
+  <h3>Red Light</h3>
+  <label>Threshold</label>
+  <input type="number" ng-model="vis.params.t2Value" class="form-control" /><br />
+  <label>BG Color</label>
+  <input type="color" ng-model="vis.params.t2BgColor" class="form-control" /><br />
+  <label>Font Color</label>
+  <input type="color" ng-model="vis.params.t2FontColor" class="form-control" />
+  <br>
+
+  <h3>Orange Light</h3>
+  <label>Threshold</label>
+  <input type="number" ng-model="vis.params.t1Value" class="form-control" /><br />
+  <label>BG Color</label>
+  <input type="color" ng-model="vis.params.t1BgColor" class="form-control" /><br />
+  <label>Font Color</label>
+  <input type="color" ng-model="vis.params.t1FontColor" class="form-control" />
+  <br>
+  
+  <h3>Green Light</h3>
+  <label>BG Color</label>
+  <input type="color" ng-model="vis.params.t0BgColor" class="form-control" /><br />
+  <label>Font Color</label>
+  <input type="color" ng-model="vis.params.t0FontColor" class="form-control" />
+
+</div>

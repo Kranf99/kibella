@@ -1,0 +1,162 @@
+navbar {
+  // .box-shadow(0 0 10px rgba(0,0,0,.15));
+
+  
+  .control-group;
+
+  // max-height: @navbar-collapse-max-height;
+  // margin-bottom: @navbar-margin-bottom;
+  // 
+  // top and bottom padding are normally calcuated and stored in @navbar-padding-vertical, but flexbox
+  padding: 5px 5px 5px 15px;
+  color: @navbar-default-color;
+  // background-color: @navbar-default-bg;
+  border-style: solid;
+  border-color: @navbar-default-border;
+
+  // border-width: 0 0 1px;
+  border-width: 0 0 0px;
+	border-bottom: 1px solid #ececec;
+  z-index: @zindex-navbar;
+
+  /***
+   * components
+   ***/
+
+  > * {
+    padding-right: @navbar-padding-horizontal;
+  }
+
+  // the "brand" that is displayed, usually on the left of the navbar
+  > .name {
+    .align-self(center);
+
+    color: @main-color;
+
+    // background-color: #444;
+    font-size: 16px;
+    padding: 3px 10px;
+    border-radius: 25px;
+    margin-right: 15px;
+
+    .ellipsis();
+		i {
+			font-size: 14px;	
+		}
+  }
+	
+	.separator {
+		border-left: 1px solid #ececec;
+		margin-top: -5px;
+		margin-bottom: -5px;
+	}
+
+  button {
+    color: #888;
+    background-color: transparent;
+    transition: color .3s;
+    outline: none !important;
+
+		&.big i {
+			font-size: 20px !important;
+		}
+
+    i {
+      padding-right: 5px;
+      font-size: 14px !important;
+    }
+
+    &:hover {
+      // color: @navbar-default-link-hover-color;
+      color: @main-color !important;
+      background-color: transparent;
+    }
+
+    &:focus {
+      // color: @navbar-default-link-color;
+      color: #888;
+      background-color: transparent;
+    }
+
+    &:active, &.active {
+      color: @main-color;
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    &[disabled] {
+      color: #aaa;
+      background-color: transparent;
+    }
+
+    &.inverse-color {
+      color: #fff;
+      background-color: @main-color;
+      border-radius: 5px !important;
+      border: 1px solid @main-color;
+      transition: background-color .3s;
+      margin-left: 10px;
+
+      &:hover {
+        background-color: transparent;
+        color: @main-color !important;
+      }
+    }
+  }
+  .inline-form {
+    .input-group {
+      .form-control {
+        border: 1px solid @main-color;
+				border-radius: 20px 0 0 20px;
+				border-right: 0;
+      }
+      button {
+        border: 1px solid @main-color !important;
+        border-left: 0 !important;
+				border-radius: 0 20px 20px 0 !important;
+        // background-color: @main-color !important;
+        color: @main-color !important;
+        // transition: color .3s, background-color .3s;
+
+        // &:hover {
+        //  color: @main-color !important;
+        //  background-color: #fff !important;
+        // }
+      }
+    }
+  }
+
+  .inline-form .input-group {
+    button {
+      color: @brand-primary;
+      background-color: @input-group-addon-bg;
+      border: 1px solid @input-group-addon-border-color;
+    }
+  }
+
+  /***
+   * responsive modifications
+   ***/
+
+  // desktop
+  @media (min-width: @screen-md-min) {
+    > .name {
+      // 500px is sort of arbitrary, not sure how to deal with lots of buttons
+      max-width: 500px;
+    }
+  }
+
+  // tablets/phones
+  @media (max-width: @screen-md-min) {
+    > .fill {
+      .flex(1, 1, @screen-md);
+    }
+  }
+
+  // phones
+  @media (max-width: @screen-sm-min) {
+    > .name {
+      max-width: 100%;
+    }
+  }
+}

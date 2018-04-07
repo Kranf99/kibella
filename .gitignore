@@ -1,0 +1,16 @@
+.DS_Store
+trash
+target
+.jruby
+.idea
+*.iml
+*.log
+esvm
+.htaccess
+.htpasswd
+tempdata/*
+.vscode
+interface/node_modules
+dev
+dist
+node_modules

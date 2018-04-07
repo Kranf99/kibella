@@ -1,0 +1,49 @@
+[user-panel] {
+  position: fixed;
+  left: 50px;
+  bottom: 0;
+  margin: 10px;
+  background: #fff;
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: 1px solid @main-color;
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      color: @main-color;
+      white-space: nowrap; // restrict to one line
+
+      &.name {
+        font-size: 18px;
+      }
+
+      &.logout {
+        display: inline-block;
+        padding: 5px 10px;
+        color: #fff;
+        background-color: @main-color;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid @main-color;
+        transition: color .3s, background-color .3s, border-color .3s;
+
+        i.fa {
+          vertical-align: middle;
+          margin-right: 8px;
+        }
+
+        &:hover {
+          color: @main-color;
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.main-nav.isExpand [user-panel] {
+  left: 120px
+}

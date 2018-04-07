@@ -1,0 +1,539 @@
+//@import url("//fonts.googleapis.com/css?family=Lato:400,700,400italic");
+@import (reference) '../_mixins.less';
+
+.btn {
+    border: 0px;
+}
+
+// Navbar =====================================================================
+
+.main-nav
+{
+    .navbar-wrapper
+    {
+        background: @kibella-primary-color;
+        .box-shadow(rgba(0, 0, 0, 0.23) 1px 0px 10px);
+
+        #nav-head {
+            background: #fdfdfd;
+            font-size:0;
+
+            #kibella-logo {
+                height: 50px;
+
+                svg {
+                    // position: absolute;
+                    width: 100%;
+                    height: 60px;
+                    background-repeat: no-repeat;
+                    background-size: @navbar-height - 10px;
+                    padding: 8px;
+                }
+            }
+            #separator {
+                width: 100%;
+                height: auto;
+                margin-top: -5px;
+            }
+        }
+
+        ul
+        {
+            li.to-body
+            {
+                // // //
+                // display: none;
+                // position: fixed !important;
+                // top: 0;
+                // right: 0;
+
+                a
+                {
+                    color: #333;
+                    &:hover,
+                    &:focus,
+                    &:visited
+                    {
+                        color: #333;
+                    }
+                }
+            }
+        }
+        #kibana-primary-navbar
+        {
+            height: 100% !important;
+            position: relative;
+            z-index: -1;
+
+            flex-direction: column;
+
+            text-align: center;
+            margin: 0 auto;
+
+            ul {
+                width: 100%; 
+
+                li {
+                    a {
+                        padding: 10px 0;
+                        color: #fff;
+                        transition: color .2s;
+
+                        span { // Icons only have span
+                            // font-size: 1.75em !important;
+                        }
+
+                        &:hover, &:focus {
+                            background: transparent !important;
+                            color: #9f50c1;
+                        }
+                    }
+                }
+            }
+
+            ul#apps
+            {
+                margin-top: 10px;
+                   
+                position: relative;
+
+                list-style: none;
+
+                li
+                {
+                    position: relative;
+
+                    float: none;
+
+                    a {
+                        // padding: 10px 0;
+                        // color: #fff;
+                        // transition: color .2s;
+
+                        // span { // Icons only have span
+                        //     font-size: 1.75em !important;
+                        // }
+
+                        // &:hover, &:focus {
+                        //     background: transparent !important;
+                        //     color: #9f50c1;
+                        // }
+                    }
+                }
+            }
+
+            .bottom-menu {
+              position: absolute;
+              bottom: 35px;
+              width: 100%;
+
+              & > ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+
+                & > li {
+                  width: 100%;
+                  color: #fff;
+                  transition: color .2s;
+
+                  &:hover {
+                    color: #9f50c1;
+                  }
+
+                  &.user {
+                    padding: 10px 0;
+                    font-size: 18px;
+                  }
+                }
+              }
+            }
+
+            ul.navbar-timepicker {
+
+                li {
+                    float: none !important;
+                }
+            }
+        }
+    }
+}
+
+.navbar
+{
+    border-width: 0;
+
+    &-btn-link
+    {
+        height: @navbar-height;
+        margin: 0;
+
+        border-radius: 0;
+        @media (max-width: @screen-sm-min)
+        {
+            width: 100%;
+
+            text-align: left;
+        }
+    }
+    a
+    {
+        outline: none;
+    }
+    &-default
+    {
+        background-color: #fff;
+        
+        .badge
+        {
+            color: @navbar-default-bg;
+            background-color: #fff;
+        }
+        .navbar-nav > li.active > a, .navbar-nav > li.active > a:hover
+        {
+            // .nav-active-arrow(@body-bg);
+            background-color: #fff !important;
+            color: @main-color;
+        }
+
+        .navbar-nav > li > a:hover {
+            background-color: #fff;
+            color: @main-color;
+        }
+    }
+
+    &-inverse
+    {
+        
+        .badge
+        {
+            //background-color: #fff;
+            color: lighten(@navbar-inverse-bg, 10%);
+        }
+        .navbar-nav
+        {
+            
+
+            > .active > a
+            {
+                // color: #ffffff;
+                color: #9f50c1 !important;
+                background-color: transparent !important;
+                // .nav-active-arrow(@navbar-default-bg);
+            }
+            > .active.to-body > a
+            {
+                // .nav-active-arrow(@body-bg);
+            }
+        }
+    }
+    &-brand
+    {
+        font-size: 1.8em;
+
+        cursor: default;
+
+        background-color: @navbar-inverse-brand-bg;
+
+        .user-select(none);
+    }
+    &-nav
+    {
+
+        font-size: @font-size-small;
+    }
+    &-toggle
+    {
+        margin-top: 4px;
+    }
+}
+
+// Buttons ====================================================================
+
+.btn:active
+{
+    .box-shadow(none);
+}
+
+.btn-group.open .dropdown-toggle
+{
+    .box-shadow(none);
+}
+
+/* Small devices (tablets, 768px and smaller) */
+@media (max-width: @screen-sm-min)
+{
+    .btn
+    {
+        /* Fixes an issue with buttons not respecting the bounds of the screen */
+        white-space: normal;
+    }
+}
+
+// Typography =================================================================
+
+.text-primary,
+.text-primary:hover
+{
+    color: @brand-primary;
+}
+
+.text-success,
+.text-success:hover
+{
+    color: @brand-success;
+}
+
+.text-danger,
+.text-danger:hover
+{
+    color: @brand-danger;
+}
+
+.text-warning,
+.text-warning:hover
+{
+    color: @brand-warning;
+}
+
+.text-info,
+.text-info:hover
+{
+    color: @brand-info;
+}
+
+// Tables =====================================================================
+
+table,
+.table
+{
+    a
+    {
+        text-decoration: underline;
+    }
+    .success,
+    .warning,
+    .danger,
+    .info
+    {
+        color: #fff;
+        a
+        {
+            color: #fff;
+        }
+    }
+    // > thead > tr > th,
+    // > tbody > tr > th,
+    // > tfoot > tr > th,
+    // > thead > tr > td,
+    // > tbody > tr > td,
+    // > tfoot > tr > td {
+    //   border: none;
+    // }
+    &-bordered > thead > tr > th,
+    &-bordered > tbody > tr > th,
+    &-bordered > tfoot > tr > th,
+    &-bordered > thead > tr > td,
+    &-bordered > tbody > tr > td,
+    &-bordered > tfoot > tr > td
+    {
+        border: 1px solid @table-border-color;
+    }
+}
+
+// Forms ======================================================================
+
+.form-control,
+input,
+{
+    border-width: @input-border-width;
+
+    .box-shadow(none);
+    &:focus
+    {
+        .box-shadow(none);
+    }
+}
+
+.has-warning
+{
+    .help-block,
+    .control-label,
+    .radio,
+    .checkbox,
+    .radio-inline,
+    .checkbox-inline,
+    .form-control-feedback
+    {
+        color: @brand-warning;
+    }
+    .form-control,
+    .form-control:focus
+    {
+        border: @input-border-width solid @brand-warning;
+    }
+    .input-group-addon
+    {
+        border-color: @brand-warning;
+    }
+}
+
+.has-error
+{
+    .help-block,
+    .control-label,
+    .radio,
+    .checkbox,
+    .radio-inline,
+    .checkbox-inline,
+    .form-control-feedback
+    {
+        color: @brand-danger;
+    }
+    .form-control,
+    .form-control:focus
+    {
+        border: @input-border-width solid @brand-danger;
+    }
+    .input-group-addon
+    {
+        border-color: @brand-danger;
+    }
+}
+
+.has-success
+{
+    .help-block,
+    .control-label,
+    .radio,
+    .checkbox,
+    .radio-inline,
+    .checkbox-inline,
+    .form-control-feedback
+    {
+        color: @brand-success;
+    }
+    .form-control,
+    .form-control:focus
+    {
+        border: solid @brand-success;
+    }
+    .input-group-addon
+    {
+        border-color: @brand-success;
+    }
+}
+
+// Navs =======================================================================
+
+.nav
+{
+    .open > a,
+    .open > a:hover,
+    .open > a:focus
+    {
+        border-color: transparent;
+    }
+}
+
+.pager
+{
+    a,
+    a:hover
+    {
+        color: #fff;
+    }
+    .disabled
+    {
+        & > a,
+        & > a:hover,
+        & > a:focus,
+        & > span
+        {
+            background-color: @pagination-disabled-bg;
+        }
+    }
+}
+
+
+// Panel =================================================================
+
+.panel
+{
+    border-radius: 0;
+
+    // .box-shadow(0 0 0 rgba(0,0,0,0.1));
+    .box-shadow(rgba(0, 0, 0, 0.1) 0px 0px 5px);
+}
+
+// Indicators =================================================================
+
+.alert
+{
+    a,
+    .alert-link
+    {
+        text-decoration: underline;
+
+        color: #fff;
+    }
+    .close
+    {
+        text-decoration: none;
+
+        opacity: .4;
+        color: #fff;
+        &:hover,
+        &:focus
+        {
+            opacity: 1;
+            color: #fff;
+        }
+    }
+}
+
+// Progress bars ==============================================================
+
+.progress
+{
+    .box-shadow(none);
+    .progress-bar
+    {
+        font-size: 10px;
+        line-height: 10px;
+    }
+}
+
+// Containers =================================================================
+
+
+.well {
+  .box-shadow(none);
+}
+
+// Back Buttons
+
+.go-back {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 60px;
+  color: #000;
+
+  &:hover {
+    color: #000;
+    &:before {
+      opacity: .25;
+    }
+  }
+
+  &:before {
+    transition: opacity .3s;
+    opacity: .15;
+    content: "\f104";
+  }
+
+  animation: myFadeInUp 1s ease;
+}

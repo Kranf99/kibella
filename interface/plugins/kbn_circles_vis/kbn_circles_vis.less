@@ -1,0 +1,38 @@
+.circles-vis {
+	text {
+		font-size: 11px;
+		pointer-events: none;
+	}
+
+	text.parent {
+		fill: #1f77b4;
+	}
+
+	circle {
+		fill: #ccc;
+		stroke: #999;
+		pointer-events: all;
+	}
+
+	circle.parent {
+		fill: #d473ff !important;
+		fill-opacity: .4;
+		stroke: #ff2ff9;
+		opacity: 0.4;
+		stroke-width: 2;
+		stroke-dasharray: 5 3;
+	}
+
+	circle.parent:hover {
+		stroke: #ff7f0e;
+		stroke-width: .5px;
+	}
+
+	circle.child {
+		pointer-events: none;
+		opacity: 0.6;
+		stroke-width: 1;
+		stroke: crimson;
+		stroke-dasharray: 1 2;
+	}
+}

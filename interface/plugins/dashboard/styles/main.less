@@ -1,0 +1,184 @@
+@import (reference) "../../../styles/_bootstrap.less";
+@import (reference) "../../../styles/theme/_theme.less";
+@import (reference) "../../../styles/_mixins.less";
+@import (reference) "~lesshat/lesshat.less";
+
+@dashboard-background: #e6e6e6;
+
+// body.application-dashboard {
+  // background-color: @dashboard-background;
+
+  // .application-container {
+  //   width: calc(100% - 50px);
+  // }
+// }
+.full-background {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	background-color: #ececec;
+	left: 0;
+	top: 0;
+	z-index: -1;
+}
+dashboard-grid {
+  display: block;
+  margin: 0;
+  padding: 5px;
+}
+
+.start-screen {
+  margin: 20px;
+	margin-top: -30px;
+	top: 50vh;
+	transform: translateY(-50%);
+  // background-color: @gray-lighter;
+  padding: 20px;
+  color: @main-color;
+	
+	h2 {
+		font-family: 'Comfortaa', cursive, serif;
+	}
+	.main-icon {
+		font-size: 10em;
+		padding: 30px 35px 15px 20px;
+		border: 5px solid;
+		border-radius: 50%;
+	}
+	p {
+		font-size: 14px;
+	}
+}
+
+.not_logged_in {
+  color: #777;
+  font-style: italic;
+  margin: auto;
+}
+
+.gridster {
+  list-style-type: none;
+  display: block;
+  // background-color: @dashboard-background;
+  margin: 0;
+  padding: 0;
+
+  .gs-resize-handle {
+    background-position: 50% 50% !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    padding: 4px;
+    height: 25px;
+    width: 25px;
+		color: #888;
+  }
+
+  i.remove {
+    cursor: pointer;
+  }
+
+  dashboard-panel {
+    // display: flex;
+    // flex: 1 1 auto;
+    height: 100%;
+    background: @panel-bg;
+    color: @text-color;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+
+    .panel {
+      margin: 0;
+      // maintain the 100% height of the panel
+      height: 100%;
+      border: 0;
+      // border-radius: 10px 10px 5px 5px;
+			box-shadow: none;
+      // flex layout allows us to define the visualize element as "fill available space"
+      .display(flex);
+      .flex-direction(column);
+      .justify-content(flex-start);
+
+      .panel-heading {
+        .flex(0 0 auto);
+        white-space: nowrap;
+        .display(flex);
+				border: none;
+        background-color: #fff;
+        border-radius: 10px 10px 0 0;
+        padding: 10px 10px 10px 15px;
+        font-size: 0.96em;
+				color: #888;
+				cursor: move;
+
+        div.btn-group {
+          white-space: nowrap;
+          .flex(0 0 auto);
+        }
+
+        .panel-title {
+          font-size: inherit;
+
+          // flexbox fix for IE10
+          // http://stackoverflow.com/questions/22008135/internet-explorer-10-does-not-apply-flexbox-on-inline-elements
+          display: inline-block;
+
+          .ellipsis();
+          .flex(1 1 auto);
+
+          .panel-icon {
+              font-size: 15px;
+              margin-right: 10px;
+              color: @kibella-primary-color;
+              vertical-align: middle;
+          }
+
+					.panel-name {
+						vertical-align: middle; 
+						line-height: initial;
+					}
+        }
+
+        a {
+          color: @text-color;
+          border: none;
+          background: none;
+          padding: 0px 3px;
+          &:hover {
+            color: @link-hover-color;
+          }
+          .panel-button-edit    { color: @kibella-primary-color; }
+          .panel-button-remove  { color:  #ff8da5; }
+        }
+      }
+
+      .load-error {
+        text-align: center;
+        font-size: 1em;
+        .display(flex);
+        .flex(1 0 auto);
+        .justify-content(center);
+        .flex-direction(column);
+
+        .fa-exclamation-triangle {
+          font-size: 2em;
+          color: @btn-danger-bg;
+        }
+      }
+
+      .panel-content {
+        display: flex;
+        .flex(1, 1, 100%);
+        height: auto;
+      }
+    }
+  }
+}
+
+.dashboard-panel-picker > li.list-group-item {
+  border-top: 0px;
+}
+
+.dashboard-load {
+  margin: 10px;
+}

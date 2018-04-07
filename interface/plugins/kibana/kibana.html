@@ -1,0 +1,239 @@
+
+<div class="content" style="display: none;">
+
+  <!--<nav ng-class="{show: appEmbedded === false}" bindonce class="main-nav hide navbar navbar-inverse navbar-static-top" style="/*flex-grow: 1;*/">-->
+  <nav ng-class="{isExpand: nav.isExpand, show: appEmbedded === false }"  class="main-nav hide navbar navbar-inverse navbar-static-top">
+
+    <div class="navbar-wrapper">
+
+      <!--<div class="navbar-header">
+        <button ng-click="showCollapsed = !showCollapsed" type="button" class="navbar-toggle">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+         </button>
+
+        <span class="navbar-brand visible-xs">{{ activeApp.name }}
+          <span ng-show="httpActive.length" class="spinner"></span>
+        </span>
+      </div>-->
+
+      <!-- Full navbar -->
+      <!--collapse="!showCollapsed" class="navbar-collapse"-->
+      <div   id="kibana-primary-navbar">
+
+        <div id="nav-head">
+          <a href="../">
+            <div id="kibella-logo">
+              <svg
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:cc="http://creativecommons.org/ns#"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:svg="http://www.w3.org/2000/svg"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 101.37676 91.257424"
+                height="91.257423"
+                width="101.37676"
+                version="1.1"
+                >
+                <metadata
+                  id="metadata4205">
+                  <rdf:RDF>
+                    <cc:Work
+                      rdf:about="">
+                      <dc:format>image/svg+xml</dc:format>
+                      <dc:type
+                        rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                      <dc:title></dc:title>
+                    </cc:Work>
+                  </rdf:RDF>
+                </metadata>
+                <defs
+                  id="defs4203" />
+                <path
+                  id="hex5" class="polygons"
+                  d="M 47.515382,1.1342019 22.72245,15.453114 47.559576,29.727832 Z"
+                  style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <path
+                  id="hex0" class="polygons"
+                  d="M 77.265097,15.441496 52.468089,1.1296439 52.524383,29.776584 Z"
+                  style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <path
+                  id="hex1" class="polygons"
+                  d="M 79.752147,48.29155 79.74807,19.660783 54.967238,34.033005 Z"
+                  style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <path
+                  id="hex2" class="polygons"
+                  d="M 52.585963,66.974602 77.378896,52.655688 52.541771,38.380968 Z"
+                  style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <path
+                  id="hex3" class="polygons"
+                  d="m 22.749053,52.751979 24.79701,14.311854 -0.05629,-28.646942 z"
+                  style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <path
+                  id="hex4" class="polygons"
+                  d="m 20.238065,19.794524 0.0041,28.630768 24.780834,-14.37222 z"
+                  style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <g
+                  transform="translate(-10.865122,-16.036364)"
+                  style="fill:#d473ff;fill-opacity:1"
+                  class="polygons"
+                  id="triangle_bottom">
+                  <path
+                    style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                    d="m 60.811183,92.521632 18.915106,-9.63433 c 0,0 -9.99222,16.529163 -12.856254,20.536568 -2.864033,4.0074 -6.058852,3.86934 -6.058852,3.86934 z"
+                    id="path4481" />
+                  <path
+                    style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                    d="m 60.811183,92.521631 -18.915106,-9.63433 c 0,0 9.99222,16.529168 12.856254,20.536569 2.864033,4.0074 6.058852,3.86934 6.058852,3.86934 l 2.12132,-7.788899 z"
+                    id="path4481-3" />
+                </g>
+                <g
+                  style="fill:#d473ff;fill-opacity:1"
+                  id="triangle_right"
+                  class="polygons"
+                  transform="matrix(-0.5,-0.8660254,0.8660254,-0.5,38.187641,110.48864)">
+                  <g
+                    id="g4599">
+                    <path
+                      id="path4481-0"
+                      d="m 60.811183,92.521632 18.915106,-9.63433 c 0,0 -9.99222,16.529163 -12.856254,20.536568 -2.864033,4.0074 -6.058852,3.86934 -6.058852,3.86934 z"
+                      style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                    <path
+                      id="path4481-3-6"
+                      d="m 60.811183,92.521631 -18.915106,-9.63433 c 0,0 9.99222,16.529168 12.856254,20.536569 2.864033,4.0074 6.058852,3.86934 6.058852,3.86934 l 1.81978,-7.731415 z"
+                      style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                  </g>
+                </g>
+                <g
+                  style="fill:#d473ff;fill-opacity:1"
+                  id="triangle_left"
+                  class="polygons"
+                  transform="matrix(0.5,-0.8660254,-0.8660254,-0.5,63.189119,111.07131)">
+                  <path
+                    style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                    d="m 60.811183,92.521632 18.915106,-9.63433 c 0,0 -9.99222,16.529163 -12.856254,20.536568 -2.864033,4.0074 -6.058852,3.86934 -6.058852,3.86934 z"
+                    id="path4481-0-6" />
+                  <path
+                    style="fill:#d473ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                    d="m 60.811183,92.521631 -18.915106,-9.63433 c 0,0 9.99222,16.529168 12.856254,20.536569 2.864033,4.0074 6.058852,3.86934 6.058852,3.86934 l 1.231091,-8.280312 z"
+                    id="path4481-3-6-1" />
+                </g>
+              </svg>
+            </div>
+          </a>
+
+          <svg ng-show="!nav.isExpand"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:cc="http://creativecommons.org/ns#"
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:svg="http://www.w3.org/2000/svg"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            id="separator"
+            viewBox="0 0 354.33009 122.14258"
+            height="34.471352mm"
+            width="99.999825mm">
+              <defs
+                id="defs4" />
+              <metadata
+                id="metadata7">
+                <rdf:RDF>
+                  <cc:Work
+                    rdf:about="">
+                    <dc:format>image/svg+xml</dc:format>
+                    <dc:type
+                      rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                    <dc:title></dc:title>
+                  </cc:Work>
+                </rdf:RDF>
+              </metadata>
+              <g
+                transform="translate(0,-930.219)"
+                id="layer1">
+                <path
+                  id="rect4694"
+                  transform="translate(0,698.0315)"
+                  d="m 0,232.1875 0,1.28516 A 177.16536,112.85712 0 0 1 0.1015625,232.1875 L 0,232.1875 Z m 0,1.28516 0,120.85742 354.33008,0 0,-120.85742 A 177.16536,112.85712 0 0 1 177.16602,346.33008 177.16536,112.85712 0 0 1 0,233.47266 Z m 354.33008,0 0,-1.28516 -0.0723,0 a 177.16536,112.85712 0 0 1 0.0723,1.28516 z"
+                  style="opacity:1;fill:#d473ff;fill-opacity:0.97254902;fill-rule:nonzero;stroke:none;stroke-width:1.20200002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.40414512" />
+              </g>
+            </svg>
+        </div>
+
+        <ul id="apps" class="nav navbar-nav" role="navigation" >
+          <li ng-repeat="app in apps.inOrder | filter:{show: true}" ng-class="{active: activeApp === app}" >
+            <!-- <a ng-href="#{{app === activeApp ? app.rootPath : app.lastPath}}" ng-html="app.logo ? app.logo : app.name"></a> -->
+
+            <a bindonce class="app-field" ng-href="#{{app === activeApp ? app.rootPath : app.lastPath}}">
+              <div class="app-icon" bo-html="app.icon"></div>
+              <span class="app-name" ng-show="nav.isExpand">{{ app.name }}</span>
+            </a>
+
+          </li>
+        </ul>
+        <div class="bottom-menu" ng-show="user">
+          <ul>
+            <div user-panel ng-class="{hidden: !isUserPanelShowed}"></div>
+            <li class="user" ng-click="isUserPanelShowed = !isUserPanelShowed"><i class="fa fa-user"></i></li>
+          </ul>
+
+          <ul ng-if="setupComplete" ng-show="timefilter.enabled" class="nav navbar-nav navbar-right navbar-timepicker">
+            <li>
+              <a  ng-click="toggleRefresh()"
+                  ng-show="timefilter.refreshInterval.value > 0">
+                <i class="fa" ng-class="timefilter.refreshInterval.pause ? 'fa-play' : 'fa-pause'"></i>
+              </a>
+            </li>
+
+            <li ng-class="{active: timefilter.timepickerActiveTab === 'interval'}"
+                ng-show="timefilter.refreshInterval.value > 0 || timefilter.timepickerActiveTab"
+                class="to-body">
+              <a  ng-click="toggleTimepicker('interval')"
+                  class="navbar-timepicker-auto-refresh-desc">
+                <span ng-show="timefilter.refreshInterval.value === 0"><i class="fa fa-repeat" style="font-size: 1.5em;"></i><!--Auto-refresh--></span>
+                <!--<span ng-show="timefilter.refreshInterval.value > 0">{{timefilter.refreshInterval.display}}</span>-->
+                <span ng-show="timefilter.refreshInterval.value > 0"><i class="fa fa-history" style="font-size: 1.4em;"></i></span>
+              </a>
+            </li>
+
+            <li class="to-body" ng-class="{active: timefilter.timepickerActiveTab === 'filter'}">
+              <a  ng-click="toggleTimepicker('filter')" aria-haspopup="true" aria-expanded="false" class="navbar-timepicker-time-desc">
+                <i aria-hidden="true" class="fa fa-clock-o"></i>
+                <!--<pretty-duration from="timefilter.time.from" to="timefilter.time.to"></pretty-duration>-->
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="expander">
+          <a ng-click="nav.isExpand === true ? nav.compress() : nav.expand()" class="fa" ng-class="{'fa-compress': nav.isExpand, 'fa-expand': !nav.isExpand}"></a>
+        </div>
+
+        <!--<ul class="nav navbar-nav navbar-right navbar-timepicker" >
+          <li ng-show="httpActive.length" class="navbar-text hidden-xs">
+            <div class="spinner"></div>
+          </li>
+        </ul>-->
+        <!-- /Full navbar -->
+      </div>
+
+    </div>
+
+  </nav>
+
+  <div class="application-container">
+
+    <kbn-notifications list="notifList"></kbn-notifications> 
+
+    <config
+      ng-show="timefilter.enabled"
+      config-template="globalConfigTemplate"
+      config-object="timefilter"
+      config-close="toggleTimepicker">
+    </config>
+
+    <div class="application" ng-view></div>
+  </div>
+
+</div>

@@ -1,0 +1,27 @@
+{
+  "name": "kibana-slider-plugin",
+  "description": "Kibana Slider Plugin Widget",
+  "main": "index.js",
+  "authors": [
+    "Marius Kolkowski <marius.kolkowski@raystorm.place>"
+  ],
+  "license": "Apache 2.0",
+  "keywords": [
+    "kibana",
+    "slider",
+    "plugin",
+    "widget",
+    "raystorm"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs-slider": "2.10.x"
+  }
+}

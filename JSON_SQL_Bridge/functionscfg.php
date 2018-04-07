@@ -1,0 +1,11 @@
+<?php
+/*
+JSON_SQL_Bridge 1.1
+Copyright 2016 Frank Vanden berghen
+All Right reserved.
+
+JSON_SQL_Bridge is not a free software. The JSON_SQL_Bridge software is NOT licensed under the "Apache License". 
+If you are interested in distributing, reselling, modifying, contibuting or in general creating 
+any derivative work from JSON_SQL_Bridge, please contact Frank Vanden Berghen at frank@timi.eu.
+*/
+namespace kibella; define(__NAMESPACE__."\\DEFAULT_DATADIR",__DIR__."/../../data"); const O3f=0764; const l3g=1; const O3g="day"; const l3h="04:00"; const O3h=030; const l3i=017; const O3i=024; function l3j($l39,$O2o="/\t+/") { $O3j=array(); if (($l3k=fopen($l39,"r")) === FALSE) throw new exception( __FUNCTION__."Cannot open configuration file ($l39)."); while (($O3k=fgets($l3k,02000)) !== FALSE) { $O3k=preg_replace("/(^\\s+)|(\\s+\$)/","",$O3k); if (preg_match("/^#/",$O3k) == 0) { $l3l=preg_split($O2o,$O3k); if (count($l3l)>1) { $O3j[$l3l[0]]=trim($l3l[1]); } } } return $O3j; } function O0($l39,$O2o="/\t+/") { $O3j=l3j($l39,$O2o); foreach ($O3j as $O3l => $l26) { $O3l=trim(strtoupper( "$O3l")); if ($O3l === "CACHEMODE" || $O3l === "CACHEDAYCHANGE" || $O3l === "CACHEHOURS" || $O3l === "DATADIR" || $O3l === "DISCOVERSIZE" || $O3l === "ADDTABLEPREFIX" || $O3l === "ACCELERATETOP" || $O3l === "ACCELERATEMAX") { if ($O3l === "DATADIR" && stripos(trim($l26),"..") == 0) { $l26= __DIR__."/../".trim($l26); } define(__NAMESPACE__."\\".$O3l,$l26); } } if (!defined(__NAMESPACE__."\\DATADIR"))define(__NAMESPACE__."\\DATADIR",DEFAULT_DATADIR); if (!defined(__NAMESPACE__."\\DISCOVERSIZE")) { define(__NAMESPACE__."\\DISCOVERSIZE",O3f); } if (!defined(__NAMESPACE__."\\ADDTABLEPREFIX"))define(__NAMESPACE__."\\ADDTABLEPREFIX",l3g); if (!defined(__NAMESPACE__."\\CACHEMODE"))define(__NAMESPACE__."\\CACHEMODE",O3g); if (!defined(__NAMESPACE__."\\CACHEDAYCHANGE"))define(__NAMESPACE__."\\CACHEDAYCHANGE",l3h); if (!defined(__NAMESPACE__."\\CACHEHOURS"))define(__NAMESPACE__."\\CACHEHOURS",O3h); if (!defined(__NAMESPACE__."\\ACCELERATETOP"))define(__NAMESPACE__."\\ACCELERATETOP",O3i); if (!defined(__NAMESPACE__."\\ACCELERATEMAX"))define(__NAMESPACE__."\\ACCELERATEMAX",l3i); }

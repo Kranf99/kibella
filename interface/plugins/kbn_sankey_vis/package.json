@@ -1,0 +1,11 @@
+{
+  "name": "kbn_sankey_vis",
+  "version": "kibana",
+  "authors": [
+    "Chenryn <rao.chenlin@gmail.com>"
+  ],
+  "description": "sankey diagram visualization plugin",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "homepage": "http://kibana.logstash.es/"
+}

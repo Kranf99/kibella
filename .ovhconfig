@@ -1,0 +1,4 @@
+app.engine=php
+app.engine.version=5.6
+http.firewall=none
+environment=production

@@ -1,0 +1,76 @@
+<div class="form-group saved-search">
+  <div class="form-group">
+    <label>
+      Saved Search
+    </label>
+    <p>
+      {{warn}}
+    </p>
+    <input placeholder="Filter Saved Searches" class="form-control"
+      ng-model="layer.filter" 
+      ng-change="filterSavedSearches()" 
+      ng-model-options="{debounce:750}" />
+    <select required class="form-control"
+      ng-change="updateIndex()"
+      ng-model="savedSearch"
+      ng-options="item.label for item in items">
+    </select>
+  </div>
+  <div class="form-group">
+    <label>
+      Geospatial Field
+    </label>
+    <select required class="form-control"
+      ng-model="layer.geoField"
+      ng-options="item for item in geoFields">
+    </select>
+  </div>
+  <div class="form-group">
+    <label>
+      Styling
+    </label>
+    <input
+      minicolors
+      ng-model="layer.color"
+      type="text"
+      class="form-control"
+      name="color"/>
+    <select ng-model="layer.markerSize" class="form-control marker-size">
+      <option value="xs">xs</option>
+      <option value="s">s</option>
+      <option value="m">m</option>
+      <option value="l">l</option>
+      <option value="xl">xl</option>
+    </select>
+
+  </div>
+  <div class="form-group">
+    <label>
+      Label Field
+    </label>
+    <select class="form-control"
+      ng-model="layer.labelField"
+      ng-options="item for item in labelFields">
+    </select>
+  </div>
+  <div class="form-group">
+    <label>
+      Limit
+    </label>
+    <input class="form-control"
+      type="number" min="1" max="1000"
+      placeholder="100" 
+      ng-model="layer.limit" />
+  </div>
+  <div class="form-group">
+    <label>
+      <input type="checkbox"
+        name="syncFilters"
+        ng-model="layer.syncFilters">
+
+      Apply Kibana Filters
+
+      <kbn-info info="Filter Saved Search results with kibana filters and time range. Additionally, the layer will be updated whenever new aggregation results are fetched."></kbn-info>
+    </label>
+  </div>
+</div>

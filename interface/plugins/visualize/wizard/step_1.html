@@ -1,0 +1,62 @@
+<div class="background-step-1"></div>
+
+
+
+<div style="flex: 0 0 30%;     height: 100vh;
+    overflow-y: scroll;">
+<!--<h1 class="wizard-title"><span class="fa fa-open"></span> Open Visualization</h1>-->
+
+<h1 class="wizard-title"><span class="fa fa-plus"></span> Open Visualization</h1>
+
+<saved-object-finder
+  title="Saved Visualizations"
+  type="visualizations"
+  hideindex="true"
+  >
+</saved-object-finder>
+</div>
+
+<div style="flex: 0 0 70%;     height: 100vh;
+    overflow-y: scroll;">
+
+  <h1 class="wizard-title"><span class="fa fa-plus"></span> New Visualization</h1>
+  <hr>
+
+  <div class="wizard-vis-types">
+    <a class="wizard-vis-type"
+      ng-repeat="type in visTypes.inTitleOrder"
+      ng-href="{{ visTypeUrl(type) }}">
+      <div class="wizard-vis-type-heading">
+        <i aria-hidden="true" class="fa fa-question-circle desc-btn"
+        ng-mouseenter="checkTooltips()"><div class="ktooltip">{{ type.description }}</div></i>
+        <i aria-hidden="true" class="fa fa-fw icon" ng-class="type.icon"></i>
+      </div>
+      <span class="title">{{type.title}}</span>
+    </a>
+  </div>
+</div>
+
+
+<script>
+  makeSquares();
+
+  $(window).resize(function() {
+    makeSquares();
+  });
+
+  function makeSquares() {
+    $('.wizard-vis-type-heading').css({'height':$('.wizard-vis-type-heading').css('width')});
+  }
+
+  function checkTooltips() {
+    $('.ktooltip').each(function() {
+      $(this).show();
+      $(this).removeClass('left');
+
+      if($(this).offset().left + $(this).outerWidth() >= $('body').outerWidth())
+        $(this).addClass('left');
+
+      $(this).hide();
+    });
+  }
+</script>

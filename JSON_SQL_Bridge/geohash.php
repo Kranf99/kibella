@@ -1,0 +1,11 @@
+<?php
+/*
+JSON_SQL_Bridge 1.1
+Copyright 2016 Frank Vanden berghen
+All Right reserved.
+
+JSON_SQL_Bridge is not a free software. The JSON_SQL_Bridge software is NOT licensed under the "Apache License". 
+If you are interested in distributing, reselling, modifying, contibuting or in general creating 
+any derivative work from JSON_SQL_Bridge, please contact Frank Vanden Berghen at frank@timi.eu.
+*/
+namespace O9v; class O9v { private static $O1w="0123456789bcdefghjkmnpqrstuvwxyz"; private static $l9w=array(020,8,4,2,1); public static function O9w($l9x,$O9x,$l9y=NULL) { $O9y=strlen($l9x)-strpos($l9x,"."); $l9z=strlen($O9x)-strpos($O9x,"."); $l9y=$l9y ? : pow(012,-max($O9y-1,$l9z-1,0))/2; $O9z=-0264; $la0=0264; $Oa0=-0132; $la1=0132; $Oa1=array(); $la2=0264; $Oa2=TRUE; $la3=0; $Oa3=0; while ($la2>=$l9y) { if ($Oa2) { $la4=($O9z+$la0)/2; if ($O9x>$la4) { $la3 |= self::$l9w[$Oa3]; $O9z=$la4; } else { $la0=$la4; } } else { $la4=($Oa0+$la1)/2; if ($l9x>$la4) { $la3 |= self::$l9w[$Oa3]; $Oa0=$la4; } else { $la1=$la4; } } $Oa2=!$Oa2; if ($Oa3<4) { $Oa3 ++; } else { $Oa1[]=self::$O1w[$la3]; $la2=max($la0-$O9z,$la1-$Oa0); $Oa3=0; $la3=0; } } return join("",$Oa1); } public static function Oa4($Oa1) { $O9z=-0264; $la0=0264; $Oa0=-0132; $la1=0132; $la5=0132; $Oa5=0264; for ($O2h=0,$la6=strlen($Oa1); $O2h<$la6; $O2h ++) { $O7t=strpos(self::$O1w,$Oa1[$O2h]); if (1&$O2h) { if (020&$O7t) { $Oa0=($Oa0+$la1)/2; } else { $la1=($Oa0+$la1)/2; } if (8&$O7t) { $O9z=($O9z+$la0)/2; } else { $la0=($O9z+$la0)/2; } if (4&$O7t) { $Oa0=($Oa0+$la1)/2; } else { $la1=($Oa0+$la1)/2; } if (2&$O7t) { $O9z=($O9z+$la0)/2; } else { $la0=($O9z+$la0)/2; } if (1&$O7t) { $Oa0=($Oa0+$la1)/2; } else { $la1=($Oa0+$la1)/2; } $la5 /= 8; $Oa5 /= 4; } else { if (020&$O7t) { $O9z=($O9z+$la0)/2; } else { $la0=($O9z+$la0)/2; } if (8&$O7t) { $Oa0=($Oa0+$la1)/2; } else { $la1=($Oa0+$la1)/2; } if (4&$O7t) { $O9z=($O9z+$la0)/2; } else { $la0=($O9z+$la0)/2; } if (2&$O7t) { $Oa0=($Oa0+$la1)/2; } else { $la1=($Oa0+$la1)/2; } if (1&$O7t) { $O9z=($O9z+$la0)/2; } else { $la0=($O9z+$la0)/2; } $la5 /= 4; $Oa5 /= 8; } } $l9x=round(($Oa0+$la1)/2,max(1,-round(log10($la5)))-1); $O9x=round(($O9z+$la0)/2,max(1,-round(log10($Oa5)))-1); return array($l9x,$O9x); } }

@@ -1,0 +1,34 @@
+<form role="form" class="vis-share">
+  <input type="checkbox" ng-model="opts.isShared" id="shared" ng-change="opts.changeShared()">
+  <label for="shared">Shared</label>
+
+  <p>
+    <div class="input-group">
+      <label>
+        Embed this dashboard.
+        <kbn-clipboard copy="'{{opts.shareData().embed}}'"></kbn-clipboard>
+        <!--<i class="fa fa-clipboard clipboard" data-clipboard-text="{{opts.shareData().embed}}"></i>-->
+        <small>Add to your html source. Note all clients must still be able to access Kibella</small>
+      </label>
+      <div class="form-control" disabled>{{opts.shareData().embed}}</div>
+    </div>
+  </p>
+  <p>
+  <div class="input-group">
+    <label>Share a Read-Only link
+    <kbn-clipboard copy="'{{opts.shareData().rolink}}'"></kbn-clipboard>
+    </label>
+    <div class="form-control" disabled>{{opts.shareData().rolink}}</div>
+  </div>
+  </p>
+  <p>
+    <div class="input-group">
+      <label>
+        Share a link
+        <kbn-clipboard copy="'{{opts.shareData().link}}'"></kbn-clipboard>
+        <!--<i class="fa fa-clipboard clipboard" data-clipboard-text="{{opts.shareData().link}}"></i>-->
+      </label>
+      <div class="form-control" disabled>{{opts.shareData().link}}</div>
+    </div>
+  </p>
+</form>

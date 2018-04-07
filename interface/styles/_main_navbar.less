@@ -1,0 +1,80 @@
+@navbar-width-min: 50px;
+@navbar-width-extended: 120px;
+
+// Style of the Main Vertical Navbar
+.main-nav {
+  flex: 0 0 @navbar-width-min;
+  height: 100vh !important;
+
+  .navbar-wrapper {
+    width: @navbar-width-min;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    
+ 
+
+    #kibana-primary-navbar {
+      ul#apps {
+        li {
+          a {
+            div.app-icon {
+              font-size: 1.75em;
+            }
+          }
+        }
+      }
+
+      .expander {
+        position: absolute;
+        bottom: 10px;
+        left:0; right:0;
+
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.main-nav.isExpand { 
+  flex: 0 0 @navbar-width-extended;
+
+
+  .navbar-wrapper {
+    width: @navbar-width-extended;
+
+    #nav-head {
+      #kibella-logo {
+        svg {
+          // margin-top: 8px;
+          height: 50px;
+        }
+      }
+    }
+
+    #kibana-primary-navbar {
+      ul#apps {
+        text-align: left;
+        padding-left: 10px;
+
+
+        li {
+          a {
+            display: inline-block;
+            
+            div.app-icon {
+              font-size: 1.6em;
+              display: inline-block;
+              width: 30px;
+              text-align: center;
+            }
+            span.app-name {
+              font-size: 1.1em;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+@import (reference) "~ui/styles/mixins.less";
+
+.slider-vis {
+  padding: 1em;
+  width: 100%;
+}
+
+.vis-editor {
+
+  &.vis-type-markdown {
+
+    .visualization-options {
+      .flex-parent();
+      flex: 1 1 auto;
+    }
+
+    .slider-vis-options {
+      .flex-parent();
+      flex: 1 1 auto;
+
+      textarea {
+        flex: 1 1 auto;
+        resize: none;
+      }
+
+    }
+
+  }
+
+}
+
+rzslider {
+  .rz-pointer, .rz-bar.rz-selection {
+    background-color: #d473ff;
+    outline: none;
+  }
+
+  .rz-pointer.rz-active:after {
+    background-color: #9f50c1;
+  }
+  .rz-bar {
+    background-color: #f4dbff;
+  }
+}
+
+rzslider[disabled] {
+  .rz-pointer {
+    background-color: #ecc0ff;
+  }
+  .rz-pointer.rz-active:after {
+    background-color: #d473ff;
+  }
+}
