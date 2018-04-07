@@ -32,8 +32,10 @@ inside the additional GitHub Project named "Kibella_WAMP".
    * unzip the file "default_data/income.zip" inside the directory XX/../data
    * Add inside the root of the Kibella Install directory a file named ".htaccess" that contains 
      these 2 lines:
-		RewriteEngine on
-		RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
+```
+RewriteEngine on
+RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
+```
      For your convenience, such a file is provided inside the Kibella repository.
 
 2. Windows/WAMP Installation

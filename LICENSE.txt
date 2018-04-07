@@ -29,6 +29,7 @@ In Particular, Kibella does NOT include the following files that are the work of
    node_modules/*             (and subdirectories)
    interface/node_modules/*   (and subdirectories)
    JSON_SQL_Bridge/*          (and subdirectories)
+   tempdata/*
    kibella.ini
 
 
