@@ -8,7 +8,7 @@ target
 esvm
 .htaccess
 .htpasswd
-tempdata/*
+tempdata/cache/*
 .vscode
 interface/node_modules
 dev
