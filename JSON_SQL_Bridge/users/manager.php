@@ -1,18 +1,18 @@
 <?php
 /*
- JSON_SQL_Bridge 1.0
+ KIBELLA 1.0
  Copyright 2016 Frank Vanden berghen
  All Right reserved.
 
- JSON_SQL_Bridge is not a free software. The JSON_SQL_Bridge software is NOT licensed under the "Apache License".
+ Kibella is not a free software. The Kibella software is NOT licensed under the "Apache License".
  If you are interested in distributing, reselling, modifying, contibuting or in general creating
- any derivative work from JSON_SQL_Bridge, please contact Frank Vanden Berghen at frank@timi.eu.
+ any derivative work from Kibella, please contact Frank Vanden Berghen at frank@timi.eu.
  */
 namespace kibella;
 
 require_once(__DIR__ . '/../constants.php');
 require_once(__DIR__ . '/../functionsdb.php');
-require_once(__DIR__ . '/../SQLite3Ext.php');
+require_once(__DIR__ . '/../classes.php');
 
 
 class UserManager {

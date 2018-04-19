@@ -10,8 +10,8 @@ any derivative work from Kibella, please contact Frank Vanden Berghen at frank@t
 */
 namespace kibella;
 
-// Read the configuration file to define constants needed for this page (such as CACHEMODE used in views/delete.php)
-require_once __DIR__ . '/../../../../JSON_SQL_Bridge/config.php';
+// Read the configuration file to define constants needed for this page (such as CACHEMODE, etc.)
+require_once __DIR__ . '/../../../../JSON_SQL_Bridge/configreadinifile.php';
 ?>
 <html>
 <head>
@@ -24,7 +24,7 @@ require_once __DIR__ . '/../../../../JSON_SQL_Bridge/config.php';
     <li><a href="../../formDeleteCacheOld.html">Delete Kibella's old cache files</a></li>
   </ul>
   <p class="cache-settings">Current cache settings:<br/><?php
-    if (strtolower(CACHEMODE) === "day") {
+    if (strtolower(CACHEMODE) === CACHEMODE_DAY) {
       $cachedaychange = CACHEDAYCHANGE;
       echo "Delete cache files older than $cachedaychange and earlier than ";
     }
