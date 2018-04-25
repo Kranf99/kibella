@@ -1,11 +1,11 @@
 <?php
 /*
-KIBELLA 1.0
+JSON_SQL_Bridge 1.0
 Copyright 2016 Frank Vanden berghen
 All Right reserved.
 
-Kibella is not a free software. The Kibella software is NOT licensed under the "Apache License". 
+JSON_SQL_Bridge is not a free software. The JSON_SQL_Bridge software is NOT licensed under the "Apache License". 
 If you are interested in distributing, reselling, modifying, contibuting or in general creating 
-any derivative work from Kibella, please contact Frank Vanden Berghen at frank@timi.eu.
+any derivative work from JSON_SQL_Bridge, please contact Frank Vanden Berghen at frank@timi.eu.
 */
 namespace kibella; define(__NAMESPACE__."\\DEFAULT_DATADIR",__DIR__."/../../data"); const l3s=0764; const O3s=1; const l3t="day"; const O3t="04:00"; const l3u=030; const O3u=017; const l3v=024; function O3v($O3l,$l31="/\t+/") { $l3w=array(); if (($O3w=fopen($O3l,"r")) === FALSE) throw new exception( __FUNCTION__."Cannot open configuration file ($O3l)."); while (($l3x=fgets($O3w,02000)) !== FALSE) { $l3x=preg_replace("/(^\\s+)|(\\s+\$)/","",$l3x); if (preg_match("/^#/",$l3x) == 0) { $O3x=preg_split($l31,$l3x); if (count($O3x)>1) { $l3w[$O3x[0]]=trim($O3x[1]); } } } return $l3w; } function l7($O3l,$l31="/\t+/") { $l3w=O3v($O3l,$l31); foreach ($l3w as $l3y => $O2l) { $l3y=trim(strtoupper( "$l3y")); if ($l3y === "CACHEMODE" || $l3y === "CACHEDAYCHANGE" || $l3y === "CACHEHOURS" || $l3y === "DATADIR" || $l3y === "DISCOVERSIZE" || $l3y === "ADDTABLEPREFIX" || $l3y === "ACCELERATETOP" || $l3y === "ACCELERATEMAX") { if ($l3y === "DATADIR" && stripos(trim($O2l),"..") == 0) { $O2l= __DIR__."/../".trim($O2l); } define(__NAMESPACE__."\\".$l3y,$O2l); } } if (!defined(__NAMESPACE__."\\DATADIR"))define(__NAMESPACE__."\\DATADIR",DEFAULT_DATADIR); if (!defined(__NAMESPACE__."\\DISCOVERSIZE")) { define(__NAMESPACE__."\\DISCOVERSIZE",l3s); } if (!defined(__NAMESPACE__."\\ADDTABLEPREFIX"))define(__NAMESPACE__."\\ADDTABLEPREFIX",O3s); if (!defined(__NAMESPACE__."\\CACHEMODE"))define(__NAMESPACE__."\\CACHEMODE",l3t); if (!defined(__NAMESPACE__."\\CACHEDAYCHANGE"))define(__NAMESPACE__."\\CACHEDAYCHANGE",O3t); if (!defined(__NAMESPACE__."\\CACHEHOURS"))define(__NAMESPACE__."\\CACHEHOURS",l3u); if (!defined(__NAMESPACE__."\\ACCELERATETOP"))define(__NAMESPACE__."\\ACCELERATETOP",l3v); if (!defined(__NAMESPACE__."\\ACCELERATEMAX"))define(__NAMESPACE__."\\ACCELERATEMAX",O3u); }
