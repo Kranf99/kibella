@@ -104,7 +104,8 @@ dashboard-grid {
 }
 .gridster dashboard-panel {
   display: block;
-  height: 100%;
+  height: 70%;
+  
   background: #ffffff;
   color: #444444;
   padding: 0;
