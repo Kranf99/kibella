@@ -55,7 +55,7 @@ define(function (require) {
         if (_.isNumeric(val)) val = moment().add(val, interval.name);
         else if (!moment.isMoment(val)) val = moment(val);
 
-        return val.clone().utc()[extend](interval.startOf);
+        return val.clone()[extend](interval.startOf);
       }).sort(function (a, b) {
         return a - b;
       });

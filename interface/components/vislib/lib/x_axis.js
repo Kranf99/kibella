@@ -50,7 +50,7 @@ define(function (require) {
       var ordered = this.ordered;
 
       if (ordered && ordered.date) {
-        return d3.time.scale.utc();
+        return d3.time.scale;
       }
       return d3.scale.ordinal();
     };
