@@ -12,7 +12,7 @@ namespace kibella;
 
 require_once(__DIR__ . '/../constants.php');
 require_once(__DIR__ . '/../functionsdb.php');
-require_once(__DIR__ . '/../SQLite3Ext.php');
+require_once(__DIR__ . '/../classes.php');
 
 require_once(__DIR__ . '/../users/user.php');
 
@@ -25,14 +25,14 @@ class Dashboard {
 
     $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
 
-    $sql = 'SELECT _shared
-            FROM Visualizations
-            WHERE _id = "' . $id . '" AND _type = "dashboard"
+    $sql = 'SELECT ' . OBJ_COLUMN_SHARED . '
+            FROM ' . OBJTABLE . '
+            WHERE ' . ALL_COLUMN_ID . ' = "' . $id . '" AND ' . OBJ_COLUMN_TYPE . ' = "' . NAME_DASHBOARD . '"
             LIMIT 1';
     
     $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="sqlite");
 
-    return $result[0]['_shared'];
+    return $result[0][OBJ_COLUMN_SHARED];
   }
 
   public function changeShared($id, $newValue) {
@@ -48,9 +48,9 @@ class Dashboard {
 
       $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
 
-      $sql = 'UPDATE Visualizations
-              SET _shared = "' . $newValue . '"
-              WHERE _id = "' . $id . '" AND _type = "dashboard"
+      $sql = 'UPDATE ' . OBJTABLE . '
+              SET ' . OBJ_COLUMN_SHARED . ' = "' . $newValue . '"
+              WHERE ' . ALL_COLUMN_ID . ' = "' . $id . '" AND ' . OBJ_COLUMN_TYPE . ' = "' . NAME_DASHBOARD . '"
               LIMIT 1';
       
       $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="exec");

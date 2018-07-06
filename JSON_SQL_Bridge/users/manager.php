@@ -12,7 +12,7 @@ namespace kibella;
 
 require_once(__DIR__ . '/../constants.php');
 require_once(__DIR__ . '/../functionsdb.php');
-require_once(__DIR__ . '/../SQLite3Ext.php');
+require_once(__DIR__ . '/../classes.php');
 
 
 class UserManager {
