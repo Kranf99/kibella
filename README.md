@@ -66,8 +66,7 @@ For windows developpers, the best way to work on Kibella is to use the
    
    This should download & unpack a whole bunch of required third party librairies. These 
    librairies will be located in the 2 directories "node_modules" and "interface/node_modules".
-   For your convenience, I packed all these librairies in one big zip file here:
-
+   For your convenience, I packed all these librairies in one big zip file here: https://github.com/Kranf99/kibella/releases/tag/v0.1
 
 2. If it's your first time using grunt, you must install it globally 
    with `npm install -g grunt-cli`
@@ -108,7 +107,7 @@ and keep the process alive for watching your modifications (webpack --watch)*
 
  1.1. Enable .htaccess application-specific configuration in the Apache server
 
-Since Kibella contains a .htaccess configuration file (present in Kibella’s 
+Since Kibella contains a .htaccess configuration file (present in Kibellaâ€™s 
 installation directory), Apache needs to be configured to enable its use.
 To this end, verify that the Apache configuration file 
 ```
@@ -133,7 +132,7 @@ and add the following lines:
 </Directory>
 ```
 
- 1.2. Enable Apache’s rewrite module
+ 1.2. Enable Apacheâ€™s rewrite module
 
 Verify that the rewrite module is enabled by running:
 ```
