@@ -5,9 +5,9 @@
   <title>Kibella 2.5 - Admin</title>
   <link rel="stylesheet" href="../styles/style.css">
   <link rel="stylesheet" href="../../styles/form.css">
-  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../bower_components/animate.css/animate.min.css">
+  <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../node_modules/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../../node_modules/animate.css/animate.min.css">
 </head>
 <body>
   <div class="container-fluid">
