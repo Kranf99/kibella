@@ -10,7 +10,7 @@ define(function (require) {
   require('ui/registry/vis_types').register(c3VisProvider);
 
   // Require the JavaScript CSS file
-  require('plugins/k5p-c3/node_modules/c3/c3.css');
+  require('c3/c3.css');
 
   function c3VisProvider(Private) {
       var TemplateVisType = Private(TemplateVisTypeTemplateVisTypeProvider);
