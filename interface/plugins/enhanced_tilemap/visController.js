@@ -23,7 +23,7 @@ var _map2 = _interopRequireDefault(_map);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 define(function (require) {
-  var module = require('ui/modules').get('kibana/enhanced_tilemap', ['kibana']);
+  var module = require('ui/modules').get('kibana/tilemap', ['kibana']);
 
   module.controller('KbnEnhancedTilemapVisController', function ($scope, $rootScope, $element, Private, courier, config, getAppState) {
     var aggResponse = Private(require('components/agg_response/index'));
@@ -62,7 +62,6 @@ define(function (require) {
       // $scope.vis.aggs.toDsl = function () {
       //   resizeArea();
       //   var dsl = $scope.vis.aggs.origToDsl();
-
       //   //append map collar filter to geohash_grid aggregation
       //   _lodash2.default.keys(dsl).forEach(function (key) {
       //     if (_lodash2.default.has(dsl[key], "geohash_grid")) {
@@ -147,7 +146,7 @@ define(function (require) {
         //   courier.fetch();
         //   return;
         // }
-
+        
         var chartData = buildChartData(resp);
         if (!chartData) return;
         var geoMinMax = getGeoExtents(chartData);
@@ -257,6 +256,9 @@ define(function (require) {
         attr: params,
         editable: $scope.vis.getEditableVis() ? true : false
       });
+
+      if($scope.vis.aggs[1] && $scope.vis.aggs[1].params.autoPrecision)
+        $scope.vis.aggs[1].params.precision = 2;
     }
 
     function resizeArea() {

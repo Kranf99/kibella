@@ -5,9 +5,9 @@
   <title>Kibella 2.5 - Sign in</title>
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="../../styles/form.css">
-  <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../../node_modules/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../../../node_modules/animate.css/animate.min.css">
+  <link rel="stylesheet" href="../../lib/bootstrap.min.css">
+  <link rel="stylesheet" href="../../lib/font-awesome.min.css">
+  <link rel="stylesheet" href="../../lib/animate.min.css">
 </head>
 <body>
   <div class="container">

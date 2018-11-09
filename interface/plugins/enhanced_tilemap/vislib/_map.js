@@ -78,7 +78,7 @@ define(function (require) {
       this._drawnItems = new L.FeatureGroup();
       var self = this;
       this._attr.markers.forEach(function (point) {
-        var color = 'green';
+        var color = '#d473ff';
         if (point.length === 3) {
           color = point.pop();
         }
@@ -92,9 +92,9 @@ define(function (require) {
         draw: {
           circle: false,
           marker: {
-            icon: (0, _markerIcon.markerIcon)('green')
+            icon: (0, _markerIcon.markerIcon)('#d473ff')
           },
-          polygon: {},
+          polygon: false,
           polyline: false,
           rectangle: {
             shapeOptions: {
