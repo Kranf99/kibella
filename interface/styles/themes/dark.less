@@ -1,0 +1,275 @@
+@dark-bg-color: #323138;
+@dark-bg-color-2: #423138;
+@dark-text-color: #fff;
+@dark-text-color-2: #999;
+@dark-bg-color-hover: #222;
+@dark-border-color: #676767;
+@dark-dashboard-panel-bg-color: #2f2e35;
+
+body.dark {
+  background-color:  @dark-bg-color;
+  color:  @dark-text-color;
+  .app-container .subnav, .sidebar-container, .sidebar-container .sidebar-list .sidebar-item, .sidebar-container .sidebar-list-header, .app-container > nav, .app-container > navbar, .typeahead .typeahead-items .typeahead-item, filter-bar .bar, .config .container-fluid, .config .config-close, .list-group-item, .admin-section-container .panel-body, .discover-field-details-close, .discover-field-details {
+    background-color: #424148;
+    border-color:  @dark-border-color !important;
+  }
+  .discover-field-details {
+    color: #fff;
+    border-top: 0;
+  }
+  .table .table, .cell-hover {
+    background-color: transparent !important;
+  }
+  navbar .separator, .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td, .config, .vis-wizard hr {
+    border-color:  @dark-border-color;
+  }
+  .discover-info {
+    color: #000;
+  }
+  .sidebar-container .index-pattern {
+    background-color:  @dark-bg-color;
+  }
+  .gridster .gs-resize-handle {
+    color:  @dark-text-color;
+  }
+  .form-control, saved-object-finder .finder-input {
+    background-color: #323138;
+    color:  @dark-text-color;
+    border-color:  @dark-border-color;
+  }
+  saved-object-finder .list-group-item:hover {
+    background-color: @dark-bg-color !important;
+  }
+  navbar .inline-form .input-group button, table table-condensed {
+    background-color: @dark-bg-color !important;
+    color:  @dark-text-color;
+  }
+  navbar .inline-form .input-group button {
+    color: @main-color !important;
+  }
+  td {
+    color: @dark-text-color;
+  }
+  h2, h3, h4, h5, .navbar-default .navbar-nav > li > a, a, p, navbar button, .typeahead .typeahead-items .typeahead-item.active {
+    color:  @dark-text-color;
+  }
+  .sidebar-container .sidebar-list .sidebar-item a, .typeahead .typeahead-items .typeahead-item {
+    color:  @dark-text-color-2;
+  }
+  .sidebar-container .sidebar-list .sidebar-item-title:hover, .sidebar-container .sidebar-list .sidebar-item .active, .typeahead .typeahead-items .typeahead-item.active {
+    color:  @dark-text-color;
+    background-color:  @dark-bg-color;
+  }
+  .navbar-default .navbar-nav > li.active > a, .navbar-default .navbar-nav > li > a:hover, navbar button:active, navbar button.active {
+    color:  @main-color !important;
+    background-color: transparent !important;
+  }
+  .navbar-default .navbar-nav > li > a:hover {
+    color:  @main-color;
+  }
+  .nav-tabs > li > a:hover {
+    color: #444;
+  }
+  .typeahead .typeahead-items {
+    border-color:  @dark-border-color;
+    border: 0 1px 1px 1px;
+  }
+  .background-step-1, .full-background, .vis-editor-config .panel {
+    background-color:  @dark-bg-color;
+  }
+  .gridster dashboard-panel .panel .panel-heading, th, .admin-section-container .panel-default > .panel-heading {
+    background-color: #2a2930;
+    border-radius: 0;
+    border: 0;
+  }
+  .cell-hover:hover {
+    background-color: #2a2930 !important;
+  }
+  .kbn-settings-about-versions td {
+    background-color: transparent;
+  }
+  kbn-settings-objects .action-bar {
+    background-color: @dark-bg-color;
+  }
+  .gridster dashboard-panel .panel .panel-heading .panel-title .panel-name {
+    color:  @dark-text-color;
+  }
+  .gridster dashboard-panel .panel .panel-content, .gridster dashboard-panel .panel .panel-content canvas, visualize-spy .visualize-show-spy-tab, [user-panel] {
+    background-color:  @dark-dashboard-panel-bg-color;
+  }
+  text.axis-labels, .c3 text, .heatmap-vis text {
+    fill:  @dark-text-color;
+  }
+  .heatmap-vis rect.cell {
+    stroke:  @dark-dashboard-panel-bg-color !important;
+  }
+  .legend-col-wrapper .legend-ul li.color {
+    color:  @dark-text-color-2;
+
+    &:hover {
+      color:  @dark-text-color;
+    }
+  }
+  .node text {
+    text-shadow: none;
+    fill: #fff;
+  }
+  .link {
+    stroke: #848484;
+  }
+  .visualize-chart .chart path.slice {
+    stroke: none !important;
+  }
+  .btn-primary {
+    background-color: @main-color;
+    transition: background-color .3s;
+
+    &:hover {
+      background-color: @dark-bg-color;
+    }
+  }
+  paginate paginate-controls .pagination-other-pages-list > li.active a {
+    color: #464646;
+  }
+  .truncate-by-height:before {
+    background: -moz-linear-gradient(top,  rgba(50,49,56,0) 0%, rgba(50,49,56,0.01) 1%, rgba(50,49,56,0.99) 99%, rgba(50,49,56,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(50,49,56,0)), color-stop(1%,rgba(50,49,56,0.01)), color-stop(99%,rgba(50,49,56,0.99)), color-stop(100%,rgba(50,49,56,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(50,49,56,0) 0%,rgba(50,49,56,0.01) 1%,rgba(50,49,56,0.99) 99%,rgba(50,49,56,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(50,49,56,0) 0%,rgba(50,49,56,0.01) 1%,rgba(50,49,56,0.99) 99%,rgba(50,49,56,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(50,49,56,0) 0%,rgba(50,49,56,0.01) 1%,rgba(50,49,56,0.99) 99%,rgba(50,49,56,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(50,49,56,0) 0%,rgba(50,49,56,0.01) 1%,rgba(50,49,56,0.99) 99%,rgba(50,49,56,1) 100%); /* W3C */
+  }
+  .discover-field-details-close {
+    border: 0;
+
+    i, i:hover, i:focus {
+      color: @dark-text-color;
+    }
+  }
+  .main-nav .navbar-wrapper #nav-head {
+    background-color:  @dark-bg-color;
+  }
+  .main-nav .navbar-wrapper #kibana-primary-navbar > ul li a, .main-nav .navbar-wrapper #kibana-primary-navbar .bottom-menu > ul li a, .main-nav .navbar-wrapper #kibana-primary-navbar .bottom-menu > ul > li, .main-nav .navbar-wrapper #kibana-primary-navbar .expander a {
+    color: #7b3c96 !important;
+  }
+  .main-nav .navbar-wrapper #kibana-primary-navbar > ul > .active > a, .main-nav .navbar-wrapper #kibana-primary-navbar .bottom-menu > ul > .active > a, .main-nav .navbar-wrapper #kibana-primary-navbar > ul li a:hover, .main-nav .navbar-wrapper #kibana-primary-navbar .bottom-menu > ul li a:hover, .main-nav .navbar-wrapper #kibana-primary-navbar .bottom-menu > ul > li:hover, .main-nav .navbar-wrapper #kibana-primary-navbar .expander a:hover {
+    color:  @dark-bg-color !important;
+  }
+  .wizard-vis-types .wizard-vis-type .title, .wizard-vis-types .wizard-vis-type:hover > .wizard-vis-type-heading, .wizard-vis-types .wizard-vis-type .ktooltip {
+    background-color:  @dark-dashboard-panel-bg-color;
+  }
+  .wizard-vis-types .wizard-vis-type .desc-btn, .wizard-vis-types .wizard-vis-type-heading .icon {
+    color:  @dark-dashboard-panel-bg-color;
+  }
+  .wizard-vis-types .wizard-vis-type .ktooltip:after {
+    border-right-color:  @dark-dashboard-panel-bg-color;
+  }
+  .btn-default.active {
+    background: #6b6b6b;
+  }
+  .admin-section-container .user-search-bar input {
+    background-color:  @dark-bg-color;
+  }
+  .admin-section-container .user-search-bar {
+    border: 0;
+  }
+  .panel, .vis-editor-config .panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border: 0;
+  }
+  .preview-holder, .resize-preview-holder {
+    background-color: rgba(255,255,255,.1)
+  }
+  &.application-admin nav {
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    background-color: #424148;
+    border: 0;
+
+    &.admin-nav {
+      ul {
+        li {
+          &.active {
+
+              a {
+
+              background-color: #4b4a52;
+              }
+          }
+          a {
+            &:hover {
+              background-color: #4b4a52;
+            }
+          }
+        }
+      }
+    }
+  }
+  .dropdown-menu a, .dropdown-menu a i.fa {
+    color: @dark-bg-color !important;
+  }
+  .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover i.fa, .dropdown-menu > li > a:focus i.fa {
+    color: #fff !important;
+    background-color: @dark-bg-color;
+  }
+  .square:hover .square-heading {
+    background-color: @dark-bg-color;
+  }
+  &.application-admin .admin-section-container .head {
+    background: #323235;
+    border-color: #525252;
+  }
+  .vis-editor-sidebar .sidebar-container form > *, .vis-editor-sidebar .navbar-btn-link.btn-default {
+    background-color: #424148 !important;
+  }
+  vis-editor-sidebar.vis-editor-sidebar div.sidebar-item-title, vis-editor-sidebar.vis-editor-sidebar div.sidebar-item-title:hover, .vis-editor-sidebar .sidebar-container .index-pattern, .vis-editor-config .panel-default > .panel-heading, vis-editor-sidebar.vis-editor-sidebar .list-group-item:hover {
+    background-color: @dark-bg-color !important;
+  }
+  vis-editor-sidebar.vis-editor-sidebar .sidebar-container .sidebar-list .sidebar-item {
+    border: 0;
+  }
+  .vis-editor-agg-group {
+    color:  @dark-text-color;
+  }
+  .vis-editor-sidebar .list-group-menu .list-group-menu-item:hover {
+    background-color:  @dark-bg-color-hover;
+  }
+  .leaflet-draw input, .hintbox p {
+    color: #000;
+  }
+  .leaflet-bar a {
+    color: #464646;
+  }
+  .well {
+    background-color: #333;
+  }
+
+  .legend-col-wrapper .legend-toggle .legend-open, .legend-col-wrapper .legend-toggle .legend-closed {
+    color: #ddd;
+  }
+
+  nav > ul > li > a, nav > ul > li > a:focus {
+    color: #eee;
+  }
+
+nav > ul > li.active > a, nav > ul > li > a:hover {
+  color: #ccc;
+  background-color: #eee;
+}
+
+
+  .admin-section-container {
+
+    .dropdown-toggle {
+      padding: 0px 8px;
+      background: #666;
+      color: #fff;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) {
+      background-color: #424148;
+    }
+  }
+}
+
+kbn-settings-indices .fields table > tbody > tr:nth-of-type(2n+1) > td {
+  color: #000;
+}

@@ -1,0 +1,10 @@
+<kbn-settings-app section="personalization">
+    <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+      <div class="kbn-settings-personalization" ng-controller="settingsPersonalization">
+        <h1>Theme</h1>
+        <select class="form-control" ng-model="selectedTheme" ng-options="theme as theme for theme in themes">
+          <!--<option ng-repeat="theme in themes | orderBy:'label' track by $index" value="{{ theme.value }}">{{ theme.label }}</option>-->
+        </select>
+      </div>
+    </div>
+</kbn-settings-app>

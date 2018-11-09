@@ -12,6 +12,8 @@ define(function (require) {
   require('angular-route');
   require('angular-bindonce');
 
+  var Cookies = require('js-cookie');
+  
   var configFile = JSON.parse(require('text!config'));
   
   var secondSlash = window.location.pathname.indexOf('/', 1);
@@ -44,6 +46,9 @@ define(function (require) {
     .config(routes.config)
     .run(function($rootScope){
         $rootScope.kbnPath = kbnPath;
+        $rootScope.defaultTheme = "bright";
+        $rootScope.theme = Cookies.get('theme') || $rootScope.defaultTheme;
+
     });
 
   // setup routes
