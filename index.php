@@ -28,9 +28,9 @@ require_once "JSON_SQL_Bridge/config.php";
 <head>
   <meta charset="utf-8">
   <title>Kibella 2.5</title>
-  <link rel="stylesheet" href="public/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="public/bower_components/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="public/bower_components/animate.css/animate.min.css">
+  <link rel="stylesheet" href="public/lib/bootstrap.min.css">
+  <link rel="stylesheet" href="public/lib/font-awesome.min.css">
+  <link rel="stylesheet" href="public/lib/animate.min.css">
   <link rel="stylesheet" href="public/styles/home.css">
 </head>
 <body>

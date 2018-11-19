@@ -12,10 +12,10 @@ var options = {
         extensions: ['', '.js', '.json', '.less'],
         modulesDirectories: ["node_modules", "bower_components"],
         alias: {
-            routes: 'utils/routes/index',
-            errors: 'components/errors',
-            modules: 'utils/modules',
-            lodash: 'utils/_mixins',
+            routes: path.resolve(__dirname + '/utils/routes/index'),
+            errors: path.resolve(__dirname + '/components/errors'),
+            modules: path.resolve(__dirname + '/utils/modules'),
+            lodash: path.resolve(__dirname + '/utils/_mixins'),
             'angular-bindonce': 'angular-bindonce/bindonce',
             'angular-bootstrap': 'angular-bootstrap/ui-bootstrap-tpls',
             'angular-elastic': 'angular-elastic/elastic',
@@ -70,6 +70,12 @@ var options = {
             {
                 test: /\.json$/,
                 loader: 'json-loader'
+            },
+            {
+                test: /\.css$/,
+                include: [path.resolve(__dirname, "node_modules/")],
+                exclude: /(leaflet|jquery)/,
+                loader: 'style!css'
             },
             {
                 test: /\.less$/,

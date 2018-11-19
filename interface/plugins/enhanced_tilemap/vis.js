@@ -47,7 +47,7 @@ define(function (require) {
           isDesaturated: true,
           addTooltip: true,
           heatMaxZoom: 16,
-          heatMinOpacity: 0.1,
+          heatMinOpacity: 0.4,
           heatRadius: 25,
           heatBlur: 15,
           heatNormalizeData: true,

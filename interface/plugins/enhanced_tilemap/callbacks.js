@@ -23,7 +23,7 @@ define(function (require) {
 
         event.deletedLayers.eachLayer(function (layer) {
           editableVis.params.markers = editableVis.params.markers.filter(function (point) {
-            if (point[0] === layer._latlng.lat && point[1] === layer._latlng.lng) {
+            if (point[0] === layer._latlng.lat && point[1] == layer._latlng.lng) {
               return false;
             } else {
               return true;
@@ -59,7 +59,8 @@ define(function (require) {
         if (!agg || !agg.params.autoPrecision) return;
 
         //Set precision when filter applied to ensure zoom level and precision are never out of sync
-        agg.params.precision = 2;
+        // agg.params.precision = 2;
+        agg.params.precision = utils.getPrecision(event.zoom, 7);
 
         courier.fetch();
       },
@@ -85,33 +86,33 @@ define(function (require) {
         });
         geoFilter.add(filters, field, indexPatternName);
       },
-      polygon: function polygon(event) {
-        var agg = _.get(event, 'chart.geohashGridAgg');
-        if (!agg) return;
-        var indexPatternName = agg.vis.indexPattern.id;
+      // polygon: function polygon(event) {
+      //   var agg = _.get(event, 'chart.geohashGridAgg');
+      //   if (!agg) return;
+      //   var indexPatternName = agg.vis.indexPattern.id;
 
-        var newFilter = void 0;
-        var field = void 0;
-        if (event.params.filterByShape && event.params.shapeField) {
-          var firstPoint = event.points[0];
-          var closed = event.points;
-          closed.push(firstPoint);
-          field = event.params.shapeField;
-          newFilter = { geo_shape: {} };
-          newFilter.geo_shape[field] = {
-            shape: {
-              type: 'Polygon',
-              coordinates: [closed]
-            }
-          };
-        } else {
-          field = agg.fieldName();
-          newFilter = { geo_polygon: {} };
-          newFilter.geo_polygon[field] = { points: event.points };
-        }
+      //   var newFilter = void 0;
+      //   var field = void 0;
+      //   if (event.params.filterByShape && event.params.shapeField) {
+      //     var firstPoint = event.points[0];
+      //     var closed = event.points;
+      //     closed.push(firstPoint);
+      //     field = event.params.shapeField;
+      //     newFilter = { geo_shape: {} };
+      //     newFilter.geo_shape[field] = {
+      //       shape: {
+      //         type: 'Polygon',
+      //         coordinates: [closed]
+      //       }
+      //     };
+      //   } else {
+      //     field = agg.fieldName();
+      //     newFilter = { geo_polygon: {} };
+      //     newFilter.geo_polygon[field] = { points: event.points };
+      //   }
 
-        geoFilter.add(newFilter, field, indexPatternName);
-      },
+      //   geoFilter.add(newFilter, field, indexPatternName);
+      // },
       rectangle: function rectangle(event) {
         var agg = _.get(event, 'chart.geohashGridAgg');
         if (!agg) return;

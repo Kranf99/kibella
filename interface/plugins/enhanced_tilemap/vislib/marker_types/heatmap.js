@@ -184,8 +184,8 @@ define(function (require) {
       var mapData = this.geoJson;
 
       return this.geoJson.features.map(function (feature) {
-        var lat = feature.properties.center[0];
-        var lng = feature.properties.center[1];
+        var lng = feature.properties.center[0];
+        var lat = feature.properties.center[1];
         var heatIntensity = void 0;
 
         if (!self._attr.heatNormalizeData) {

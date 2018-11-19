@@ -5,6 +5,7 @@ define(function (require) {
     require('plugins/settings/sections/indices/index'),
     require('plugins/settings/sections/advanced/index'),
     require('plugins/settings/sections/objects/index'),
+    require('plugins/settings/sections/personalization/index'),
     require('plugins/settings/sections/about/index')
   ];
 });

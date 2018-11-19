@@ -23,14 +23,14 @@ define(function (require) {
       var min = this.getMin;
       var max = this.geoJson.properties.allmax;
 
-      // multiplier to reduce size of all circles
-      var scaleFactor = 0.8;
+      // multiplier to reduce shade of all circles
+      var shadeFactor = 0.8;
 
       this._createMarkerGroup({
         pointToLayer: function pointToLayer(feature, latlng) {
-          var radius = self._geohashMinDistance(feature) * scaleFactor;
-					self.applyShadingStyle(50);
-          return L.circleMarker(latlng).setRadius(2);
+          var shade = self._geohashMinDistance(feature) * shadeFactor;
+					self.applyShadingStyle(shade);
+          return L.circleMarker(latlng).setRadius(6);
         }
       });
     }

@@ -2,8 +2,8 @@ define(function (require) {
   
   require('plugins/kibana-slider-plugin/slider.less');
   require('plugins/kibana-slider-plugin/sliderController');
-  require('plugins/kibana-slider-plugin/bower_components/angularjs-slider/dist/rzslider.css');
-  require('plugins/kibana-slider-plugin/bower_components/angularjs-slider/dist/rzslider.min.js');
+  require('angularjs-slider/dist/rzslider.css');
+  require('angularjs-slider/dist/rzslider.min.js');
   require('ui/registry/vis_types').register(SliderVisProvider);
 
   function SliderVisProvider(Private) {

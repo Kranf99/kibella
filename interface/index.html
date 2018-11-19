@@ -60,7 +60,7 @@
 		}
 	</style>
   </head>
-  <body kibana ng-class="'application-' + activeApp.id">
+  <body kibana ng-class="'application-' + activeApp.id + ' ' + theme">
 
   	<div id="loading-background">
   	<div id="glow"></div>
@@ -209,7 +209,8 @@
 	
 	<script>
       dots();
-
+	  checkLoadingTheme();
+	  
       function dots(){
       	return window.setInterval(function() {
 					var wait = document.getElementById("wait");
@@ -225,7 +226,14 @@
 
       function clear() {
       	window.clearInterval(dots());
-      }
+	  }
+
+	  	function checkLoadingTheme() {
+			var cookiestring=RegExp(""+"theme"+"[^;]+").exec(document.cookie);
+			if(cookiestring !== null && cookiestring[0].split("=")[1] === 'dark') {
+				document.getElementById('loading-background').style.background = "#323138";
+			}
+		}
 	  
     </script>
 

@@ -28,7 +28,7 @@ define(function (require) {
       this._createMarkerGroup({
         pointToLayer: function pointToLayer(feature, latlng) {
           var scaledRadius = self._radiusScale(feature);
-          return L.circleMarker(latlng).setRadius(2);
+          return L.circleMarker(latlng).setRadius(scaledRadius);
         }
       });
     }

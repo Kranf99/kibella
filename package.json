@@ -11,6 +11,9 @@
     "grunt-webpack": "^1.0.18"
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
+    "bootstrap": "^4.1.3",
+    "font-awesome": "^4.7.0",
     "webpack": "1.14.0",
     "webpack-core": "^0.6.9"
   },
