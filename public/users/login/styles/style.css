@@ -4,10 +4,10 @@ html, body {
 }
 
 div.container {
-  position: absolute;
-  top: 50vh;
-  transform: translateY(-50%);
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .logo {

@@ -16,13 +16,13 @@ define(function (require) {
     var uiStateSort = ($scope.uiState) ? $scope.uiState.get('vis.params.sort') : {};
     assign($scope.vis.params.sort, uiStateSort);
 
-    var Plotly = require('plotly.js/dist/plotly.min');
+    var Plotly = require('plotly.js/dist/plotly-basic');
 
     var randomColor = require('randomcolor');
 
-    $scope.$watchMulti(['esResponse', 'vis.params'], function ([resp]) {
-      if (resp) {
-
+    $scope.$watchMulti(['esResponse', 'vis.params'], function (resp) {
+      if (resp.length > 0) {
+        resp = resp[0];
         //Names of the field that have been selected
         var firstFieldAggId = $scope.vis.aggs.bySchemaName['field'][0].id;
         var fieldAggName = $scope.vis.aggs.bySchemaName['field'][0].params.field.displayName;
@@ -78,8 +78,8 @@ define(function (require) {
         // compite size for single bucket
         if (metricsAgg_radius) {
           var firstBuketSized = resp.aggregations[firstFieldAggId].buckets.map(function (b) { return metricsAgg_radius.getValue(b) })
-          var max = Math.max(...firstBuketSized)
-          var min = Math.min(...firstBuketSized)
+          var max = Math.max.apply(null, firstBuketSized)
+          var min = Math.min.apply(null, firstBuketSized)
           var chartMin = 10
           var chartMax = 100
           var step = max - min

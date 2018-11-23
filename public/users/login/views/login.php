@@ -36,7 +36,7 @@
                 <input type="password" id="password" name="password" placeholder="Password" class="form-control input">
               </div>
               <button type="submit" name="login" class="submit-button">Sign in</button>
-            <p class="message"><small>(The Default Login is "admin@kibella.fr" with an empty password)</small></br></p>
+            <p class="message"><small>(The Default Login is "admin@kibella.fr" with an empty password)</small><br/></p>
             </form>
           </div>
         </div>
