@@ -35,7 +35,6 @@
     <div class="button-group" role="toolbar" ng-show="user">
 			<kbn-tooltip text="New Dashboard" placement="bottom" append-to-body="1">
         <button ng-click="newDashboard()" aria-label="New Dashboard" class="big">
-          <!--<i aria-hidden="true" class="fa fa-file-new-o"></i>-->
           <i aria-hidden="true" class="fa fa-plus"></i>
 					<!--New-->
         </button>
@@ -77,14 +76,14 @@
         </button>
 			</kbn-tooltip>
         <button
-          aria-label="Add Visualization"
+          aria-label="Add"
           aria-haspopup="true"
           aria-expanded="{{ configTemplate.is('pickVis') }}"
           ng-class="{active: configTemplate.is('pickVis')}"
-          ng-click="configTemplate.toggle('pickVis');"
+          ng-click="configTemplate.toggle('pickVis'); onToggle();"
           class="inverse-color">
           <i aria-hidden="true" class="fa fa-cube"></i>
-          Add visualization
+          Add
         </button>
     </div>
   </navbar>

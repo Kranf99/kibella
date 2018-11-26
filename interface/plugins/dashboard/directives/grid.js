@@ -58,6 +58,8 @@ define(function (require) {
           });
 
   
+          
+
           $scope.$watchCollection('state.panels', function (panels) {
             var currentPanels = gridster.$widgets.toArray().map(function (el) {
               return getPanelFor(el);
@@ -133,8 +135,14 @@ define(function (require) {
           panel.$el.removeData('$scope');
         };
 
-        // tell gridster to add the panel, and create additional meatadata like $scope
+        // tell gridster to add the panel, and create additional metaadata like $scope
         var addPanel = function (panel) {
+          var isNew = false
+          if(!panel.hasOwnProperty(isNew)) {
+            delete panel.isNew
+            isNew = true
+          }
+
           _.defaults(panel, {
             size_x: 6,
             size_y: 4
@@ -157,15 +165,22 @@ define(function (require) {
 
           panel.$el = $compile('<li><dashboard-panel></li>')(panel.$scope);
 
-          // tell gridster to use the widget
-          gridster.add_widget(panel.$el, panel.size_x, panel.size_y, panel.col, panel.row);
 
+          // tell gridster to use the widget
+          el = gridster.add_widget(panel.$el, panel.size_x, panel.size_y, panel.col, panel.row);
+          
           // update size/col/etc.
           refreshPanelStats(panel);
-
+       
           // stash the panel and it's scope in the element's data
           panel.$el.data('panel', panel);
           panel.$el.data('$scope', panel.$scope);
+
+          if(isNew) {
+              $('html, body').animate({
+                scrollTop: el.offset().top
+            }, 0);
+          }
         };
 
         // ensure that the panel object has the latest size/pos info

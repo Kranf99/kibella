@@ -178,8 +178,9 @@ define(function (require) {
 
         // called by the saved-object-finder when a user clicks a vis
         $scope.addVis = function (hit) {
+          $scope.configTemplate.close('pickVis');
           pendingVis++;
-          $state.panels.push({ id: hit.id, type: 'visualization' });
+          $state.panels.push({ id: hit.id, type: 'visualization', isNew: true });
         };
 
         $scope.addSearch = function (hit) {
