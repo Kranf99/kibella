@@ -102,6 +102,7 @@
     "net": "^1.0.2",
     "ng-clip": "^0.2.6",
     "numeral": "^1.5.3",
+    "plotly.js": "^1.42.5",
     "randomcolor": "^0.5.3",
     "request": "^2.40.0",
     "require-css": "^0.1.10",

@@ -6,21 +6,23 @@
     <div class="clearfix visible-xs-block"></div>
     <input
       ng-model="filter"
-      ng-attr-placeholder="{{noun}} Filter"
+      ng-attr-placeholder="Search for {{noun}}"
       class="finder-input"
       name="filter"
-      type="text">
+      type="text"
+      >
       <span class="finder-hit-count"><strong>{{hitCount}}</strong> {{type}}</span>
   </div>
 </form>
-<paginate list="hits | orderBy:'title'" per-page="15">
+<paginate list="hits | orderBy:'title'" per-page="5">
   <ul class="list-group list-group-menu">
     <a class="list-group-item list-group-menu-item"
       ng-repeat="hit in page"
       ng-href="{{ makeUrl(hit) }}"
-      ng-click="onChoose(hit, $event)">
+      ng-click="onChoose(hit, $event)"
+      >
       <li>
-        <i aria-hidden="true" class="fa" ng-if="hit.icon" ng-class="hit.icon"></i> {{hit.title}}
+        <span aria-hidden="true" class="icon" ng-if="hit.icon"><i class="fa" ng-class="hit.icon"></i></span> {{hit.title}}
         <p ng-if="hit.description" ng-bind="hit.description"></p>
       </li>
     </a>

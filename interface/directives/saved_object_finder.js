@@ -30,7 +30,7 @@ define(function (require) {
         // optional make-url attr, sets the userMakeUrl in our scope
         userMakeUrl: '=?makeUrl',
         // optional on-choose attr, sets the userOnChoose in our scope
-        userOnChoose: '=?onChoose'
+        userOnChoose: '=?onChoose',
       },
       template: require('text!partials/saved_object_finder.html'),
       link: function ($scope, $el) {
