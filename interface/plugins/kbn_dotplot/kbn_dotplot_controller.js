@@ -23,6 +23,7 @@ define(function (require) {
     $scope.$watchMulti(['esResponse', 'vis.params'], function (resp) {
       if (resp.length > 0) {
         resp = resp[0];
+        Plotly.purge(Plotly.d3.select($element[0]).node());
         //Names of the field that have been selected
         var firstFieldAggId = $scope.vis.aggs.bySchemaName['field'][0].id;
         var fieldAggName = $scope.vis.aggs.bySchemaName['field'][0].params.field.displayName;
@@ -165,7 +166,6 @@ define(function (require) {
             var queryFilter = Private(require('ui/filter_bar/query_filter'));
             var buildQueryFilter = require('ui/filter_manager/lib/query');
             
-            Plotly.purge(gd);
             var field1 = $scope.vis.aggs.bySchemaName['field'][0].params.field.displayName;
             var match = {};
             match[field1] = { 'query': pts.data.field1, 'type': 'phrase' }
