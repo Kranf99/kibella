@@ -1,4 +1,4 @@
-KIBELLA 1.0
+KIBELLA 1.2
 Copyright 2016 Frank Vanden berghen
 All Right reserved.
 
@@ -6,23 +6,24 @@ Kibella is distributed under the Aladdin Free Public License
 (Version 8, November 18, 1999). 
 See the file "AFPL-license.txt" about the exact licensing terms
 
-If you are interested in obtaining a different licence for 
-Kibella (other than the Aladdin Free Public License), please 
+If you are interested in obtaining a different licence for
+Kibella (other than the Aladdin Free Public License), please
 contact Frank Vanden Berghen at frank@timi.eu.
 
 The Kibella software is composed of:
  * the files located inside these directories and subdirectories:
-     default_data/*
-     dev/*
      interface/* (with the exception of interface/node_modules/*)
      public/*
-     forms/*
  * the following additional files:
-     favicon.ICO
+     ../data/income.sqlite
+     ../data/testGeoPoint.sqlite
+     dev/*
+     forms/*
+     ../favicon.ico
      .gitignore
      .htaccess
      .ovhconfig
-     AFPL-license.txt
+     license.txt
      Gruntfile.js
 
 In Particular, Kibella does NOT include the following files that are the work of others:
@@ -32,13 +33,13 @@ In Particular, Kibella does NOT include the following files that are the work of
    tempdata/*
    kibella.ini
 
-
-The Kibella software is partially based on "Kibana 4.1.2". The files that originated
-from "Kibana 4.1.2." are limited to the directory "interface". Kibana 
-belongs to Elasticsearch BV. "Kibana 4.1.2." is distributed and Licensed under the 
-"Apache License, Version 2.0". You may obtain a copy of the Apache License at:
+The first, initial version of the Kibella software was partially based on
+"Kibana 4.1.2". The files that originated from "Kibana 4.1.2." are limited to
+the directory "interface".Kibana belongs to Elasticsearch BV. "Kibana 4.1.2."
+is distributed and Licensed under the "Apache License, Version 2.0". You may
+obtain a copy of the Apache License at:
   http://www.apache.org/licenses/LICENSE-2.0
-Here is an Extract of the "Apache License, Version 2.0" linked to "Kibana 4.1.2.":
+Here is an Extract of the "Apache License, Version 2.0" related to "Kibana 4.1.2.":
 
       You may reproduce and distribute copies of the
       Work or Derivative Works thereof in any medium, with or without
