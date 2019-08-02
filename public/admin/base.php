@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-sm-12">
         <nav>
-          <div class="logo"></div>
+          <a href="./../../.."><div class="logo"></div></a>
           
           <ul>
             <li class="<?php if($page == 'users_manage'){ echo 'active'; } ?>"><a href="../users/manage.php"><i class="fa fa-users"></i> Manage Users</a></li>
@@ -29,9 +29,6 @@
             <li class="<?php if($page == 'caches_delete'){ echo 'active'; } ?>"><a href="../caches/delete.php"><i class="fa fa-archive"></i> Delete Cache</a></li>
           </ul>
 
-          <ul class="bottom">
-            <li><a href="./../../.."><i class="fa fa-home"></i> Home</a></li>
-          </ul>
         </nav>
         <div class="content animated fadeIn">
           <?php
