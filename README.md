@@ -25,7 +25,7 @@ inside the additional GitHub Project named "Kibella_WAMP".
 
 
 ---
-# Installation for Simple Users (i.e. non developpers)
+# Installation for Simple Users (i.e. non developers)
 
 1. Linux/LAMP Installation.
    * Copy the Kibella files inside a directory XX served by Apache.
@@ -55,9 +55,9 @@ RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
    * unzip the file "default_data/income.zip" inside the directory XX/../data
 
 
-# Installation for Developpers
+# Installation for Developers
 
-For windows developpers, the best way to work on Kibella is to use the 
+For windows developers, the best way to work on Kibella is to use the 
 "Ubuntu on Windows". More information on this subject here:
   https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
@@ -101,7 +101,7 @@ and keep the process alive for watching your modifications (webpack --watch)*
 ---
 
 
-# Troubleshooting.
+# Troubleshooting
 
 1. Troubleshooting Linux Installation
 
