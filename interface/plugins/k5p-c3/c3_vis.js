@@ -10,17 +10,17 @@ define(function (require) {
   require('ui/registry/vis_types').register(c3VisProvider);
 
   // Require the JavaScript CSS file
-  require('c3/c3.css');
+ // require('c3/c3.css');
 
   function c3VisProvider(Private) {
       var TemplateVisType = Private(TemplateVisTypeTemplateVisTypeProvider);
       var Schemas = Private(VisSchemasProvider);
     
       return new TemplateVisType({
-        name: 'c3Charts',
-        title: 'C3 charts widget',
-        icon: 'fa-spinner',
-        description: 'This is Kibella 5 plugin which uses the JavaScript library C3.js for data representations.',
+        name: 'c3Charts', // Unchanged for not bothering current kibella users
+        title: 'Plotly Chart',
+        icon: 'fa-bar-chart',
+        description: 'This is Kibella 5 plugin which uses the JavaScript library Plotly for data representations.',
         template: c3VisTemplate,
         params: {
           defaults: {

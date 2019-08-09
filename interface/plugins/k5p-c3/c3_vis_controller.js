@@ -4,9 +4,10 @@ var errors = require('components/errors');
 
 // get the kibana/table_vis module, and make sure that it requires the "kibana" module if it didn't already
 var module = uiModules.get('kibana/c3_vis', ['kibana']);
+var ResizeSensor = require('css-element-queries/src/ResizeSensor');
 
-// Require C3.js
-var c3 = require('c3');
+// Require Plotly
+var Plotly = require('plotly.js/dist/plotly-basic');
 
 function getValuesOfObject(obj) {
   var r = [];
@@ -22,7 +23,6 @@ Array.prototype.min = function() {
 };
 
 module.controller('KbnC3VisController', function($scope, $element, Private){
-
 	var hold ="";
 	var wold= "";
 	$scope.$root.label_keys = [];
@@ -35,6 +35,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 	var chart_labels = {};
 	var x_label = "";
 	var time_format = "";
+
 
 	// Identify the div element in the HTML
 	var idchart = $element.children().find(".chartc3");
@@ -51,9 +52,9 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 
 
 	// C3JS chart generator
-	$scope.chart = null;
+	
 	$scope.chartGen = function(){
-
+		$scope.chart = null;
 		// change bool value
 		$scope.$root.show_chart = true;
 
@@ -66,9 +67,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			if (i == 0){
 				data_colors[chart] = $scope.vis.params.color1;
 				data_types[chart] = $scope.vis.params.type1;
-			
 			} else if (i == 1){
-			
 				data_colors[chart] = $scope.vis.params.color2;
 				data_types[chart] = $scope.vis.params.type2;
 			
@@ -84,9 +83,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 				data_colors[chart] = $scope.vis.params.color5;
 				data_types[chart] = $scope.vis.params.type5;
 			}
-
 			i++;
-
 		});
 
 		// count bar charts and change bar ratio
@@ -114,33 +111,107 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 
 		var bucket_type = $scope.vis.aggs.bySchemaName['buckets'][0].type.name;
 
-		// define the data to representate
-
-		if (parsed_data.length == 1) {
-			var total_data = {'x': 'x1', 'columns': [timeseries, parsed_data[0]]};
-		} else if (parsed_data.length == 2) {
-			var total_data = {'x': 'x1', 'columns': [timeseries, parsed_data[0], parsed_data[1]]};
-		} else if (parsed_data.length == 3) {
-			var total_data = {'x': 'x1', 'columns': [timeseries, parsed_data[0], parsed_data[1], parsed_data[2]]};
-		} else if (parsed_data.length == 4) {
-			var total_data = {'x': 'x1', 'columns': [timeseries, parsed_data[0], parsed_data[1], parsed_data[2], parsed_data[3]]};
-		} else {
-			var total_data = {'x': 'x1', 'columns': [timeseries, parsed_data[0], parsed_data[1], parsed_data[2], parsed_data[3], parsed_data[4]]};
+		function range_array_to_string(r_arr) {
+			return r_arr.map(function(r_obj) { return r_obj.gte + " - " + r_obj.lt })
 		}
+		
+		var total_data = []
+		var p_data = parsed_data
+
+		if(bucket_type !== "histogram") {
+			p_data = p_data.reverse()
+		}
+
+		function gen_data(x, y, type, text, name, color) {
+			return {
+				x: x,
+				y: y,
+				type: type,
+				text: text,
+				textposition: "top center",
+				name: name,
+				marker: {
+					color: color,
+			  		size: 8,
+				}, 
+			}
+		}
+
+		p_data.map(function(el, i) {
+			var n = p_data[i][0]
+			p_data[i] = p_data[i].slice(1) // Remove first string
+
+			var x_v={};
+
+			if(bucket_type === "histogram") {
+				x_v = x_axis_values[0]
+			} else {	
+				x_v = range_array_to_string(x_axis_values[0])
+			}
+
+			var tot = gen_data(x_v, p_data[i], data_types[n], p_data[i], n, $scope.vis.params["color" + (i+1)])
+
+			switch($scope.vis.params["type"+(i+1)]) {
+				case "line":
+					tot.mode = "lines";
+					break;
+				case "scatter": 
+					tot.type = "scatter";
+					tot.mode = "";
+					break;
+				case "bar":
+					tot.mode = "bar";
+					break;
+				case "spline":
+					tot.line = {shape: "spline"};
+					tot.mode = "lines";
+					tot.type = "scatter";
+					break;
+				case "area":
+					tot.mode = "lines"
+					tot.fill = "tozeroy"
+					break;
+				case "step":
+					tot.line = {shape: "hvh"}
+					tot.mode = "lines"
+					break;
+				case "area-spline":
+					tot.line = {shape: "spline"}
+					tot.mode = "lines"
+					tot.fill = "tozeroy"
+					break;
+				case "area-step":
+					tot.line = {shape: "hvh"}
+					tot.mode = "lines"
+					tot.fill = "tozeroy"
+					break;
+			}
+
+			// "Hide Point" Parameter
+			if(!$scope.vis.params.hidePoints)
+				tot.mode = tot.mode.concat("+markers")
+
+			// "Data Labels" Parameter
+			if($scope.vis.params.dataLabels)
+				tot.mode = tot.mode.concat("+text")
+			
+			total_data.push(tot)
+
+
+		})
 
 		// largest number possible in JavaScript.
 		var global_min = Number.MAX_VALUE;
 
 		// Search the min value of the data
-		var parsed_data_copy = JSON.parse(JSON.stringify(parsed_data));
-
+		var parsed_data_copy = JSON.parse(JSON.stringify(parsed_data));	
 		var cada_array = parsed_data_copy.map(function(each_array){
 
 			each_array.splice(0, 1);
 
 			// ECMAScript 6 spread operator
 			//var each_array_min = Math.min(...each_array);
-      var each_array_min = each_array.min();
+	      	var each_array_min = each_array.min();
 			global_min = (each_array_min < global_min) ? each_array_min : global_min;
 
 		});
@@ -149,12 +220,6 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 
 		// configurate C3 object
 		var config = {};
-		config.bindto = idchart[0];
-		config.data = total_data;
-		config.data.types = data_types;
-		config.data.colors = data_colors;
-		config.data.labels = $scope.vis.params.dataLabels;
-		config.legend = {"position": $scope.vis.params.legend_position};
 
 		// timeseries config
 		if (bucket_type == "date_histogram" || bucket_type == "date_range"){
@@ -181,17 +246,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			if ($scope.vis.params.legend_position == "bottom"){
 				config.padding = {"right": 20};
 			}
-
-		// category data config
-		} else {
-
-			config.axis = {"x": {"label": {"text": x_label, "position": 'outer-center'}, "type":"category", "tick": {"multiline": false}}, "y": {"min": global_min, "padding": {"top": 30, "bottom": 1 }}};
-
-			if (timeseries.length-1 > 13 && $scope.vis.params.few_x_axis){
-				config.axis = {"x": {"label": {"text": x_label, "position": 'outer-center'}, "type":"category", "tick": {"fit": false, "multiline": false, "culling": {"max": 10}}}, "y": {"min": global_min, "padding": {"top": 30, "bottom": 1 }}};
-			}
 		}
-
 
 		// Group bar charts, we need 2+ bar charts and checked checkbox in params
 		if ($scope.$root.activate_grouped && $scope.vis.params.grouped){
@@ -217,19 +272,47 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			config.grid = {"x": {"show": true}, "y": {"show": true}};
 		}
 
-		// zoom and hide points features
-		config.point = {"show": !$scope.vis.params.hidePoints};
-		config.zoom = {"enabled" : $scope.vis.params.enableZoom};
+		var viscontainer = idchart[0].parentElement.parentElement;
 
-		// Generate and draw
-		$scope.chart = c3.generate(config);
+        function getSize() {
+          return { width: viscontainer.width,
+           // 'margin-left': (50 - viscontainer.width) / 2 + 'px',
 
-		// resize
-		var elem = $(idchart[0]).closest('div.visualize-chart');
-		var h = elem.height();
-		var w = elem.width();
-		$scope.chart.resize({height: h - 50, width: w - 50});        
+            height: viscontainer.height,
+            'margin-top': (50 - viscontainer.height) / 2 + 'px'
+          }
+		}
+		
+		// Legend Position & Orientation
+		var legend_v = {}
+		switch($scope.vis.params.legend_position) {
+			case "right": 	legend_v = { x: 1, y: 0.5, orientation: "v" }; 		break;
+			case "bottom": 	legend_v = { x: 0, y: -0.2, orientation: "h" }; 	break;
+			case "top": 	legend_v = { x: 0, y: 1.1, orientation: "h" }; 		break;
+		}
 
+		// Chart Layout
+		var layout = {
+			xaxis: { title: x_label, showgrid: $scope.vis.params.gridlines, fixedrange: !$scope.vis.params.enableZoom },
+			yaxis: { showgrid: $scope.vis.params.gridlines, fixedrange: !$scope.vis.params.enableZoom },
+			margin: { t: 0, l: 35, r: 5, b: 40},
+			hovermode: 'closest',
+			showlegend: true,
+			legend: legend_v,
+
+		  };
+
+		if($scope.vis.params.grouped)
+			layout.barmode = 'stack'
+
+		var gd3 = Plotly.d3.select(idchart[0])
+		var gd = gd3.node()
+		$scope.chart = null
+        $scope.chart = Plotly.newPlot(gd, total_data, layout, { showLink: false })
+
+		new ResizeSensor(viscontainer, function() {
+			Plotly.Plots.resize(gd)
+		});
 	};
 
 
@@ -264,7 +347,9 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 	};
 		
 	$scope.$watch('esResponse', function(resp){
+
 		if (resp) {
+			
 
 			if (!$scope.vis.aggs.bySchemaName['buckets']){
 				$scope.waiting = message;
@@ -278,35 +363,15 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			$scope.$root.label_keys = [];
 			$scope.processTableGroups(tabifyAggResponse($scope.vis, resp));
 
+			
 			// avoid reference between arrays!!!
 			timeseries = x_axis_values[0].slice();   
 			timeseries.splice(0,0,'x1');
+			
 			$scope.chartGen();
 		}
 
 	});
-
-	// Automatic resizing of graphics
-	$scope.$watch(
-		function () {
-			var elem = $(idchart[0]).closest('div.visualize-chart');
-			var h = elem.height();
-			var w = elem.width();
-
-			if (!$scope.chart) return;
-
-			if (idchart.length > 0 && h > 0 && w > 0) {
-
-				if (hold != h || wold != w) {
-					$scope.chart.resize({height: h - 50, width: w - 50});
-					hold = elem.height();
-					wold = elem.width();
-				}
-
-			}      
-		}, 
-		true
-	);
 
 });
 
