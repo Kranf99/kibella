@@ -46,9 +46,9 @@ define(function (require) {
     .config(routes.config)
     .run(function($rootScope){
         $rootScope.kbnPath = kbnPath;
-        $rootScope.defaultTheme = "bright";
-        $rootScope.theme = Cookies.get('theme') || $rootScope.defaultTheme;
-
+        //$rootScope.defaultTheme = "bright";
+        //$rootScope.theme = Cookies.get('theme') || $rootScope.defaultTheme;
+        $rootScope.theme = "bright";
     });
 
   // setup routes

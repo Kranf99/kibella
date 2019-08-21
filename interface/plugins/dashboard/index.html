@@ -74,6 +74,17 @@
           <i aria-hidden="true" class="fa fa-share-alt"></i>
 					<!--Share-->
         </button>
+      <kbn-tooltip text="Settings" placement="bottom" append-to-body="1">
+        <button
+          aria-label="Settings"
+          aria-haspopup="true"
+          aria-expanded="{{ configTemplate.is('settings') }}"
+          ng-class="{active: configTemplate.is('settings')}"
+          ng-click="configTemplate.toggle('settings');"
+          class="big">
+          <i aria-hidden="true" class="fa fa-cog"></i>
+          <!--Share-->
+        </button>
 			</kbn-tooltip>
         <button
           aria-label="Add"
@@ -83,7 +94,7 @@
           ng-click="configTemplate.toggle('pickVis'); onToggle();"
           class="inverse-color">
           <i aria-hidden="true" class="fa fa-cube"></i>
-          Add
+          Add Visualization
         </button>
     </div>
   </navbar>

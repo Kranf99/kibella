@@ -9,31 +9,28 @@ define(function (require) {
   // register the provider with the visTypes registry
   require('ui/registry/vis_types').register(c3VisProvider);
 
-  // Require the JavaScript CSS file
- // require('c3/c3.css');
-
   function c3VisProvider(Private) {
       var TemplateVisType = Private(TemplateVisTypeTemplateVisTypeProvider);
       var Schemas = Private(VisSchemasProvider);
     
       return new TemplateVisType({
         name: 'c3Charts', // Unchanged for not bothering current kibella users
-        title: 'Plotly Chart',
+        title: 'Bar & Line',
         icon: 'fa-bar-chart',
-        description: 'This is Kibella 5 plugin which uses the JavaScript library Plotly for data representations.',
+        description: 'This is Kibella plugin which uses the JavaScript library Plotly for data representations.',
         template: c3VisTemplate,
         params: {
           defaults: {
-            type1: 'line',
-            color1: '#1f77b4',
-            type2: 'line',
-            color2: '#ff7f0e',
-            type3: 'line',
-            color3: '#2ca02c', 
-            type4: 'line',
-            color4: '#d62728',
-            type5: 'line',
-            color5: '#9467bd',
+            type1: 'bar',
+            color1: 'rgb(212, 115, 255)',
+            type2: 'bar',
+            color2: 'rgb(118, 93, 224)',
+            type3: 'bar',
+            color3: 'rgb(112, 145, 255)', 
+            type4: 'bar',
+            color4: 'rgb(142, 216, 243)',
+            type5: 'bar',
+            color5: 'rgb(188, 82, 188)',
             enableZoom: false,
             dataLabels: false,
             hidePoints: false,

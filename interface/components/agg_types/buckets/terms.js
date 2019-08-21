@@ -25,7 +25,7 @@ define(function (require) {
 
     return new BucketAggType({
       name: 'terms',
-      title: 'Terms',
+      title: 'Groups',
       makeLabel: function (agg) {
         var params = agg.params;
         if (params.size > 0) {

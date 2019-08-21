@@ -81,9 +81,14 @@ define(function (require) {
      * @returns {void}
      */
     State.prototype.save = function (replace) {
+      
+      
+
       var stash = this._readFromURL();
       var state = this.toObject();
       replace = replace || false;
+
+      console.log(stash, state, this)
 
       if (!stash) {
         replace = true;

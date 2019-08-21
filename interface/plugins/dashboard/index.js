@@ -1,4 +1,4 @@
-define(function (require) {
+  define(function (require) {
   var _ = require('lodash');
   var $ = require('jquery');
   var angular = require('angular');
@@ -49,7 +49,7 @@ define(function (require) {
 
   app.directive('dashboardApp', function (Notifier, courier, AppState, timefilter, kbnUrl) {
     return {
-      controller: function ($scope, $route, $routeParams, $location, $http, kbnPath, configFile, Private, getAppState) {
+      controller: function ($scope, $rootScope, $route, $routeParams, $location, $http, kbnPath, configFile, Private, getAppState) {
         var queryFilter = Private(require('components/filter_bar/query_filter'));
 
         var notify = new Notifier({
@@ -63,7 +63,12 @@ define(function (require) {
           timefilter.time.from = dash.timeFrom;
         }
 
-        $scope.shared = dash.shared === "1" ? true : false;
+        if(dash.shared === 1 || dash.shared === "1")
+          $scope.shared = true
+        else if(dash.shared === 0 || dash.shared === "0")
+          $scope.shared = false
+        else
+          console.error("Invalid value: shared must be 1 or 0 (Number or String)")
 
         $scope.$on('$destroy', dash.destroy);
 
@@ -80,7 +85,8 @@ define(function (require) {
           title: dash.title,
           panels: dash.panelsJSON ? JSON.parse(dash.panelsJSON) : [],
           query: extractQueryFromFilters(dash.searchSource.getOwn('filter')) || {query_string: {query: '*'}},
-          filters: _.reject(dash.searchSource.getOwn('filter'), matchQueryFilter)
+          filters: _.reject(dash.searchSource.getOwn('filter'), matchQueryFilter),
+          theme: $rootScope.theme
         };
 
         var $state = $scope.state = new AppState(stateDefaults);
@@ -89,7 +95,8 @@ define(function (require) {
           save: require('text!plugins/dashboard/partials/save_dashboard.html'),
           load: require('text!plugins/dashboard/partials/load_dashboard.html'),
           share: require('text!plugins/dashboard/partials/share.html'),
-          pickVis: require('text!plugins/dashboard/partials/pick_visualization.html')
+          pickVis: require('text!plugins/dashboard/partials/pick_visualization.html'),
+          settings: require('text!plugins/dashboard/partials/settings.html')
         });
 
         $scope.refresh = _.bindKey(courier, 'fetch');
@@ -113,6 +120,7 @@ define(function (require) {
 
         function updateQueryOnRootSource() {
           var filters = queryFilter.getFilters();
+         
           if ($state.query) {
             dash.searchSource.set('filter', _.union(filters, [{
               query: $state.query
@@ -129,7 +137,8 @@ define(function (require) {
         });
 
         // update data when filters fire fetch event
-        $scope.$listen(queryFilter, 'fetch', $scope.refresh);
+        $scope.$listen(queryFilter, 'fetch',  $scope.refresh);
+
 
         $scope.newDashboard = function () {
           kbnUrl.change('/dashboard', {});
@@ -143,11 +152,14 @@ define(function (require) {
 
         $scope.save = function () {
           $state.title = dash.id = dash.title;
+          $state["theme"] = $rootScope.theme;
           $state.save();
           dash.panelsJSON = angular.toJson($state.panels);
           dash.timeFrom = dash.timeRestore ? timefilter.time.from : undefined;
           dash.timeTo = dash.timeRestore ? timefilter.time.to : undefined;
 
+          console.log(dash)
+          dash["theme"] = $rootScope.theme;
           dash.save()
           .then(function (id) {
             $scope.configTemplate.close('save');
@@ -176,6 +188,8 @@ define(function (require) {
           $state.save();
         });
 
+
+
         // called by the saved-object-finder when a user clicks a vis
         $scope.addVis = function (hit) {
           $scope.configTemplate.close('pickVis');
@@ -187,6 +201,12 @@ define(function (require) {
           pendingVis++;
           $state.panels.push({ id: hit.id, type: 'search' });
         };
+
+
+        
+        $rootScope.theme = $state["theme"]
+        //$state["theme"] = $rootScope.theme
+        console.log(dash)
         
         // Setup configurable values for config directive, after objects are initialized
         $scope.opts = {
@@ -195,6 +215,15 @@ define(function (require) {
           addVis: $scope.addVis,
           addSearch: $scope.addSearch,
           isShared: $scope.shared,
+          themes: ["bright", "dark"],
+          selectedTheme: $rootScope.theme || $rootScope.defaultTheme,
+          updateTheme: function(e) {
+            console.log(this, $scope.opts)
+            console.log($rootScope)
+            $rootScope.theme = $scope.opts.selectedTheme;
+            $state["theme"] = $scope.opts.selectedTheme;
+            $scope.refresh();
+          },
           changeShared: function() {
             $http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/changeShared.php', { id: $route.current.params.id, sharedValue: $scope.opts.isShared });
           },
@@ -202,7 +231,6 @@ define(function (require) {
             return {
               link: $location.absUrl(),
               rolink: $location.absUrl().replace('?', '?embed&'),
-              // This sucks, but seems like the cleanest way. Uhg.
               embed: '<iframe src="' + $location.absUrl().replace('?', '?embed&') +
                 '" height="600" width="800"></iframe>'
             };

@@ -118,6 +118,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		var total_data = []
 		var p_data = parsed_data
 
+
 		if(bucket_type !== "histogram") {
 			p_data = p_data.reverse()
 		}
@@ -132,7 +133,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 				name: name,
 				marker: {
 					color: color,
-			  		size: 8,
+			  		size: 6,
 				}, 
 			}
 		}
@@ -143,7 +144,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 
 			var x_v={};
 
-			if(bucket_type === "histogram") {
+			if(bucket_type === "histogram" || bucket_type === "terms" || bucket_type === "filters") {
 				x_v = x_axis_values[0]
 			} else {	
 				x_v = range_array_to_string(x_axis_values[0])
@@ -185,6 +186,10 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 					tot.mode = "lines"
 					tot.fill = "tozeroy"
 					break;
+				default:
+					tot.mode = "bar";
+					break;
+
 			}
 
 			// "Hide Point" Parameter
@@ -199,6 +204,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 
 
 		})
+
 
 		// largest number possible in JavaScript.
 		var global_min = Number.MAX_VALUE;
@@ -291,16 +297,37 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			case "top": 	legend_v = { x: 0, y: 1.1, orientation: "h" }; 		break;
 		}
 
+		console.log($scope.vis.aggs[1].params.interval)
+
 		// Chart Layout
 		var layout = {
-			xaxis: { title: x_label, showgrid: $scope.vis.params.gridlines, fixedrange: !$scope.vis.params.enableZoom },
-			yaxis: { showgrid: $scope.vis.params.gridlines, fixedrange: !$scope.vis.params.enableZoom },
-			margin: { t: 0, l: 35, r: 5, b: 40},
+			autosize: true,
+			xaxis: { 
+				title: x_label,
+				showgrid: $scope.vis.params.gridlines,
+				fixedrange: !$scope.vis.params.enableZoom,
+				automargin: true
+			},
+			yaxis: { 
+				showgrid: $scope.vis.params.gridlines,
+				fixedrange: !$scope.vis.params.enableZoom,
+				automargin: true
+			},
+			margin: { t: 0, l: 35, r: 5, b: 50},
 			hovermode: 'closest',
 			showlegend: true,
 			legend: legend_v,
-
+			hoverlabel: {
+        bgcolor: 'lightgrey',
+        bordercolor: 'darkgrey',
+        font: {
+          color: 'blue',
+          family: 'Open Sans',
+          size: 16
+    }
+  }
 		  };
+
 
 		if($scope.vis.params.grouped)
 			layout.barmode = 'stack'
@@ -309,6 +336,40 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		var gd = gd3.node()
 		$scope.chart = null
         $scope.chart = Plotly.newPlot(gd, total_data, layout, { showLink: false })
+
+        if(viscontainer) {
+        	gd.on('plotly_click', function(d){
+        	
+            var pts = d.points[0];
+            var queryFilter = Private(require('ui/filter_bar/query_filter'));
+            var buildQueryFilter = require('ui/filter_manager/lib/query');
+            var buildRangeFilter = require('ui/filter_manager/lib/range');
+
+            if(bucket_type === "terms") {
+	            var field1 = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
+	            var match = {};
+	            match[field1] = { 'query': pts.x, 'type': 'phrase' }
+	            queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
+        	}
+        	else if(bucket_type === "histogram") {
+        		var field = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
+        		var match = {};
+	            match[field] = { 'query': pts.x, 'type': 'number' }
+        		//queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
+	            queryFilter.addFilters(buildRangeFilter({name: $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName},
+                                            {gte: pts.x, lte: pts.x + (pts.data.x[pts.data.x.length-1] - pts.data.x[pts.data.x.length-2] - 1) },
+                                            $scope.vis.indexPattern));
+
+        	} else if(bucket_type === "range") {
+        		var field = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
+        		var range = {};
+        		var filter_values = pts.x.split(' - ')
+        		queryFilter.addFilters(buildRangeFilter({name: $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName},
+                                            {gte: filter_values[0]   , lte: filter_values[1] },
+                                            $scope.vis.indexPattern));
+        	}
+          });
+        }
 
 		new ResizeSensor(viscontainer, function() {
 			Plotly.Plots.resize(gd)
@@ -324,7 +385,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 				var tmp = [];
 
 				for (var val in data){
-          if(data[val][i])
+          			if(data[val][i] || data[val][i] === 0)
 					  tmp.push(data[val][i]);
 				}
 
@@ -349,7 +410,6 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 	$scope.$watch('esResponse', function(resp){
 
 		if (resp) {
-			
 
 			if (!$scope.vis.aggs.bySchemaName['buckets']){
 				$scope.waiting = message;

@@ -1,7 +1,5 @@
 <div class="background-step-1"></div>
 
-
-
 <div style="flex: 0 0 30%;     height: 100vh;
     overflow-y: scroll;">
 <!--<h1 class="wizard-title"><span class="fa fa-open"></span> Open Visualization</h1>-->
@@ -12,17 +10,29 @@
   title="Saved Visualizations"
   type="visualizations"
   hideindex="true"
+  per-page="15"
   >
 </saved-object-finder>
 </div>
 
-<div style="flex: 0 0 70%;     height: 100vh;
+<div style="flex: 0 0 70%; height: 100vh;
     overflow-y: scroll;">
 
   <h1 class="wizard-title"><span class="fa fa-plus"></span> New Visualization</h1>
   <hr>
 
+  
+
   <div class="wizard-vis-types">
+    <h2 style="">Select Index Pattern</h2>
+    <select
+      style="width: 50%; margin: auto;"
+      class="form-control"
+      ng-init="indexPattern.selection = indexPattern.list[0]"
+      ng-model="indexPattern.selection"
+      ng-options="pattern as pattern for pattern in indexPattern.list | orderBy:'toString()'">
+    </select>
+    <h2>Select Visualization Type</h2>
     <a class="wizard-vis-type"
       ng-repeat="type in visTypes.inTitleOrder"
       ng-href="{{ visTypeUrl(type) }}">
@@ -35,6 +45,7 @@
     </a>
   </div>
 </div>
+
 
 
 <script>
