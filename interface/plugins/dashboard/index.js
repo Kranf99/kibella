@@ -227,24 +227,19 @@
             $state["theme"] = $scope.opts.selectedTheme;
 
             var s = $location.search()
-            console.log(s["_a"])
 
-            if(s["_a"] !== undefined) {
-              var e = rison.decode(s["_a"]);
-            console.log(s, e)
-            if(e.theme !== undefined) {
-              e.theme = $scope.opts.selectedTheme
+            if(s["_a"] === undefined) return;
+
+            var e = rison.decode(s["_a"]);
+            
+            if(e.theme === undefined) return;
+            
+            e.theme = $scope.opts.selectedTheme
             s["_a"] = rison.encode(e);
-
-            console.log(s)
-          //  s["_a"] = rison.encode(e);
-
             $location.search(s).replace();
-      //      console.log($location, $location.search(), e, s)
-        
-            }
-            }
-            $scope.refresh();
+          
+            
+           // $scope.refresh();
           },
           changeShared: function() {
             $http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/changeShared.php', { id: $route.current.params.id, sharedValue: $scope.opts.isShared });
