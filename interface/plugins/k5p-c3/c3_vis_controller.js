@@ -87,7 +87,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		});
 
 		// count bar charts and change bar ratio
-		var the_types = $scope.$root.label_keys.map(l => data_types[l]);
+		var the_types = $scope.$root.label_keys.map(function(l) { return data_types[l]; });
 		var chart_count = {};
 		the_types.forEach(function(i){ chart_count[i] = (chart_count[i] || 0)+1; });
 
@@ -259,7 +259,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		if ($scope.$root.activate_grouped && $scope.vis.params.grouped){
 
 			var los_keys = $scope.$root.label_keys;
-			var los_values = $scope.$root.label_keys.map(l => data_types[l]);
+			var los_values = $scope.$root.label_keys.map(function(l) { return data_types[l]; });
 			var group_charts = [];
 			var i = 0;
 			var are_they = los_values.map(function(chart_type){
@@ -314,7 +314,8 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			},
 			yaxis2: {
 				overlaying: 'y',
-    			side: 'right'
+				side: 'right',
+				automargin: true
 			},
 			margin: { t: 0, l: 35, r: 5, b: 50},
 			hovermode: 'closest',
@@ -338,7 +339,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		var gd3 = Plotly.d3.select(idchart[0])
 		var gd = gd3.node()
 		$scope.chart = null
-        $scope.chart = Plotly.newPlot(gd, total_data, layout, { showLink: false })
+        $scope.chart = Plotly.newPlot(gd, total_data, layout, { showLink: false, responsive: true })
 
         if(viscontainer) {
         	gd.on('plotly_click', function(d){
@@ -410,7 +411,8 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		$scope.$root.editorParams.label = chart_labels;
 	};
 		
-	function renderResp(resp = lastResp){
+	function renderResp(resp){
+		if(!resp) { resp = lastResp; }
 
 		if (resp) {
 

@@ -4,10 +4,11 @@ define(function (require) {
     var Table = Private(require('components/agg_response/tabify/_table'));
     var requestQueue = Private(require('components/courier/_request_queue'));
     var callClient = Private(require('components/courier/fetch/_call_client'));
+    var _ = require('lodash');
 
     function groupAggs(name, aggs) {
       aggs[0].key = name;
-      return aggs.reduce((acc, agg) => {
+      return aggs.reduce(function(acc, agg) {
         if('1' in acc && 'value' in acc['1']) {
           acc['1'].value += agg['1'].value;
         }
@@ -22,7 +23,7 @@ define(function (require) {
       if (vis.isHierarchical()) {
         if(vis.type.name == "pie" && vis.params.displayOther == true) {
           var source = courier.createSource('search');
-          source._state = Object.assign({}, requestQueue[requestQueue.length-1].source._state);
+          source._state = _.clone(requestQueue[requestQueue.length-1].source._state);
           var req = source._createRequest();
           
           var state = vis.getState();
@@ -30,14 +31,14 @@ define(function (require) {
           if(state.aggs.length > 1 && state.aggs[1].params.size > 0) {
             var aggs = req.source._state.aggs();
             aggs['2'].terms.size = 0;
-            req.source._state.aggs = () => aggs;
+            req.source._state.aggs = function() { return aggs };
             
-            return callClient(req.strategy, [req]).then((res) => {
+            return callClient(req.strategy, [req]).then(function(res) {
               res = res[0];
-              var allKeys = res.aggregations['2'].buckets.map(b => b.key);
-              var currentKeys = esResponse.aggregations['2'].buckets.map(b => b.key);
-              var otherKeys = allKeys.filter(i => currentKeys.indexOf(i) < 0);
-              var otherAggs = res.aggregations['2'].buckets.filter(agg => {
+              var allKeys = res.aggregations['2'].buckets.map(function(b){ return b.key; });
+              var currentKeys = esResponse.aggregations['2'].buckets.map(function(b){ return b.key; });
+              var otherKeys = allKeys.filter(function(i) { return currentKeys.indexOf(i) < 0; });
+              var otherAggs = res.aggregations['2'].buckets.filter(function(agg) {
                 return otherKeys.indexOf(agg.key) >= 0;
               });
               if(otherAggs.length > 0) {
