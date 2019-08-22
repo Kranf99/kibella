@@ -230,8 +230,6 @@ define(function (require) {
         raw: savedVis.title
       };
 
-      console.log(savedVis);
-
       savedVis.save()
       .then(function (id) {
         configTemplate.close('save');
