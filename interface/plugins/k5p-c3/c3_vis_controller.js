@@ -35,6 +35,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 	var chart_labels = {};
 	var x_label = "";
 	var time_format = "";
+	var lastResp = undefined;
 
 
 	// Identify the div element in the HTML
@@ -47,7 +48,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 
 		if (!$scope.$root.show_chart) return;
 		//if (Object.keys(params.editorPanel).length == 0 && params.enableZoom == previo_zoom) return;
-		$scope.chartGen();
+		renderResp();
 	});
 
 
@@ -59,11 +60,10 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		$scope.$root.show_chart = true;
 
 		//create data_colors object
-		var the_labels = Object.keys(chart_labels);
 		var data_colors = {};
 		var data_types = {};
 		var i = 0;
-		var create_color_object = the_labels.map(function(chart){
+		var create_color_object = $scope.$root.label_keys.map(function(chart){
 			if (i == 0){
 				data_colors[chart] = $scope.vis.params.color1;
 				data_types[chart] = $scope.vis.params.type1;
@@ -87,7 +87,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		});
 
 		// count bar charts and change bar ratio
-		var the_types = getValuesOfObject(data_types);
+		var the_types = $scope.$root.label_keys.map(l => data_types[l]);
 		var chart_count = {};
 		the_types.forEach(function(i){ chart_count[i] = (chart_count[i] || 0)+1; });
 
@@ -120,10 +120,10 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 
 
 		if(bucket_type !== "histogram") {
-			p_data = p_data.reverse()
+			//p_data = p_data.reverse()
 		}
 
-		function gen_data(x, y, type, text, name, color) {
+		function gen_data(x, y, type, text, name, color, rightY) {
 			return {
 				x: x,
 				y: y,
@@ -131,13 +131,14 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 				text: text,
 				textposition: "top center",
 				name: name,
+				yaxis: rightY ? "y2" : "y1",
 				marker: {
 					color: color,
 			  		size: 6,
 				}, 
 			}
 		}
-
+		
 		p_data.map(function(el, i) {
 			var n = p_data[i][0]
 			p_data[i] = p_data[i].slice(1) // Remove first string
@@ -150,7 +151,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 				x_v = range_array_to_string(x_axis_values[0])
 			}
 
-			var tot = gen_data(x_v, p_data[i], data_types[n], p_data[i], n, $scope.vis.params["color" + (i+1)])
+			var tot = gen_data(x_v, p_data[i], data_types[n], p_data[i], n, $scope.vis.params["color" + (i+1)], $scope.vis.params["rightY" + (i+1)])
 
 			switch($scope.vis.params["type"+(i+1)]) {
 				case "line":
@@ -257,8 +258,8 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		// Group bar charts, we need 2+ bar charts and checked checkbox in params
 		if ($scope.$root.activate_grouped && $scope.vis.params.grouped){
 
-			var los_keys = Object.keys(data_types);
-			var los_values = getValuesOfObject(data_types);
+			var los_keys = $scope.$root.label_keys;
+			var los_values = $scope.$root.label_keys.map(l => data_types[l]);
 			var group_charts = [];
 			var i = 0;
 			var are_they = los_values.map(function(chart_type){
@@ -297,8 +298,6 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			case "top": 	legend_v = { x: 0, y: 1.1, orientation: "h" }; 		break;
 		}
 
-		console.log($scope.vis.aggs[1].params.interval)
-
 		// Chart Layout
 		var layout = {
 			autosize: true,
@@ -312,6 +311,10 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 				showgrid: $scope.vis.params.gridlines,
 				fixedrange: !$scope.vis.params.enableZoom,
 				automargin: true
+			},
+			yaxis2: {
+				overlaying: 'y',
+    			side: 'right'
 			},
 			margin: { t: 0, l: 35, r: 5, b: 50},
 			hovermode: 'closest',
@@ -407,7 +410,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 		$scope.$root.editorParams.label = chart_labels;
 	};
 		
-	$scope.$watch('esResponse', function(resp){
+	function renderResp(resp = lastResp){
 
 		if (resp) {
 
@@ -431,7 +434,8 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			$scope.chartGen();
 		}
 
-	});
+	}
+	$scope.$watch('esResponse', renderResp);
 
 });
 
