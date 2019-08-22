@@ -15,6 +15,8 @@
   require('plugins/dashboard/services/saved_dashboards');
   require('css!plugins/dashboard/styles/main.css');
 
+  var rison = require('utils/rison');
+
   // require('plugins/dashboard/directives/share');
 
   var app = require('ui/modules').get('app/dashboard', [
@@ -207,7 +209,8 @@
         $rootScope.theme = $state["theme"]
         //$state["theme"] = $rootScope.theme
         console.log(dash)
-        
+
+          
         // Setup configurable values for config directive, after objects are initialized
         $scope.opts = {
           dashboard: dash,
@@ -222,6 +225,25 @@
             console.log($rootScope)
             $rootScope.theme = $scope.opts.selectedTheme;
             $state["theme"] = $scope.opts.selectedTheme;
+
+            var s = $location.search()
+            console.log(s["_a"])
+
+            if(s["_a"] !== undefined) {
+              var e = rison.decode(s["_a"]);
+            console.log(s, e)
+            if(e.theme !== undefined) {
+              e.theme = $scope.opts.selectedTheme
+            s["_a"] = rison.encode(e);
+
+            console.log(s)
+          //  s["_a"] = rison.encode(e);
+
+            $location.search(s).replace();
+      //      console.log($location, $location.search(), e, s)
+        
+            }
+            }
             $scope.refresh();
           },
           changeShared: function() {

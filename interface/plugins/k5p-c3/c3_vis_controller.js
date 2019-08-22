@@ -22,7 +22,7 @@ Array.prototype.min = function() {
   return Math.min.apply(null, this);
 };
 
-module.controller('KbnC3VisController', function($scope, $element, Private){
+module.controller('KbnC3VisController', function($scope, $element, Private, $location){
 	var hold ="";
 	var wold= "";
 	$scope.$root.label_keys = [];
@@ -324,10 +324,9 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
           color: 'blue',
           family: 'Open Sans',
           size: 16
-    }
-  }
-		  };
-
+    	}
+  	}
+		};
 
 		if($scope.vis.params.grouped)
 			layout.barmode = 'stack'

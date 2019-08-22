@@ -37,7 +37,6 @@ define(function (require) {
 
 
     this.find = function (searchString) {
-      debugger
       var self = this;
       var body;
       if (searchString) {
@@ -61,7 +60,6 @@ define(function (require) {
         size: 100
       })
       .then(function (resp) {
-        debugger
         return {
           total: resp.hits.total,
           hits: resp.hits.hits.map(function (hit) {
