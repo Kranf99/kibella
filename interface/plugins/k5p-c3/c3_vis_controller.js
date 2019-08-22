@@ -22,7 +22,7 @@ Array.prototype.min = function() {
   return Math.min.apply(null, this);
 };
 
-module.controller('KbnC3VisController', function($scope, $element, Private){
+module.controller('KbnC3VisController', function($scope, $element, Private, $location){
 	var hold ="";
 	var wold= "";
 	$scope.$root.label_keys = [];
@@ -130,7 +130,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 				type: type,
 				text: text,
 				textposition: "top center",
-				name: name,
+				name: "OK",
 				yaxis: rightY ? "y2" : "y1",
 				marker: {
 					color: color,
@@ -321,20 +321,24 @@ module.controller('KbnC3VisController', function($scope, $element, Private){
 			hovermode: 'closest',
 			showlegend: true,
 			legend: legend_v,
+			hoverinfo: "name",
 			hoverlabel: {
-        bgcolor: 'lightgrey',
+        bgcolor: '#ddd',
         bordercolor: 'darkgrey',
         font: {
-          color: 'blue',
-          family: 'Open Sans',
-          size: 16
-    }
-  }
-		  };
-
+          color: '#444',
+          family: 'Verdana',
+          size: 14
+    	}
+  	}
+		};
 
 		if($scope.vis.params.grouped)
 			layout.barmode = 'stack'
+
+		console.log($scope.vis.aggs)
+		if(bucket_type === "histogram")
+			layout.xaxis.dtick = $scope.vis.aggs[1].params.interval
 
 		var gd3 = Plotly.d3.select(idchart[0])
 		var gd = gd3.node()
