@@ -39,8 +39,7 @@ define(function (require) {
         var rangeFilter = buildRangeFilter({name: $scope.config.selectedField},
                                             value,
                                             $scope.vis.indexPattern);
-        console.log("okok")
-      console.log(rangeFilter);
+
         queryFilter.addFilters(rangeFilter);
       }
       else {

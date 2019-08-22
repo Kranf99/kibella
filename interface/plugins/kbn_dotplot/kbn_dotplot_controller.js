@@ -169,7 +169,6 @@ define(function (require) {
             var field1 = $scope.vis.aggs.bySchemaName['field'][0].params.field.displayName;
             var match = {};
             match[field1] = { 'query': pts.data.field1, 'type': 'phrase' }
-            console.log(match)
             queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
 
             if($scope.vis.aggs.bySchemaName['field'][1]) {

@@ -118,11 +118,6 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		var total_data = []
 		var p_data = parsed_data
 
-
-		if(bucket_type !== "histogram") {
-			//p_data = p_data.reverse()
-		}
-
 		function gen_data(x, y, type, text, name, color, rightY) {
 			return {
 				x: x,
@@ -130,7 +125,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 				type: type,
 				text: text,
 				textposition: "top center",
-				name: "OK",
+				name: name,
 				yaxis: rightY ? "y2" : "y1",
 				marker: {
 					color: color,
@@ -336,7 +331,6 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		if($scope.vis.params.grouped)
 			layout.barmode = 'stack'
 
-		console.log($scope.vis.aggs)
 		if(bucket_type === "histogram")
 			layout.xaxis.dtick = $scope.vis.aggs[1].params.interval
 
