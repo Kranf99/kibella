@@ -24,7 +24,7 @@ class User {
 
       $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
 
-      $sql = 'SELECT firstname, lastname, email
+      $sql = 'SELECT *
               FROM Users
               WHERE id = "' . $id . '"
               LIMIT 1';
@@ -62,7 +62,7 @@ class User {
       
       $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="sqlite");
 
-      if($result[0]['is_admin'] == "TRUE")
+      if($result[0]['is_admin'] == "true")
         return true;
     }
 

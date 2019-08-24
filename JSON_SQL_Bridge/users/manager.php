@@ -32,6 +32,8 @@ class UserManager {
   }
 
   public function getAll() {
+    $this->checkIfAdmin();
+    
     $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
 
     $sql = 'SELECT * FROM Users';
@@ -58,7 +60,9 @@ class UserManager {
     return false;
   }
 
-  private function register(){
+  public function register(){
+    $this->checkIfAdmin();
+
     if ($this->checkRegistrationData($edit=false)) {
       $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
       if ($this->db_connection) {
@@ -66,16 +70,18 @@ class UserManager {
       }
     }
     
-    return false;
+    return $this->error;
   }
 
-  private function delete() {
+  public function delete() {
+    $this->checkIfAdmin();
+
     $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
 
     if ($this->db_connection) {
       $email = addslashes(htmlentities($_POST["delete"], ENT_QUOTES));
 
-      $sql = 'DELETE FROM Users WHERE email = "' . $email . '" LIMIT 1';
+      $sql = 'DELETE FROM Users WHERE email = "' . $email . '"';
     
       $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="exec");
 
@@ -85,27 +91,39 @@ class UserManager {
         $this->error = 'An error occured while deleting ' . $email . ' account.';
       }
     }
+
+    return $this->error;
   }
 
-  private function edit() {
-    if(isset($_GET['id'])) {
+  public function edit() {
+    if($this->checkIfAdmin()) {
+      $this->error = "You don't have the rights to do this.";
+      return $this->error;
+    }
+    
+    if(isset($_POST['id'])) {
       if ($this->checkRegistrationData($edit=true)) {
         $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
         if ($this->db_connection) {
-          $id = addslashes(htmlentities($_GET['id'], ENT_QUOTES));
+          $id = addslashes(htmlentities($_POST['id'], ENT_QUOTES));
           $email = addslashes(htmlentities($_POST['email'], ENT_QUOTES));
-          $password = addslashes(htmlentities($_POST['password'], ENT_QUOTES));
           $firstname = addslashes(htmlentities($_POST['firstname'], ENT_QUOTES));
           $lastname = addslashes(htmlentities($_POST['lastname'], ENT_QUOTES));
+          $is_admin = addslashes(htmlentities($_POST['is_admin'], ENT_QUOTES));
+          $password = NULL;
+          
+          if(isset($_POST['password'])) {
+            $password = addslashes(htmlentities($_POST['password'], ENT_QUOTES));
+          }
 
-          $sql = 'UPDATE Users SET firstname = "' . $firstname . '",lastname = "' . $lastname . '",email = "' . $email . '"';
+          $sql = 'UPDATE Users SET firstname = "' . $firstname . '",lastname = "' . $lastname . '",email = "' . $email . '",is_admin = "' . $is_admin . '"';
 
           if(!empty($password)) {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             $sql .= ',password = "' . $password_hash . '"';
           }
 
-          $sql .= ' WHERE id = "' . $id . '" LIMIT 1';
+          $sql .= ' WHERE id = "' . $id . '"';
 
           $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="exec");
 
@@ -120,16 +138,18 @@ class UserManager {
       $this->error = 'Unknown ID.';
     }
     
-    return false;
+    return $this->error;
   }
 
-  private function createNewUser() {
+  public function createNewUser() {
+    $this->checkIfAdmin();
+
     $user_email = addslashes(htmlentities($_POST['email'], ENT_QUOTES));
     $user_password = addslashes(htmlentities($_POST['password'], ENT_QUOTES));
     $user_firstname = addslashes(htmlentities($_POST['firstname'], ENT_QUOTES));
     $user_lastname = addslashes(htmlentities($_POST['lastname'], ENT_QUOTES));
 
-    if(isset($_POST['is_admin']) && $_POST['is_admin'] == 'yes')
+    if(isset($_POST['is_admin']) && $_POST['is_admin'] == true)
       $user_is_admin = "TRUE";
     else
       $user_is_admin = "FALSE";
@@ -155,10 +175,11 @@ class UserManager {
         }
     }
     
-    return false;
+    return $this->error;
   }
 
-  private function checkRegistrationData($edit=false) {
+
+  public function checkRegistrationData($edit=false) {
     // Validate inputs and fill error variable
     if (!empty($_POST['firstname'])
         && strlen($_POST['firstname']) <= 64
@@ -204,4 +225,13 @@ class UserManager {
     
     return false;
   }
+
+  private function checkIfAdmin() {
+    $user = new User();
+
+    if($user->isAdmin() !== true) {
+      exit('You are not an administrator. (what are you doing here?!)');
+    }
+  }
+
 }

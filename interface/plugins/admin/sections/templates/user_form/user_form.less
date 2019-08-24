@@ -1,0 +1,51 @@
+@import (reference) '../../../../../styles/_bootstrap.less';
+@import (reference) '../../../../../styles/_variables.less';
+
+.user-form {
+  
+  float: none;
+  margin: auto;
+  // margin-top: 25px;
+  margin-top: 0;
+
+  h2 {
+    // font-size: 3em;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .form {
+    margin: auto;
+    // background: #222;
+
+    i {
+      width: 10px;
+          font-size: 1.2em;
+      margin-right: 15px;
+    }
+    input {
+      display: inline;
+      // width: auto;
+      padding: 15px;
+      border-radius: 0;
+      // border-top: 0;
+      border-left: 5px solid #d473ff;
+      // border-right: 0;
+      font-size: 1.1em;
+      height: auto;
+    }
+
+    .checkbox label input[type="checkbox"] {
+      position: absolute;
+      // float: none;
+      // margin: 0 4px;
+    }
+
+    div.submit-button {
+      text-align: center;
+      margin: auto;
+      background: @main-color;
+      color: white;
+      padding: 10px 25px;
+    }
+  }
+}

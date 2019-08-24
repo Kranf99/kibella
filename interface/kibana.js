@@ -44,11 +44,13 @@ define(function (require) {
     .constant('sessionId', Date.now())
     // attach the route manager's known routes
     .config(routes.config)
-    .run(function($rootScope){
+    .run(function($rootScope, $http){
         $rootScope.kbnPath = kbnPath;
         //$rootScope.defaultTheme = "bright";
         //$rootScope.theme = Cookies.get('theme') || $rootScope.defaultTheme;
         $rootScope.theme = "bright";
+
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     });
 
   // setup routes

@@ -3,6 +3,7 @@
   "default_app_id": "dashboard",
   "shard_timeout": 0,
   "plugins": [
+    "plugins/admin/index",
     "plugins/dashboard/index",
     "plugins/discover/index",
     "plugins/doc/index",
