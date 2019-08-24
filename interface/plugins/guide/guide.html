@@ -1,0 +1,1134 @@
+<h1>Introduction</h1>
+<p>Welcome to the user’s guide to Kibella. Kibella is part of the “TIM<b>i </b>Suite<b>” </b>that is an
+	integrated set of tools designed to solve Business Intelligence problems. The acronym “TIMi” stands for
+	“<b>T</b>he <b>I</b>ntelligent <b>M</b>ining Mach<b>i</b>ne (TIM<b>i </b>)” .</p>
+<p>Kibella is a “dashboarding tool" or “Dataviz tool” similar to Tableau, Qlickview, Kibana, Kyubit, etc. Basically, a
+	“Dataviz tool” allows you to see different kind of visualizations (bart chart, pie chart, etc.) inside a web
+	browser.</p>
+<p>More precisely, Kibella allows you to create and deploy everywhere interactive dashboards (with full <nobr>
+		“drill-down”</nobr> functionality) in a few <nobr>mouse-clicks.</nobr> Kibella is closely integrated with
+	Anatella so that all data available inside Anatella can easily be exported to Kibella to create beautiful
+	visualizations and dashboards.</p>
+<p>Kibella is related to Kibana (from which it shares a part of the source code). …but Kibella adds many interesting
+	features <nobr>“on-top”</nobr> of Kibana:</p>
+<ul>
+
+	<li>
+		<p><b>No complex infrastructure required</b></p>
+		<p>Kibella works inside a simple <a
+				href="https://en.wikipedia.org/wiki/LAMP_(software_bundle)"><b>LAMP</b></a>/<a
+				href="https://en.wikipedia.org/wiki/LAMP_(software_bundle)#WAMP"><b>WAMP</b></a> stack. In
+			opposition, Kibana can only be deployed inside a complex <nobr>hadoop-based</nobr> infrastructure that
+			typically implies many nodes (for distributed computations) and specific, <nobr>non-standard,</nobr>
+			webservers (i.e. node.js).</p>
+	</li>
+	<li>
+		<p><b>Simpler to administrate</b></p>
+		<p>Kibella is built using a set of technology that is mastered by 100% of all technicians (i.e.
+			Apache+Php+SQLite). In opposition, Kibana requires you to administrate “shards” (i.e. nodes with a specific
+			elasticsearch stack installed on them) and to administrate “node.js”.</p>
+	</li>
+	<li>
+		<p><b>Fast at <nobr>Query-Time</nobr></b> (the SQLite engine used by Kibella is based on efficient C++ code).</p>
+		<p>A very small server can handle a very large quantity of data. The SQLite engine used inside Kibella is using
+			large <nobr>in-memory</nobr>
+			<nobr>data-cache,</nobr> so that it can use all your RAM, if available. …but the SQLite engine from Kibella
+			is not limited by the RAM of your PC (in opposition to Qlickview or Kibana): You can handle <nobr>
+				larger-than-RAM</nobr> databases very fast &amp; very easily.
+		</p>
+		<p><i><b>Note: </b>We are still working on improving Kibella’s speed. The final version of Kibella should
+			display dashboards in a time divided by 5 compared to the <nobr>Early-Access</nobr> version of Kibella.</i></p>
+		<p>In opposition, the computing power delivered by Kibana on one server is much lower. Of course, you can
+			install Kibana on many “shards/nodes” to still reach a large computing power.</p>
+	</li>
+	<li>
+		<p><b>Scalable</b></p>
+		<p>It’s very unlikely that you ever need to take care about “scalability issues” when working with</p>
+		<p>Kibella (e.g. because, in opposition to other solutions, you are not limited by the RAM of your server).
+			However, if you are experiencing some “slow down” when “drilling down” inside a dashboard, you can still use
+			Anatella to reduce the size of your datasets before exporting them to Kibella. To reduce your dataset size,
+			you can use the many standard data transformations available inside Anatella (i.e. mainly the “aggregation” box). With Anatella, you can easily handles
+			databases containing several dozens of Terabytes on a “common grade” laptop.</p>
+		<p>The combination of Kibella and Anatella allows to cope with any situation, whatever the size, the complexity,
+			the origin, the velocity or the format of the data.</p>
+		<p>Kibana typically scales in a different way: You’ll typically add additional computing nodes (named “shards”
+			in the elastic world) to “scale up”. In comparison to Kibella, Kibana has a more expansive “scaling up”
+			(because all these additional nodes involves additional costs in hardware and additional costs in salary for
+			maintenance &amp; support of this exotic components).</p>
+	</li>
+	<li>
+		<p><b>Fast at <nobr>load-time</nobr></b></p>
+		<p>Kibella has no load time: To update the data “behind” your dashboards, you just use Anatella to create/update your SQlite database files: This is usually done in a few seconds.</p>
+		<p>In opposition, with Kibana, updating the data “behind” your dashboards is a long procedure because Kibana
+			takes a huge amount of time to <nobr>re-start</nobr> (after the JSON dataset files have been updated):
+			Sometime several hours (because it has to parse the complex JSON files to re- create many complex indexes).
+		</p>
+	</li>
+	<li>
+		<p><b>Integration with Anatella</b></p>
+		<p>This is not really a difference because both Kibella and Kibana are 100% integrated with Anatella: To export
+			you data to Kibella or Kibana (or Tableau or Qlickview), you’ll use:</p>
+		
+		<p>It should be noted that, <nobr>up-to-now,</nobr> there exists no other ETL tool that is able to create the
+			complex JSON files used by Kibana: i.e. To use Kibana, you must provide all the data to query within a
+			single, large &amp; complex JSON file. This JSON file has a rather twisted structure (i.e. it has a <nobr>
+				multi-level</nobr> structure). There is inside Anatella a small box (the “writeJSON” box) that is exactly designed to generate these <nobr>"multi-level"</nobr> JSON files. You'll find more details about the
+			integration between Anatella and Kibana in the section 4.8.17.13. of the "AnatellaQuickGuide.pdf".</p>
+			<div class="quote"><p><b>An example</b>: The data scientists from AXA Belgium (i.e. the guys from the AXA "Datalab") are using extensively
+			the "writeJSON" box from Anatella to create various dashboards in Kibana (they have more than ten Kibana
+			running all the time). In one of their dashboard, they generate a very complex 40 GB JSON file (4 levels
+			deep) in less than 15 minutes with Anatella (in comparison, the other data scientists attempted to replicate
+			the same performances in Hadoop and they had no results after 24 hours of computation). You'll find more
+			details about the integration between Anatella and Kibana in the section 4.8.17.13. of the
+			"AnatellaQuickGuide.pdf".</p></div>
+	</li>
+</ul>
+<h2>Why did we create Kibella ?</h2>
+<p>We loved Kibana but we recognized that not all companies are willing to invest time and
+	efforts in an exotic technology such as the one used inside Kibana. Basically, most companies have a quite limited
+	volume of data to visualize (we noticed that, after proceeding with the required aggregations with Anatella, 99% of
+	the companies have a data volume that is less than 1GB for visualization). Thus, for 99% of the companies (i.e. for
+	the companies that have “normal” dashboarding needs), using a complex distributed computing system for visualization
+	(such as Kibana) does not make any sense: it’s much easier &amp; cheaper to use Kibella.</p>
+<div class="quote">
+	<p><b>Question:</b> Do I need distributed computations (such as the one included inside Kibana) to create my
+		dashboards?</p>
+	</div>
+	<div class="quote">
+	<p><b>Answer:</b></p>
+	<p>Let’s take a first <nobr>real-life</nobr> example: We are currently working extensively with many telecoms all around
+		the world. We provide them with advanced analytics (e.g. churn &amp; <nobr>cross-sell</nobr> models) and “basic”
+		reporting/dashboarding. We noticed that, for a small telecom with around 20 million subscribers, each dashboard in
+		production is actually only using around 10 MB of data that is stored “on the visualization webserver” (after some
+		data aggregations with Anatella. …but these aggregations are nevertheless always required, whatever the “dataviz
+		tool” used, because of the large size of the “source” data). In this case, you don’t need Kibana.</p>
+	<p>Another <nobr>real-life</nobr> example: The “DataLab” from AXA makes a <nobr>non-traditional</nobr>
+	</p>
+	<p>usage of Kibana: They use it as a CRM tool (and not really as a Dashboarding tool). It means that they inject inside
+		Kibana (i.e. inside ElasticSearch engine) their whole CRM database (that contains a table with their “360° Customer
+		view”: This table has more than 1000 columns). To obtain an interactive, sub- second, <nobr>drill-down</nobr> on
+		this large table, you need Kibana (more precisely, you need the ElasticSearch engine).</p>
+</div>
+<h2>Examples of dashboards made with Kibella</h2>
+<p>...</p>
+
+<h2>The advantages of Kibella over other tools</h2>
+<ul>
+	<li>
+<p>
+	<b><nobr>Self-service</nobr> BI</b>
+</p>
+<p>Anybody can create beautiful dashboards in a few <nobr>mouse-click</nobr> without writing any line of code.</p></li>
+<li><p><b>Free &amp; Unrestricted:</b></p>
+<p>No limits on the numbers of viewers and designers.</p>
+<div class="quote"><p>In particular, Tableau and Qlickview are limited in this regard because each additional person that simply “view”
+	your dashboard costs you a thousand euro more. At this price, you’d better think twice before sharing anything with
+	a new colleague!</p></div></li>
+<li><p>
+	<nobr><b>In-Browser-Designer:</b></nobr>
+</p>
+<p>No need to install anything on the designer computer: The designer runs inside a browser. Anybody can become a
+	“designer” and improve your dashboard design. This allows easy collaborative work.</p>
+
+<div class="quote"><p>In particular, Tableau and Qlickview are limited in this regard because each additional “designer” costs you a few
+	thousand euro more. At this prices, you’d better think twice before collaborating on a dashboard with a new
+	colleague!</p></div></li>
+<li><p><b>Ethical solution:</b></p>
+<p>The data format used by Kibella to store all the data for visualization is the simple and ubiquitous “SQLite” file
+	format. The SQlite file format is readable &amp; writable by 99% of the <nobr>data-management</nobr> tools currently
+	available on the market. This means that you’ll always be able to retrieve the data stored inside Kibella for
+	further processing (e.g. for further processing inside a predictive modeling tool such as TIMi Modeler).</p>
+<div class="quote"><p>In opposition to Kibella, Tableau and Qlickview are storing their data in a proprietary file format (TDE files for
+	Tableau and QVX/QVB files for Qlikview) that no software (outside Tableau and Qlikview) can read (although Anatella
+	can create these files, it cannot read them back).</p>
+<p>This means that, if you saw something interesting inside one of your dashboards and you want to investigate the
+	matter in more details (e.g. using a predictive modeling tool such as TIMi Modeler), you simply cannot use the TDE
+	or the QVB files to start your investigation.</p>
+<p>If you are lucky and you IT service kept a copy of the original data before exporting everything to Tableau or
+	Qlickview, you can still work.</p>
+<p>…But, 99% of the time, this won’t be the case. Most of the time, you won’t be able to get access to your data anymore
+	(only through a very limited aggregated view inside your browser, that is totally insufficient for any predictive
+	modeling activities). This is a <nobr>“lock-in”</nobr> situation: i.e. You are now forced to use Tableau/Qlickview
+	to make any data analysis (even if Tableau or Qlickview are not adapted to the nature of the investigation that you
+	want to perform). This is why Tableau ang Qlikview are strictly forbidding anybody to create a data extraction tool
+	from the proprietary format: They want a <nobr>“lock-in”</nobr> situation.</p>
+<p>Thanks to the open nature of Kibella (and within all the tools included in the TIMi Suite), you can have the 100%
+	guarantee that we will never “take hostage” your data: You are safe with us. The only <nobr>“lock-in”</nobr>
+	situation that we pursue is the one of Excellence: i.e. you are working with TIMi because that’s technically the
+	better solution.</p>
+<p>This is why we declare ourselves as an “Ethical Solution”: No <nobr>“lock-in”</nobr> situation, just Excellence.</p></div></li>
+<li><p><b>Cheap and Ubiquitous deployment:</b></p>
+<p>Kibella runs on any common LAMP stack (Linux+Apache+MySQL+PHP) available in any datacenters. The LAMP stack is the
+	most commonly used solution and the cheapest solution used to create Webservers.</p>
+<p>To still reduce costs, the same LAMP server can hosts several copies of Kibella (each copy is 100% isolated from the
+	others). This allows to have one separated Kibella for each department inside your company at no additional cost
+	(i.e. one kibella for accounting, one kibella for marketing, one kibella for engineering, etc.).</p></li>
+
+<li>
+	<p>
+	<b>Fast at <nobr>Query-Time</nobr></b>(the SQLite engine used by Kibella is based on efficient C++ code).
+</p>
+<p>A very small server can handle a very large quantity of data. You can handle <nobr>larger-than-RAM</nobr> databases
+	very fast &amp; easily.</p>
+<p><b>Note: </b>We are still working on improving Kibella’s speed. The final version of Kibella should display
+	dashboards in a time divided by 5 compared to the <nobr>Early-Access</nobr> version of Kibella.</p>
+<div class="quote"><p>In any dashboarding solution, the bottleneck (that slows down everything) is always the webserver: i.e. The resources
+	of the Webserver are limited and shared between all the “viewers” of the dashboards.</p>
+<p>Thus, you need to have as much code running on the browser as possible (to have the smallest computing load on the
+	webserver as possible). This is how Kibella is built and that’s great.</p>
+<p>…But Kibana is following another direction: The “ElasticSearch” company (that is developing Kibana) wants to promote
+	their main product (that is “ElasticSearch”). To that end, they need to make sure that Kibana is as
+	<b>in</b>compatible as possible with "classic &amp; standard technologies" (such as an “Apache” server). This
+	is why the “ElasticSearch” company restructured the code of the newest version of Kibana to have the largest part of
+	the code as possible running on the webserver, inside “Node.js” (since the “Apache” webserver cannot run any
+	Javascript code, this ensures that the newest releases of Kibana are <b>in</b>compatible with “Apache”). This
+	is not a very good technical decision (although it makes sense commercially!).</p></div></li>
+<li><p><b>Fast at <nobr>load-time.</nobr></b>
+	
+</p>
+<p>With all other solutions, updating the data “behind” your dashboards is a long procedure</p>
+<p>(involving painful &amp; slow data extractions).</p>
+<p>Especially, the “normal” Kibana takes a huge amount of time to <nobr>start-up.</nobr>
+</p>
+<p>In opposition, updating the datasets displayed by Kibella is very fast &amp; easy: Just use the new</p>
+<p>Anatella action named: “ExportToKibella”: it’s available here:</p>
+<p>Usually, the speed of the “ExportToKibella” Action is only limited by the speed of your hard drive. This means that,
+	99% of the time, you can update the data “behind” your dashboards in a few seconds.</p></li>
+
+<li><p><b>Incremental Loads:</b></p>
+<p>The “ExportToKibella” Action supports a wide variety of “updates” mechanism. e.g. You can <nobr>near-instantaneously
+	</nobr> add rows to (and/or delete rows from) an existing dataset.</p></li>
+<li><p>
+	<nobr><b>Real-time</b></nobr> display
+</p>
+<p>You can see inside your dashboard the latest data that just arrived (e.g. from the last 5 seconds). This
+	functionality combined with the “Incremental Loads” allows you to obtain dashboards that update in <nobr>
+		“real-time”,</nobr> closely following the process that you are monitoring.</p></li>
+<li><p><b>Easy deployment from lab to production:</b></p>
+<p>When you finished developing some new dashboards locally (i.e. without any internet connection required), you can
+	export your work to the production server by a simple drag&amp;drop (i.e. just copy the “kibella.sqlite” file to the
+	production server: This file contains all the visualizations and all the dashboards).</p></li>
+<li><p><b>100% compatibility between the Windows &amp; Linux executables:</b></p>
+<p>You can design on Windows (locally) and publish on Linux everywhere.</p></li>
+<li><p><b>Based on a 100% secure technology: i.e. the “Apache Web Server”.</b></p>
+<p>The “Apache Web Server” is the most common and the most trusted webserver currently available: Here are some <nobr>
+		market-share</nobr> statistics:</p>
+
+<p>Thanks to Apache, Kibella is 100% secure: i.e. you can deploy all your dashboards to a wide audience without any fear
+	of any “Russian Web Hackers”.</p>
+<p>All other dashboarding/BI solutions (Tableau, Qlickview, Kibana, Microsoft PowerBI,etc.) must be used exclusively on
+	a private network, heavily secured (because these solutions are not robust against “Russian Web Hackers”).</p></li>
+<li><p><b>Large choice of Security options:</b></p>
+<p>The “Apache Web Server” contains a large quantity of options to authenticate the Kibella dashboards users. You can
+	manage users:</p>
+	<ul>
+		<li>
+<p><nobr>“One-by-one”</nobr> or at the “group level”</p></li>
+<li><p>Through standard LDAP protocol
+</p></li>
+<li><p>With many other options: More information here: <a
+		href="http://httpd.apache.org/docs/current/howto/auth.html"><b>http://httpd.apache.org/docs/current/howto/auth.html</b></a>
+</p></li>
+</ul></li>
+<li><p><b>Easily share your dashboards with anybody:</b></p>
+<p>Just click the <img
+		src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAXABgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDJqzb6feXcqRW9tLI7/dCoeeM8fgKrV2QeG01XVdRWa2EsjvJbXUd3EzRghjxHkkliVXkcZPStW7EpXOQlikgleKVGSRCVZWGCCO1FLcXEt1cyXEzbpZWLu2AMk9elFMGR0UUUCCiiigD/2Q=="
+		id="p11inl_img1"> share icon and you receive an URL that you can send to anybody (in a mail, on skype, in
+	whatsapp, etc.) to allow your correspondent to instantaneously see your results.</p>
+<!-- To remove the JavaScript and access tabular data, please reach out to BCL at pdf2html@bcltechnologies.com -->
+<table id="l1IIl1l1ll1lI1I11IllI1lII">
+	<tr>
+		<td>
+			<p>The</p>
+		</td>
+		<td>
+			<p>share icon is here:</p>
+		</td>
+	</tr>
+</table>
+<p><b>Kibella is the only solution that allows you to distribute your dashboards to an unlimited audience (no
+		financial limits, no barriers linked to the security of the server, very cheap infrastructure, instantaneous
+		sharing).</b></p></li>
+<li><p><b>Somewhat Beautiful</b></p></li>
+</ul>
+<p>The <nobr>dis-advantages</nobr> of Kibella are:</p>
+<p><b>On very, very large datasets, it’s sometime better, to obtain a more reactive dashboard, to reduce the size of
+		your dataset before exporting it to Kibella. To reduce your dataset size, you can use the many standard data
+		transformations (i.e. mainly the “aggregation” box) available inside Anatella. Another solution is to use some
+		distributed computations in Kibana.</b></p>
+<p><b>No so beautiful compared to Tableau (but Kibella will evolve rapidly!)</b></p>
+<p>We really think that the combination of Kibella with Anatella is just incredible. Anatella offer so much computing
+	power and flexibility while Kibella allows you to share your results instantaneously to anybody, without any
+	financial limits nor infrastructure limits.</p>
+
+<h1>Importing Tables inside Kibella</h1>
+<h2>Importing Tables inside Kibella using Anatella</h2>
+<p>
+	Just use the Action “ExportToKibella” and check the option “Directly Publish
+	new Data Base to (This option is anyway checked by default)
+</p>
+<h2>Importing Tables inside Kibella using another ETL</h2>
+<p>
+	Create a new SQLite database inside the “Kibella datadir” (the exact location
+	of the “Kibella datadir” is defined inside the “Kibella.ini” file). Then, open
+	a browser and go to the Kibella webpage
+	<a href="http://localhost/kibella/">(<b>http://localhost/kibella/</b>)
+		</a>and click on the “<b>Register a table to query on</b>” link:
+</p>
+<p>
+	A registered table is identified by its ID which is made up of the
+	<b>table name followed by the database filename in parenthesis</b>. Ex:
+	Census(CENSUSINCOME).
+</p>
+
+<h2>Storing Dates and the “Date Format” inside the queried databases</h2>
+<p>
+	All the columns containing dates (or any <nobr>time-related</nobr> value) must
+	be listed here during exportation to Kibella:
+</p>
+<p>
+	The “date” columns must contains dates using a specific format: The format to
+	use is the “Elapsed Time” format: More Precisely: You can convert any <nobr>date-format</nobr> to
+	the right format for Kibella using the “ChangeDataType” box inside Anatella: i.e. Use these parameters:</p>
+<p>1: Select all the columns containing dates</p>
+<p>2: Write the current format of the dates here</p>
+<p>3: Leave this blank</p>
+<p>4: switch to “second”</p>
+<p>
+	(For Kibella, the Dates in the queried tables are stored as
+	<b>seconds </b>elapsed since 1970/01/01 00:00:00).
+</p>
+<h1>Using Kibella</h1>
+<h2>Creating new Visualizations</h2>
+<h3>The New Visualization Wizard</h3>
+<p>You can use the Visualize tab to design data visualizations. You can save these visualizations, use them
+	individually, or combine visualizations into a dashboard.</p>
+<p>To start the <b>New Visualization </b>wizard, click on the Visualize tab at the top left of the page.</p>
+<p>If you are already in the process of creating a visualization, you can click the New Visualization button New
+	Visualization </b>wizard again.</p>
+<p>The wizard guides you through the following steps:</p>
+<h4>Step 1: Choose the Visualization Type</h4>
+<p>Choose a visualization type when you start the New Visualization wizard:</p>
+<p>You can also load a save visualization that you created earlier. The saved visualization selector includes a text
+	field to filter by visualization name and a link to the Object Editor, accessible through <b>Settings &gt; Edit
+		Saved Objects</b>, to manage your saved visualizations.</p>
+
+
+<p>If your new visualization is a Markdown widget, selecting that type takes you to a text entry field where you
+	enter the text to display in the widget. For all other types of visualization, selecting the type takes you to
+	data source selection.</p>
+<h4>Step 2: Choose a Data Source</h4>
+<p>You can choose a new or saved search to serve as the data source for your visualization. Searches are associated
+	with an index or a set of indexes. When you select new search on a system with multiple indices configured,
+	select an index pattern from the <nobr>drop-down</nobr> to bring up the visualization editor.</p>
+<p>When you create a visualization from a saved search and save the visualization, the search is tied to the
+	visualization. When you make changes to the search that is linked to the visualization, the visualization
+	updates automatically.</p>
+<h4>Step 3: The Visualization Editor</h4>
+<p>The visualization editor enables you to configure and edit visualizations. The visualization editor has the
+	following main elements:</p>
+
+<h5>The Toolbar</h5>
+<p>The toolbar has a search field for interactive data searches, as well as controls to manage saving and loading
+	visualizations. For visualizations based on saved searches, the search bar is grayed out. To edit the search,
+	replacing the saved search with the edited version, <nobr>double-click</nobr> the search field.</p>
+
+
+<p>The toolbar at the right of the search box has buttons for creating new visualizations, saving the current
+	visualization, loading an existing visualization, sharing or embedding the visualization, and refreshing the
+	data for the current visualization.</p>
+<h5>The aggregation builder</h5>
+<p>Use the aggregation builder on the left of the page to configure the metric and bucket aggregations used in your
+	visualization. Buckets are analogous to SQL GROUP BY statements.</p>
+<p>Bar, line, or area chart visualizations use <b>metrics </b>for the <nobr>y-axis</nobr> and <b>buckets
+	</b>are used for the <nobr>x-axis,</nobr> segment bar colors, and row/column splits. For pie charts, use the
+	metric for the slice size and the bucket for the number of slices.</p>
+<p>Choose the metric aggregation for your visualization’s Y axis, such as count, average, sum, min, max, or
+	cardinality (unique count). Use bucket aggregations for the visualization’s X axis, color slices, and row/column
+	splits. Common bucket aggregations include date histogram, range, terms, filters, and significant terms.</p>
+<h5>Preview</h5>
+<p>The preview canvas displays a preview of the visualization you’ve defined in the aggregation builder.</p>
+<p>To refresh the visualization preview, clicking the Refresh button on the toolbar.</p>
+<h2>Area Chart Visualization</h2>
+<p>This chart’s Y axis is the <b>metrics </b>axis. The following aggregations are available for this axis:</p>
+<ul>
+	<li><b>Count:</b> The count aggregation returns a raw count of the elements in the selected index
+		pattern.</li>
+	<li><b>Average:</b> This aggregation returns the average of a numeric field. Select a field from the
+		drop- down.</li>
+	<li><b>Sum:</b> The sum aggregation returns the total sum of a numeric field. Select a field from the
+		<nobr>drop-down.</nobr>
+	</li>
+	<li><b>Min:</b> The min aggregation returns the minimum value of a numeric field. Select a field from
+		the <nobr>drop-down.</nobr>
+	</li>
+	<li><b>Max:</b> The max aggregation returns the maximum value of a numeric field. Select a field from
+		the <nobr>drop-down.</nobr>
+	</li>
+	<li><b>Unique Count:</b> The cardinality aggregation returns the number of unique values in a field.
+		Select a field from the <nobr>drop-down.</nobr>
+	</li>
+</ul>
+<p>You can add an aggregation by clicking the <b>+ Add Aggregation </b>button.</p>
+<p>The X axis of this chart is the buckets axis. You can define buckets for the X axis, for a split area on the chart,
+	or for split charts.</p>
+
+<p>This chart’s X axis supports the following aggregations:</p>
+<ul>
+	<li>
+		<p><b>Date Histogram</b></p>
+		<p>A date histogram is built from a numeric field and organized by date. You can specify a time frame for the
+			intervals
+			in seconds, minutes, hours, days, weeks, months, or years. You can also specify a <b>custom
+			</b>interval frame
+			by selecting Custom as the interval and specifying a number and a time unit in the text field. Custom
+			interval time
+			units are <b>s </b>for seconds, <b>m </b>for minutes, <b>h </b>for hours, <b>d
+			</b>for days,
+			<b>w </b>for weeks, and <b>y </b>for years. Different units support different levels of
+			precision, down
+			to one second.</p>
+	</li>
+	<li>
+		<p><b>Histogram</b></p>
+		<p>A standard histogram is built from a numeric field. Specify an integer interval for this field. Select the
+			Show empty
+			buckets checkbox to include empty intervals in the histogram.</p>
+	</li>
+	<li>
+		<p><b>Range</b></p>
+		<p>With a range aggregation, you can specify ranges of values for a numeric field. Click <b>Add Range
+			</b>to add a
+			set of range endpoints. Click the red <b>(x) </b>symbol to remove a range.</p>
+	</li>
+	<li>
+		<p><b>Date Range</b></p>
+		<p>A date range aggregation reports values that are within a range of dates that you specify. You can specify
+			the ranges
+			for the dates using <b>date math </b>expressions. Click <b>Add Range </b>to add a set of range
+			endpoints. Click the red <b>(/) </b>symbol to remove a range. The <b>From </b>and <b>To
+			</b>values
+			in Kibella must be specified as a string date using the template <nobr>YYYY-MM-DD</nobr> HH:MM:SS,
+			YYYY/MM/DD
+			HH:MM:SS, <nobr>YYYY-MM-DD</nobr> or YYYY/MM/DD. Some examples of valid dates are:</p>
+		<p><b>o </b>2015/12/28 14:15:38 <b>o </b>
+			<nobr>2015-12-28</nobr> 14:15:38 <b>o </b>2015/12/28
+		</p>
+		<p><b>o </b>
+			<nobr>2015-12-28</nobr>
+		</p>
+		<p>The <b>from </b>and <b>to </b>values must *not* be enclosed in quotes.</p>
+	</li>
+	<li>
+		<p><b>Terms</b></p>
+		<p>A terms aggregation enables you to specify the top or bottom n elements of a given field to display, ordered
+			by count
+			or a custom metric.</p>
+	</li>
+	<li>
+		<p><b>Filters</b></p>
+		<p>You can specify a set of <b>filters </b>for the data. You can specify a filter as a query string or in
+			JSON</p>
+		<p>format, just as in the Discover search bar. Click <b>Add Filter </b>to add another filter. Click the
+			Label
+			button to open the label field, where you can type in a name to display on the visualization.</p>
+	</li>
+</ul>
+
+<p>Once you’ve specified an X axis aggregation, you can define <nobr>sub-aggregations</nobr> to refine the
+	visualization. Click <b>+ Add Sub Aggregation </b>to define a <nobr>sub-aggregation,</nobr> then choose
+	<b>Split Area </b>or <b>Split Chart</b>, then select a <nobr>sub-aggregation</nobr> from the list of
+	types.</p>
+<p>When multiple aggregations are defined on a chart’s axis, you can use the up or down arrows to the right of the
+	aggregation’s type to change the aggregation’s priority.</p>
+<p>Enter a string in the <b>Custom Label </b>field to change the display label. For example, a chart of dates with
+	incident counts can display dates in chronological order, or you can raise the priority of the incident- reporting
+	aggregation to show the most active dates first. The chronological order might show a time- dependent pattern in
+	incident count, and sorting by active dates can reveal particular outliers in your data.</p>
+<p>The availability of these options varies depending on the aggregation you choose.</p>
+<p>Select the Options tab to change the following aspects of the chart:</p>
+<p><b>Chart Mode:</b> When you have multiple <nobr>Y-axis</nobr> aggregations defined for your
+	chart, you can use this <nobr>drop-down</nobr> to affect how the aggregations display on the chart:</p>
+
+
+<p><b>Stacked</b>: Stacks the aggregations on top of each other.</p>
+<p><b>Overlap</b>: The aggregations overlap, with translucency indicating areas of overlap.</p>
+<p><b>Wiggle</b>: Displays the aggregations as a streamgraph.</p>
+<p><b>Percentage</b>: Displays each aggregation as a proportion of the total.</p>
+<p><b>Silhouette</b>: Displays each aggregation as variance from a central line.</p>
+<p><b>Smooth Lines:</b> Check this box to curve the top boundary of the area from point to point.
+</p>
+<p><b>Set Y-Axis Extents:</b> Check this box and enter values in the <nobr>y-max</nobr> and
+	<nobr>y-min</nobr> fields to set the Y axis to specific values.
+</p>
+<p><b>Scale Y-Axis to Data Bounds:</b> The default Y axis bounds are zero and the maximum
+	value returned in the data. Check this box to change both upper and lower bounds to match the values returned in the
+	data.
+</p>
+<p><b>Show Tooltip:</b> Check this box to enable the display of tooltips.</p>
+<p><b>Show Legend:</b> Check this box to enable the display of a legend next to the chart.</p>
+<p>To display the raw data behind the visualization, click the bar at the bottom of the container. Tabs with detailed
+	information about the raw data replace the visualization:</p>
+<p><b>Table.</b> A representation of the underlying data, presented as a paginated data grid. You
+	can sort the items in the table by clicking on the table headers at the top of each column.</p>
+<p><b>Request.</b> The raw request used to query the server, presented in JSON format.</p>
+<p><b>Response.</b> The raw response from the server, presented in JSON format.</p>
+<p><b>Statistics.</b> A summary of the statistics related to the request and the response, presented
+	as a data grid. The data grid includes the query duration, the request duration, the total number of records found
+	on the server, and the index pattern used to make the query.</p>
+<p><b>(at the bottom of any of the detailed information tabs) Raw or Formatted links</b><b>:
+		Export the raw data behind the visualization as a </b>
+	<nobr><b>comma-separated-values</b></nobr><b> (CSV) file. A raw export contains the data as it is stored in
+		Kibella. A formatted export contains the results of any applicable Kibella field formatters.</b>
+</p>
+<h2>Data Table Visualization</h2>
+<p>The following aggregations are available:</p>
+<p><b>Count:</b> The count aggregation returns a raw count of the elements in the selected index
+	pattern.</p>
+<p><b>Average:</b> This aggregation returns the average of a numeric field. Select a field from the
+	drop- down.</p>
+<p><b>Sum:</b> The sum aggregation returns the total sum of a numeric field. Select a field from the
+	<nobr>drop-down.</nobr>
+</p>
+<p><b>Min:</b> The min aggregation returns the minimum value of a numeric field. Select a field from
+	the <nobr>drop-down.</nobr>
+</p>
+<p><b>Max:</b> The max aggregation returns the maximum value of a numeric field. Select a field from
+	the <nobr>drop-down.</nobr>
+</p>
+<p><b>Unique Count:</b> The cardinality aggregation returns the number of unique values in a field.
+	Select a field from the <nobr>drop-down.</nobr>
+</p>
+<p>You can add an aggregation by clicking the <b>+ Add Aggregation </b>button.</p>
+<p>Enter a string in the Custom Label field to change the display label.</p>
+
+<p>The rows of the data table are called buckets. You can define buckets to split the table into rows or to split the
+	table into additional tables.</p>
+<p>Each bucket type supports the following aggregations:</p>
+<p><b>Date Histogram</b></p>
+<p>A date histogram is built from a numeric field and organized by date. You can specify a time frame for the intervals
+	in seconds, minutes, hours, days, weeks, months, or years. You can also specify a <b>custom </b>interval frame
+	by selecting Custom as the interval and specifying a number and a time unit in the text field. Custom interval time
+	units are <b>s </b>for seconds, <b>m </b>for minutes, <b>h </b>for hours, <b>d </b>for days,
+	<b>w </b>for weeks, and <b>y </b>for years. Different units support different levels of precision, down
+	to one second.</p>
+<p><b>Histogram</b></p>
+<p>A standard histogram is built from a numeric field. Specify an integer interval for this field. Select the Show empty
+	buckets checkbox to include empty intervals in the histogram.</p>
+<p><b>Range</b></p>
+<p>With a range aggregation, you can specify ranges of values for a numeric field. Click <b>Add Range </b>to add a
+	set of range endpoints. Click the red <b>(x) </b>symbol to remove a range.</p>
+<p><b>Date Range</b></p>
+<p>A date range aggregation reports values that are within a range of dates that you specify. You can specify the ranges
+	for the dates using <b>date math </b>expressions. Click <b>Add Range </b>to add a set of range
+	endpoints. Click the red <b>(/) </b>symbol to remove a range. The <b>From </b>and <b>To </b>values
+	in Kibella must be specified as a string date using the template <nobr>YYYY-MM-DD</nobr> HH:MM:SS, YYYY/MM/DD
+	HH:MM:SS, <nobr>YYYY-MM-DD</nobr> or YYYY/MM/DD. Some examples of valid dates are:
+	<ul>
+<li><p>2015/12/28 14:15:38</p></li>
+<li><p>2015-12-28 14:15:38</p></li>
+<li><p>2015/12/28</p></li>
+<li><p>2015-12-28</p></li>
+	</ul>
+<p>The <b>from </b>and <b>to </b>values must *not* be enclosed in quotes.</p>
+<p><b>Terms</b></p>
+<p>A terms aggregation enables you to specify the top or bottom n elements of a given field to display, ordered by count
+	or a custom metric.</p>
+<p><b>Filters</b></p>
+<p>You can specify a set of <b>filters </b>for the data. You can specify a filter as a query string or in JSON</p>
+<p>format, just as in the Discover search bar. Click <b>Add Filter </b>to add another filter. Click the Label
+	button to open the label field, where you can type in a name to display on the visualization.</p>
+<p>Once you’ve specified an bucket type aggregation, you can define <nobr>sub-aggregations</nobr> to refine the
+	visualization. Click <b>+ Add Sub Aggregation </b>to define a <nobr>sub-aggregation,</nobr> then choose
+	<b>Split Rows </b>or <b>Split Table</b>, then select a <nobr>sub-aggregation</nobr> from the list of
+	types.</p>
+<p>When multiple aggregations are defined on a chart’s axis, you can use the up or down arrows to the right of the
+	aggregation’s type to change the aggregation’s priority.</p>
+<p>Enter a string in the <b>Custom Label </b>field to change the display label.</p>
+<p>Select the Options tab to change the following aspects of the table:</p>
+<p><b>Per Page:</b> This field controls the pagination of the table. The default value is ten rows
+	per page.</p>
+<p><b>Show metrics for every bucket/level:</b> Check this box to display the intermediate results
+	for each bucket aggregation.</p>
+<p><b>Show partial rows:</b> Check this box to display a row even when there is no result.</p>
+
+<p>To display the raw data behind the visualization, click the bar at the bottom of the container. Tabs with detailed
+	information about the raw data replace the visualization:</p>
+<p><b>Table.</b> A representation of the underlying data, presented as a paginated data grid. You
+	can sort the items in the table by clicking on the table headers at the top of each column.</p>
+<p><b>Request.</b> The raw request used to query the server, presented in JSON format.</p>
+<p><b>Response.</b> The raw response from the server, presented in JSON format.</p>
+<p><b>Statistics.</b> A summary of the statistics related to the request and the response, presented
+	as a data grid. The data grid includes the query duration, the request duration, the total number of records found
+	on the server, and the index pattern used to make the query.</p>
+<p><b>(at the bottom of any of the detailed information tabs) Raw or Formatted links</b><b>:
+		Export the raw data behind the visualization as a </b>
+	<nobr><b>comma-separated-values</b></nobr><b> (CSV) file. A raw export contains the data as it is stored in
+		Kibella. A formatted export contains the results of any applicable Kibella field formatters.</b>
+</p>
+<h2>Line Chart Visualization</h2>
+<p>This chart’s Y axis is the <b>metrics </b>axis. The following aggregations are available for this axis:</p>
+<p><b>Count:</b> The count aggregation returns a raw count of the elements in the selected index pattern.</p>
+<p><b>Average:</b> This aggregation returns the average of a numeric field. Select a field from the drop- down.
+</p>
+<p><b>Sum:</b> The sum aggregation returns the total sum of a numeric field. Select a field from the <nobr>
+		drop-down.</nobr>
+</p>
+<p><b>Min:</b> The min aggregation returns the minimum value of a numeric field. Select a field from the <nobr>
+		drop-down.</nobr>
+</p>
+<p><b>Max:</b> The max aggregation returns the maximum value of a numeric field. Select a field from the <nobr>
+		drop-down.</nobr>
+</p>
+<p><b>Unique Count:</b> The cardinality aggregation returns the number of unique values in a field. Select a field
+	from the <nobr>drop-down.</nobr>
+</p>
+<p>You can add an aggregation by clicking the <b>+ Add Aggregation </b>button.</p>
+<p>Enter a string in the Custom Label field to change the display label.</p>
+<p>Before you choose a buckets aggregation, specify if you are splitting slices within a single chart or splitting into
+	multiple charts. A multiple chart split must run before any other aggregations. When you split a chart, you can
+	change if the splits are displayed in a row or a column by clicking the <b>Rows | Columns </b>selector.</p>
+<p>The X axis of this chart is the buckets axis. You can define buckets for the X axis, for a split area on the chart,
+	or for split charts.</p>
+<p>This chart’s X axis supports the following aggregations:</p>
+<p><b>Date Histogram</b></p>
+<p>A date histogram is built from a numeric field and organized by date. You can specify a time frame for the intervals
+	in seconds, minutes, hours, days, weeks, months, or years. You can also specify a <b>custom </b>interval frame
+	by selecting Custom as the interval and specifying a number and a time unit in the text field. Custom interval time
+	units are <b>s </b>for seconds, <b>m </b>for minutes,
+	<b>h </b>for hours, <b>d </b>for days, <b>w </b>for weeks, and <b>y </b>for years. Different
+	units support different levels of precision, down to one second.</<b>
+	<p><b>Histogram</b></p>
+	<p>A standard histogram is built from a numeric field. Specify an integer interval for this field. Select the Show
+		empty buckets checkbox to include empty intervals in the histogram.</p>
+	<p><b>Range</b></p>
+	<p>With a range aggregation, you can specify ranges of values for a numeric field. Click <b>Add Range </b>to
+		add a set of range endpoints. Click the red <b>(x) </b>symbol to remove a range.</p>
+	<p><b>Date Range</b></p>
+	<p>A date range aggregation reports values that are within a range of dates that you specify. You can specify the
+		ranges for the dates using <b>date math </b>expressions. Click <b>Add Range </b>to add a set of
+		range endpoints. Click the red <b>(/) </b>symbol to remove a range. The <b>From </b>and <b>To
+		</b>values in Kibella must be specified as a string date using the template <nobr>YYYY-MM-DD</nobr> HH:MM:SS,
+		YYYY/MM/DD HH:MM:SS, <nobr>YYYY-MM-DD</nobr> or YYYY/MM/DD. Some examples of valid dates are:</p>
+	<p><b>o </b>2015/12/28 14:15:38 <b>o </b>
+		<nobr>2015-12-28</nobr> 14:15:38 <b>o </b>2015/12/28
+	</p>
+	<p><b>o </b>
+		<nobr>2015-12-28</nobr>
+	</p>
+	<p>The <b>from </b>and <b>to </b>values must *not* be enclosed in quotes.</p>
+	<p><b>Terms</b></p>
+	<p>A terms aggregation enables you to specify the top or bottom n elements of a given field to display, ordered by
+		count or a custom metric.</p>
+	<p><b>Filters</b></p>
+	<p>You can specify a set of <b>filters </b>for the data. You can specify a filter as a query string or in JSON
+	</p>
+	<p>format, just as in the Discover search bar. Click <b>Add Filter </b>to add another filter. Click the Label
+		button to open the label field, where you can type in a name to display on the visualization.</p>
+	<p>Once you’ve specified an X axis aggregation, you can define <nobr>sub-aggregations</nobr> to refine the
+		visualization. Click <b>+ Add Sub Aggregation </b>to define a <nobr>sub-aggregation,</nobr> then choose
+		<b>Split Area </b>or <b>Split Chart</b>, then select a <nobr>sub-aggregation</nobr> from the list of
+		types.</p>
+	<p>When multiple aggregations are defined on a chart’s axis, you can use the up or down arrows to the right of the
+		aggregation’s type to change the aggregation’s priority.</p>
+	<p>Enter a string in the <b>Custom Label </b>field to change the display label.</p>
+	<p>The availability of these options varies depending on the aggregation you choose.</p>
+	<p>Select the Options tab to change the following aspects of the chart:</p>
+	<p>
+		<nobr><b>Y-Axis</b></nobr><b> Scale:</b> You can select linear, log, or square root scales for the
+		chart’s Y axis. You can use a log scale to display data that varies exponentially, such as a compounding
+		interest chart, or a square root scale to regularize the display of data sets with variabilities that are
+		themselves highly variable. This kind of data, where the variability is itself variable over the domain being
+		examined, is known as heteroscedastic data. For example, if a data set of height versus weight has a relatively
+		narrow range of variability at the short end of height, but a wider range at the taller end, the data set is
+		heteroscedastic.
+	</p>
+	<p><b>Smooth Lines:</b> Check this box to curve the line from point to point. Bear in mind that smoothed lines
+		necessarily affect the representation of your data and create a potential for ambiguity.</p>
+	<p><b>Show Connecting Lines:</b> Check this box to draw lines between the points on the chart.</p>
+	<p><b>Show Circles:</b> Check this box to draw each data point on the chart as a small circle.</p>
+	<p><b>Current time marker:</b> For charts of <nobr>time-series</nobr> data, check this box to draw a red line
+		on the current time.</p>
+	<p><b>Set </b>
+		<nobr><b>Y-Axis</b></nobr><b> Extents:</b> Check this box and enter values in the <nobr>y-max</nobr>
+		and <nobr>y-min</nobr> fields to set the Y axis to specific values.
+	</p>
+	<p><b>Show Tooltip:</b> Check this box to enable the display of tooltips.</p>
+	<p><b>Show Legend:</b> Check this box to enable the display of a legend next to the chart.</p>
+	<p>After changing options, click the green <b>Apply changes </b>button to update your visualization, or the
+		grey <b>Discard changes </b>button to keep your visualization in its current state.</p>
+	<p>To display the raw data behind the visualization, click the bar at the bottom of the container. Tabs with
+		detailed information about the raw data replace the visualization:</p>
+	<p><b>Table.</b> A representation of the underlying data, presented as a paginated data grid. You can sort the
+		items in the table by clicking on the table headers at the top of each column.</p>
+	<p><b>Request.</b> The raw request used to query the server, presented in JSON format.</p>
+	<p><b>Response.</b> The raw response from the server, presented in JSON format.</p>
+	<p><b>Statistics.</b> A summary of the statistics related to the request and the response, presented as a data
+		grid. The data grid includes the query duration, the request duration, the total number of records found on the
+		server, and the index pattern used to make the query.</p>
+	<p><b>(at the bottom of any of the detailed information tabs) Raw or Formatted links</b><b>: Export the raw
+			data behind the visualization as a </b>
+		<nobr><b>comma-separated-values</b></nobr><b> (CSV) file. A raw export contains the data as it is
+			stored in Kibella. A formatted export contains the results of any applicable Kibella field
+			formatters.</b>
+	</p>
+	<h2>Bubble Chart Visualization</b></h2>
+	<p>You can convert a line chart visualization to a bubble chart by performing the following steps:</p>
+	<p><b>1.</b><b>Click Add Metrics for the visualization’s Y axis, then select Dot Size.</b></p>
+	<p><b>2.</b><b>Select a metric aggregation from the </b>
+		<nobr>drop-down</nobr> list.
+	</p>
+	<p><b>3.</b><b>In the Options tab, uncheck the Show Connecting Lines box.</b></p>
+	<p><b>4.</b><b>Click the Apply changes button.</b></p>
+	<h2>Markdown Widget Visualization</h2>
+	<p>The Markdown widget is a text entry field that accepts <nobr>GitHub-flavored</nobr> Markdown text. Kibella
+		renders the text you enter in this field and displays the results on the dashboard. You can click the Help link
+		to go to <a href="https://help.github.com/categories/writing-on-github/"><b>the help page for GitHub flavored
+				Markdown</b></a><a href="https://help.github.com/categories/writing-on-github/">. </a>Click Apply to
+		display the rendered text in the Preview pane or Discard to revert to a previous version.</p>
+	<h2>Metric Visualization</h2>
+	<p>A metric visualization displays a single number for each aggregation you select:</p>
+	<p><b>Count:</b> The count aggregation returns a raw count of the elements in the selected index pattern.</p>
+	<p><b>Average:</b> This aggregation returns the average of a numeric field. Select a field from the drop-
+		down.</p>
+	<p><b>Sum:</b> The sum aggregation returns the total sum of a numeric field. Select a field from the <nobr>
+			drop-down.</nobr>
+	</p>
+	<p><b>Min:</b> The min aggregation returns the minimum value of a numeric field. Select a field from the
+		<nobr>drop-down.</nobr>
+	</p>
+	<p><b>Max:</b> The max aggregation returns the maximum value of a numeric field. Select a field from the
+		<nobr>drop-down.</nobr>
+	</p>
+	<p><b>Unique Count:</b> The cardinality aggregation returns the number of unique values in a field. Select a
+		field from the <nobr>drop-down.</nobr>
+	</p>
+	<p>You can add an aggregation by clicking the <b>+ Add Aggregation </b>button.</p>
+	<p>Enter a string in the Custom Label field to change the display label.</p>
+	<p>Click the Options tab to display the font size slider.</p>
+	<p>To display the raw data behind the visualization, click the bar at the bottom of the container. Tabs with
+		detailed information about the raw data replace the visualization:</p>
+	<p><b>Table.</b> A representation of the underlying data, presented as a paginated data grid. You can sort the
+		items in the table by clicking on the table headers at the top of each column.</p>
+	<p><b>Request.</b> The raw request used to query the server, presented in JSON format.</p>
+	<p><b>Response.</b> The raw response from the server, presented in JSON format.</p>
+	<p><b>Statistics.</b> A summary of the statistics related to the request and the response, presented as a data
+		grid. The data grid includes the query duration, the request duration, the total number of records found on the
+		server, and the index pattern used to make the query.</p>
+	<p><b>(at the bottom of any of the detailed information tabs) Raw or Formatted links</b><b>: Export the raw
+			data behind the visualization as a </b>
+		<nobr><b>comma-separated-values</b></nobr><b> (CSV) file. A raw export contains the data as it is
+			stored in Kibella. A formatted export contains the results of any applicable Kibella field
+			formatters.</b>
+	</p>
+	<h2>Pie Charts Visualization</h2>
+	<p>The slice size of a pie chart is determined by the metrics aggregation. The following aggregations are available
+		for this axis:</p>
+	<p><b>Count:</b> The count aggregation returns a raw count of the elements in the selected index pattern.</p>
+	<p><b>Sum:</b> The sum aggregation returns the total sum of a numeric field. Select a field from the <nobr>
+			drop-down.</nobr>
+	</p>
+	<p><b>Unique Count:</b> The cardinality aggregation returns the number of unique values in a field. Select a
+		field from the <nobr>drop-down.</nobr>
+	</p>
+	<p>Enter a string in the Custom Label field to change the display label.</p>
+	<p>You can specify any of the following bucket aggregations for your pie chart:</p>
+	<p><b>Date Histogram</b></p>
+	<p>A date histogram is built from a numeric field and organized by date. You can specify a time frame for the
+		intervals in seconds, minutes, hours, days, weeks, months, or years. You can also specify a <b>custom
+		</b>interval frame by selecting Custom as the interval and specifying a number</p>
+	<p>and a time unit in the text field. Custom interval time units are <b>s </b>for seconds, <b>m </b>for
+		minutes, <b>h </b>for hours, <b>d </b>for days, <b>w </b>for weeks, and <b>y </b>for
+		years. Different units support different levels of precision, down to one second.</p>
+	<p><b>Histogram</b></p>
+	<p>A standard histogram is built from a numeric field. Specify an integer interval for this field. Select the Show
+		empty buckets checkbox to include empty intervals in the histogram.</p>
+	<p><b>Range</b></p>
+	<p>With a range aggregation, you can specify ranges of values for a numeric field. Click <b>Add Range </b>to
+		add a set of range endpoints. Click the red <b>(x) </b>symbol to remove a range.</p>
+	<p><b>Date Range</b></p>
+	<p>A date range aggregation reports values that are within a range of dates that you specify. You can specify the
+		ranges for the dates using <b>date math </b>expressions. Click <b>Add Range </b>to add a set of
+		range endpoints. Click the red <b>(/) </b>symbol to remove a range. The <b>From </b>and <b>To
+		</b>values in Kibella must be specified as a string date using the template <nobr>YYYY-MM-DD</nobr> HH:MM:SS,
+		YYYY/MM/DD HH:MM:SS, <nobr>YYYY-MM-DD</nobr> or YYYY/MM/DD. Some examples of valid dates are:</p>
+	<p><b>o </b>2015/12/28 14:15:38 <b>o </b>
+		<nobr>2015-12-28</nobr> 14:15:38 <b>o </b>2015/12/28
+	</p>
+	<p><b>o </b>
+		<nobr>2015-12-28</nobr>
+	</p>
+	<p>The <b>from </b>and <b>to </b>values must *not* be enclosed in quotes.</p>
+	<p><b>Terms</b></p>
+	<p>A terms aggregation enables you to specify the top or bottom n elements of a given field to display, ordered by
+		count or a custom metric.</p>
+	<p><b>Filters</b></p>
+	<p>You can specify a set of <b>filters </b>for the data. You can specify a filter as a query string or in JSON
+	</p>
+	<p>format, just as in the Discover search bar. Click <b>Add Filter </b>to add another filter. Click the Label
+		button to open the label field, where you can type in a name to display on the visualization.</p>
+	<p>Once you’ve specified an X axis aggregation, you can define <nobr>sub-aggregations</nobr> to refine the
+		visualization. Click <b>+ Add Sub Aggregation </b>to define a <nobr>sub-aggregation,</nobr> then choose
+		<b>Split Area </b>or <b>Split Chart</b>, then select a <nobr>sub-aggregation</nobr> from the list of
+		types.</p>
+	<p>When multiple aggregations are defined on a chart’s axis, you can use the up or down arrows to the right of the
+		aggregation’s type to change the aggregation’s priority.</p>
+	<p>Enter a string in the <b>Custom Label </b>field to change the display label.</p>
+	<p>The availability of these options varies depending on the aggregation you choose.</p>
+	<p>Select the Options tab to change the following aspects of the chart:</p>
+	<p><b>Donut:</b> Display the chart as a sliced ring instead of a sliced pie.</p>
+	<p><b>Show Tooltip:</b> Check this box to enable the display of tooltips.</p>
+	<p><b>Show Legend:</b> Check this box to enable the display of a legend next to the chart.</p>
+	<p>After changing options, click the green <b>Apply changes </b>button to update your visualization, or the
+		grey <b>Discard changes </b>button to keep your visualization in its current state.</p>
+	<p>To display the raw data behind the visualization, click the bar at the bottom of the container. Tabs with
+		detailed information about the raw data replace the visualization:</p>
+	<p><b>Table.</b> A representation of the underlying data, presented as a paginated data grid. You can sort the
+		items in the table by clicking on the table headers at the top of each column.</p>
+	<p><b>Request.</b> The raw request used to query the server, presented in JSON format.</p>
+	<p><b>Response.</b> The raw response from the server, presented in JSON format.</p>
+	<p><b>Statistics.</b> A summary of the statistics related to the request and the response, presented as a data
+		grid. The data grid includes the query duration, the request duration, the total number of records found on the
+		server, and the index pattern used to make the query.</p>
+	<p><b>(at the bottom of any of the detailed information tabs) Raw or Formatted links</b><b>: Export the raw
+			data behind the visualization as a </b>
+		<nobr><b>comma-separated-values</b></nobr><b> (CSV) file. A raw export contains the data as it is
+			stored in Kibella. A formatted export contains the results of any applicable Kibella field
+			formatters.</b>
+	</p>
+	<h2>Tile Maps Visualization</h2>
+	<p>A tile map displays a geographic area overlaid with circles keyed to the data determined by the buckets you
+		specify.</p>
+	<p>The default metrics aggregation for a tile map is the Count aggregation. You can select any of the following
+		aggregations as the metrics aggregation:</p>
+	<p><b>Count:</b> The count aggregation returns a raw count of the elements in the selected index pattern.</p>
+	<p><b>Average:</b> This aggregation returns the average of a numeric field. Select a field from the drop-
+		down.</p>
+	<p><b>Sum:</b> The sum aggregation returns the total sum of a numeric field. Select a field from the <nobr>
+			drop-down.</nobr>
+	</p>
+	<p><b>Min:</b> The min aggregation returns the minimum value of a numeric field. Select a field from the
+		<nobr>drop-down.</nobr>
+	</p>
+	<p><b>Max:</b> The max aggregation returns the maximum value of a numeric field. Select a field from the
+		<nobr>drop-down.</nobr>
+	</p>
+	<p><b>Unique Count:</b> The cardinality aggregation returns the number of unique values in a field. Select a
+		field from the <nobr>drop-down.</nobr>
+	</p>
+	<p>The buckets aggregations determine what information is being retrieved from your data set.</p>
+	<p>Before you choose a buckets aggregation, specify if you are splitting the chart or displaying the buckets as
+		<b>Geo Coordinates </b>on a single chart. A multiple chart split must run before any other aggregations.
+	</p>
+	<p>Tile maps use the <b>Geohash </b>aggregation as their initial aggregation. Select a field, typically
+		coordinates, from the <nobr>drop-down.</nobr> The <b>Precision </b>slider determines the granularity of
+		the results displayed on the map.</p>
+	<p>Once you’ve specified a buckets aggregation, you can define <nobr>sub-aggregations</nobr> to refine the
+		visualization. Tile maps only support <nobr>sub-aggregations</nobr> as split charts. Click <b>+ Add Sub
+			Aggregation</b>, then <b>Split Chart </b>to select a <nobr>sub-aggregation</nobr> from the list of
+		types:</p>
+	<p><b>Date Histogram</b></p>
+	<p>A date histogram is built from a numeric field and organized by date. You can specify a time frame for the
+		intervals in seconds, minutes, hours, days, weeks, months, or years. You can also specify a <b>custom
+		</b>interval frame by selecting Custom as the interval and specifying a number</p>
+	<p>and a time unit in the text field. Custom interval time units are <b>s </b>for seconds, <b>m </b>for
+		minutes, <b>h </b>for hours, <b>d </b>for days, <b>w </b>for weeks, and <b>y </b>for
+		years. Different units support different levels of precision, down to one second.</p>
+	<p><b>Histogram</b></p>
+	<p>A standard histogram is built from a numeric field. Specify an integer interval for this field. Select the Show
+		empty buckets checkbox to include empty intervals in the histogram.</p>
+	<p><b>Range</b></p>
+	<p>With a range aggregation, you can specify ranges of values for a numeric field. Click <b>Add Range </b>to
+		add a set of range endpoints. Click the red <b>(x) </b>symbol to remove a range.</p>
+	<p><b>Date Range</b></p>
+	<p>A date range aggregation reports values that are within a range of dates that you specify. You can specify the
+		ranges for the dates using <b>date math </b>expressions. Click <b>Add Range </b>to add a set of
+		range endpoints. Click the red <b>(/) </b>symbol to remove a range. The <b>From </b>and <b>To
+		</b>values in Kibella must be specified as a string date using the template <nobr>YYYY-MM-DD</nobr> HH:MM:SS,
+		YYYY/MM/DD HH:MM:SS, <nobr>YYYY-MM-DD</nobr> or YYYY/MM/DD. Some examples of valid dates are:</p>
+	<p><b>o </b>2015/12/28 14:15:38 <b>o </b>
+		<nobr>2015-12-28</nobr> 14:15:38 <b>o </b>2015/12/28
+	</p>
+	<p><b>o </b>
+		<nobr>2015-12-28</nobr>
+	</p>
+	<p>The <b>from </b>and <b>to </b>values must *not* be enclosed in quotes.</p>
+	<p><b>Terms</b></p>
+	<p>A terms aggregation enables you to specify the top or bottom n elements of a given field to display, ordered by
+		count or a custom metric.</p>
+	<p><b>Filters</b></p>
+	<p>You can specify a set of <b>filters </b>for the data. You can specify a filter as a query string or in JSON
+	</p>
+	<p>format, just as in the Discover search bar. Click <b>Add Filter </b>to add another filter. Click the Label
+		button to open the label field, where you can type in a name to display on the visualization.</p>
+	<p><b>Geohash</b></p>
+	<p>The geohash aggregation displays points based on the geohash coordinates.</p>
+	<p>The availability of these options varies depending on the aggregation you choose.</p>
+	<p>Select the Options tab to change the following aspects of the chart:</p>
+	<p><b>Map type:</b> Select one of the following options from the <nobr>drop-down.</nobr>
+	</p>
+	<p><b>Scaled Circle Markers</b>: Scale the size of the markers based on the metric aggregation’s
+		value.</p>
+	<p><b>Shaded Circle Markers</b>: Displays the markers with different shades based on the metric
+		aggregation’s value.</p>
+	<p><b>Shaded Geohash Grid</b>: Displays the rectangular cells of the geohash grid instead of
+		circular markers, with different shades based on the metric aggregation’s value.</p>
+	<p><b>Heatmap</b>: A heat map applies blurring to the circle markers and applies shading based
+		on the amount of overlap. Heatmaps have the following options:</p>
+	<p><b>Radius</b>: Sets the size of the individual heatmap dots.</p>
+	<p><b>Blur</b>: Sets the amount of blurring for the heatmap dots.</p>
+	<p><b>Maximum zoom</b>: Tilemaps in Kibella support 18 zoom levels. This slider defines the
+		maximum zoom level at which the heatmap dots appear at full intensity.</p>
+	<p><b>Minimum opacity</b>: Sets the opacity cutoff for the dots.</p>
+	<p><b>Show Tooltip</b>: Check this box to have a tooltip with the values for a given dot when
+		the cursor is on that dot.</p>
+	<p><b>Desaturate map tiles:</b> Desaturate the map’s color in order to make the markers stand out more
+		clearly.</p>
+	<p>After changing options, click the green <b>Apply changes </b>button to update your visualization, or the
+		grey <b>Discard changes </b>button to keep your visualization in its current state.</p>
+	<p>Navigating the Map</p>
+	<p>Once your tilemap visualization is ready, you can explore the map in several ways:</p>
+	<p><b>Click and hold anywhere on the map and move the cursor to move the map center. Hold Shift and drag a
+			bounding box across the map to zoom in on the selection.</b></p>
+	<p><b>Click the </b><b>Zoom In/Out </b> buttons to change the zoom level manually.</p>
+	<p><b>Click the </b><b>Fit Data Bounds </b>button to automatically crop the map boundaries to the
+		geohash buckets that have at least one result.</p>
+	<p><b>Click the </b><b>Latitude/Longitude Filter </b> button, then drag a bounding box across the map,
+		to create a filter for the box coordinates.</p>
+	<p>To display the raw data behind the visualization, click the bar at the bottom of the container. Tabs with
+		detailed information about the raw data replace the visualization:</p>
+	<p><b>Table.</b> A representation of the underlying data, presented as a paginated data grid. You can sort the
+		items in the table by clicking on the table headers at the top of each column.</p>
+	<p><b>Request.</b> The raw request used to query the server, presented in JSON format.</p>
+	<p><b>Response.</b> The raw response from the server, presented in JSON format.</p>
+	<p><b>Statistics.</b> A summary of the statistics related to the request and the response, presented as a data
+		grid. The data grid includes the query duration, the request duration, the total number of records found on the
+		server, and the index pattern used to make the query.</p>
+	<p><b>(at the bottom of any of the detailed information tabs) Raw or Formatted links</b><b>: Export the raw
+			data behind the visualization as a </b>
+		<nobr><b>comma-separated-values</b></nobr><b> (CSV) file. A raw export contains the data as it is
+			stored in Kibella. A formatted export contains the results of any applicable Kibella field
+			formatters.</b>
+	</p>
+	<h2>Vertical Bar chart Visualization</h2>
+	<p>This chart’s Y axis is the <b>metrics </b>axis. The following aggregations are available for this axis:</p>
+	<p><b>Count:</b> The count aggregation returns a raw count of the elements in the selected index pattern.</p>
+	<p><b>Average:</b> This aggregation returns the average of a numeric field. Select a field from the drop-
+		down.</p>
+	<p><b>Sum:</b> The sum aggregation returns the total sum of a numeric field. Select a field from the <nobr>
+			drop-down.</nobr>
+	</p>
+	<p><b>Min:</b> The min aggregation returns the minimum value of a numeric field. Select a field from the
+		<nobr>drop-down.</nobr>
+	</p>
+	<p><b>Max:</b> The max aggregation returns the maximum value of a numeric field. Select a field from the
+		<nobr>drop-down.</nobr>
+	</p>
+	<p><b>Unique Count:</b> The cardinality aggregation returns the number of unique values in a field. Select a
+		field from the <nobr>drop-down.</nobr>
+	</p>
+	<p>You can add an aggregation by clicking the <b>+ Add Aggregation </b>button.</p>
+	<p>The <b>buckets </b>aggregations determine what information is being retrieved from your data set.</p>
+	<p>Before you choose a buckets aggregation, specify if you are splitting slices within a single chart or splitting
+		into multiple charts. A multiple chart split must run before any other aggregations. When you split a chart, you
+		can change if the splits are displayed in a row or a column by clicking the <b>Rows | Columns
+		</b>selector.</p>
+	<p>The X axis of this chart is the buckets axis. You can define buckets for the X axis, for a split area on the
+		chart, or for split charts.</p>
+	<p>This chart’s X axis supports the following aggregations:</p>
+	<p><b>Date Histogram</b></p>
+	<p>A date histogram is built from a numeric field and organized by date. You can specify a time frame for the
+		intervals in seconds, minutes, hours, days, weeks, months, or years. You can also specify a <b>custom
+		</b>interval frame by selecting Custom as the interval and specifying a number and a time unit in the text
+		field. Custom interval time units are <b>s </b>for seconds, <b>m </b>for minutes, <b>h </b>for
+		hours, <b>d </b>for days, <b>w </b>for weeks, and <b>y </b>for years. Different units support
+		different levels of precision, down to one second.</p>
+	<p><b>Histogram</b></p>
+	<p>A standard histogram is built from a numeric field. Specify an integer interval for this field. Select the Show
+		empty buckets checkbox to include empty intervals in the histogram.</p>
+	<p><b>Range</b></p>
+	<p>With a range aggregation, you can specify ranges of values for a numeric field. Click <b>Add Range </b>to
+		add a set of range endpoints. Click the red <b>(x) </b>symbol to remove a range.</p>
+	<p><b>Date Range</b></p>
+	<p>A date range aggregation reports values that are within a range of dates that you specify. You can specify the
+		ranges for the dates using <b>date math </b>expressions. Click <b>Add Range </b>to add a set of
+		range endpoints. Click the red <b>(/) </b>symbol to remove a range. The <b>From </b>and <b>To
+		</b>values in Kibella must be specified as a string date using the template <nobr>YYYY-MM-DD</nobr> HH:MM:SS,
+		YYYY/MM/DD HH:MM:SS, <nobr>YYYY-MM-DD</nobr> or YYYY/MM/DD. Some examples of valid dates are:</p>
+	<p><b>o </b>2015/12/28 14:15:38 <b>o </b>
+		<nobr>2015-12-28</nobr> 14:15:38 <b>o </b>2015/12/28
+	</p>
+	<p><b>o </b>
+		<nobr>2015-12-28</nobr>
+	</p>
+	<p>The <b>from </b>and <b>to </b>values must *not* be enclosed in quotes.</p>
+	<p><b>Terms</b></p>
+	<p>A terms aggregation enables you to specify the top or bottom n elements of a given field to display, ordered by
+		count or a custom metric.</p>
+	<p><b>Filters</b></p>
+	<p>You can specify a set of <b>filters </b>for the data. You can specify a filter as a query string or in JSON
+	</p>
+	<p>format, just as in the Discover search bar. Click <b>Add Filter </b>to add another filter. Click the Label
+		button to open the label field, where you can type in a name to display on the visualization.</p>
+	<p>Once you’ve specified an X axis aggregation, you can define <nobr>sub-aggregations</nobr> to refine the
+		visualization. Click <b>+ Add Sub Aggregation </b>to define a <nobr>sub-aggregation,</nobr> then choose
+		<b>Split Area </b>or <b>Split Chart</b>, then select a <nobr>sub-aggregation</nobr> from the list of
+		types.</p>
+	<p>When multiple aggregations are defined on a chart’s axis, you can use the up or down arrows to the right of the
+		aggregation’s type to change the aggregation’s priority.</p>
+	<p>The availability of these options varies depending on the aggregation you choose.</p>
+	<p>Select the Options tab to change the following aspects of the chart:</p>
+	<p><b>Bar Mode:</b> When you have multiple <nobr>Y-axis</nobr> aggregations defined for your chart, you can
+		use this <nobr>drop-down</nobr> to affect how the aggregations display on the chart:</p>
+	<p><b>Stacked:</b> Stacks the aggregations on top of each other.</p>
+	<p><b>Percentage:</b> Displays each aggregation as a proportion of the total.</p>
+	<p><b>Grouped:</b> Groups the results horizontally by the <nobr>lowest-priority</nobr>
+		<nobr>sub-aggregation.</nobr>
+	</p>
+	<p><b>Show Tooltip:</b> Check this box to enable the display of tooltips.</p>
+	<p><b>Show Legend:</b> Check this box to enable the display of a legend next to the chart.</p>
+	<p><b>Scale </b>
+		<nobr><b>Y-Axis</b></nobr><b> to Data Bounds:</b> The default Y axis bounds are zero and the maximum
+		value returned in the data. Check this box to change both upper and lower bounds to match the values returned in
+		the data.
+	</p>
+	<p>To display the raw data behind the visualization, click the bar at the bottom of the container. Tabs with
+		detailed information about the raw data replace the visualization:</p>
+	<p><b>Table.</b> A representation of the underlying data, presented as a paginated data grid. You can sort the
+		items in the table by clicking on the table headers at the top of each column.</p>
+	<p><b>Request.</b> The raw request used to query the server, presented in JSON format.</p>
+	<p><b>Response.</b> The raw response from the server, presented in JSON format.</p>
+	<p><b>Statistics.</b> A summary of the statistics related to the request and the response, presented as a data
+		grid. The data grid includes the query duration, the request duration, the total number of records found on the
+		server, and the index pattern used to make the query.</p>
+	<p><b>(at the bottom of any of the detailed information tabs) Raw or Formatted links</b><b>: Export the raw
+			data behind the visualization as a </b>
+		<nobr><b>comma-separated-values</b></nobr><b> (CSV) file. A raw export contains the data as it is
+			stored in Kibella. A formatted export contains the results of any applicable Kibella field
+			formatters.</b>
+	</p>
+
+	<h2>Dashboards</h2>
+	<p>A Kibella dashboard displays a set of saved visualizations in groups that you can arrange freely. You can save a
+		dashboard to share or reload at a later time.</p>
+	<p>Here is a sample dashboard:</p>
+	<h3>Getting Started</h3>
+	<p>You need at least one saved visualization to use a dashboard.</p>
+	<h4>Building a New Dashboard</h4>
+	<p>The first time you click the Dashboard tab, Kibella displays an empty dashboard:</p>
+	<p>Build your dashboard by adding visualizations.</p>
+
+	<h4>Adding Visualizations to a Dashboard</h4>
+	<p>To add a visualization to the dashboard, click the <b>Add Visualization </b>Visualization Filter
+		</b>field.</p>
+	<p>The visualization you select appears in a <b>container </b>on your dashboard.</p>
+	<h4>Saving Dashboards</h4>
+	<p>To save the dashboard, click the Save Dashboard button in the toolbar panel, enter a name for the dashboard in
+		the Save As field, and click the Save button. By default, dashboards store the time period specified in the time
+		filter when you save a dashboard. To disable this behavior, clear the Store time with dashboard box before
+		clicking the Save button.</p>
+	<h4>Loading a Saved Dashboard</h4>
+	<p>Click the Load Saved Dashboard button to display a list of existing dashboards. The saved dashboard selector
+		includes a text field to filter by dashboard name and a link to the Object Editor for managing your saved
+		dashboards. You can also access the Object Editor by clicking Settings &gt; Edit Saved Objects.</p>
+	<h4>Sharing Dashboards</h4>
+	<p>You can share dashboards with other users. You can share a direct link to the Kibella dashboard or embed the
+		dashboard in your Web page.</p>
+	<p>Click the <b>Share </b>button to display HTML code to embed the dashboard in another Web page, along with a
+		direct link to the dashboard. Click the copy button Copy to Clipboard button next to either option to copy the
+		code or the link to your clipboard.</p>
+	<h4>Embedding Dashboards</h4>
+	<p>To embed a dashboard, copy the embed code from the Share display into your external web application.</p>
+	<h3>Customizing Dashboard Elements</h3>
+	<p>The visualizations in your dashboard are stored in resizable containers that you can arrange on the dashboard.
+		This section discusses customizing these containers.</p>
+	<h4>Moving Containers</h4>
+	<p>Click and hold a container’s header to move the container around the dashboard. Other containers will shift as
+		needed to make room for the moving container. Release the mouse button to confirm the container’s new location.
+	</p>
+	<h4>Resizing Containers</h4>
+	<p>Move the cursor to the bottom right corner of the container until the cursor changes to point at the corner.
+		After the cursor changes, click and drag the corner of the container to change the container’s size. Release the
+		mouse button to confirm the new container size.</p>
+	<h4>Editing the Visualization inside a Container</h4>
+	<p>Click the Edit button at the top right of a container to open the visualization in the Visualize page.</p>
+	<h4>Removing Containers</h4>
+	<p>Click the x icon at the top right corner of a container to remove that container from the dashboard. Removing a
+		container from a dashboard does not delete the saved visualization in that container.</p>
+	<h4>The raw data behind the visualization</h4>
+	<p>To display the raw data behind the visualization, click the bar at the bottom of the container. Tabs with
+		detailed information about the raw data replace the visualization:</p>
+	<p><b>Table.</b> A representation of the underlying data, presented as a paginated data grid. You can sort the
+		items in the table by clicking on the table headers at the top of each column.</p>
+	<p><b>Request.</b> The raw request used to query the server, presented in JSON format.</p>
+	<p><b>Response.</b> The raw response from the server, presented in JSON format.</p>
+	<p><b>Statistics.</b> A summary of the statistics related to the request and the response, presented as a data
+		grid. The data grid includes the query duration, the request duration, the total number of records found on the
+		server, and the index pattern used to make the query.</p>
+	<p><b>(at the bottom of any of the detailed information tabs) Raw or Formatted links</b><b>: Export the raw
+			data behind the visualization as a </b>
+		<nobr><b>comma-separated-values</b></nobr><b> (CSV) file. A raw export contains the data as it is
+			stored in Kibella. A formatted export contains the results of any applicable Kibella field
+			formatters.</b>
+	</p>
+	<h3>Working with Filters</h3>
+	<h4>Simple Filters</h4>
+	<p>When you create a filter anywhere in Kibella, the filter conditions display in a green oval under the search text
+		entry box:</p>
+	<p>Hovering on the filter oval displays the following icons:</p>
+	<p>Here is a description of each icon:</p>
+	<p><b>Enable Filter </b></p>
+	<p>Click this icon to disable the filter without removing it. You can enable the filter again later by clicking the
+		icon again. Disabled filters display a striped shaded color, green for inclusion filters and red for exclusion
+		filters.</p>
+	<p><b>Pin Filter </b></p>
+	<p>Click this icon to pin a filter. Pinned filters persist across Kibella tabs. You can pin filters from the
+		Dashboard tab, click on the Visualize tab, and those filters remain in place.</p>
+	<p><b>Note</b><b>:</b> If you have a pinned filter and you’re not seeing any query results, that your
+		current tab’s index pattern is one that the filter applies to.</p>
+	<p><b>Toggle Filter </b></p>
+	<p>Click this icon to toggle a filter. By default, filters are inclusion filters, and display in green. Only
+		elements that match the filter are displayed. To change this to an exclusion filters, displaying only elements
+		that don’t match, toggle the filter. Exclusion filters display in red.</p>
+	<p><b>Remove Filter </b></p>
+	<p>Click this icon to remove a filter entirely.</p>
+	<p><b>Custom Filter </b></p>
+	<p>Click this icon to display a text field where you can customize the JSON representation of the filter. Click the
+		Done button to update the filter with your changes.</p>
+	<p>To apply any of the filter actions to all the filters currently in place, click the Global Filter Actions button
+		and select an action.</p>
+	<h4>Filters on dates</h4>
+	<p>Date Filters Inside the Visualization Panel:</p>
+	<p>Inside the Visualization Panel, the calendar interface is not available. The only way to filter dates is by using
+		the free box for normal filters at the top and filtering the date using ranges defined on seconds elapsed since
+		1970/01/01 00:00:00. An example of such a filter is:</p>
+	<p>1430611200 &lt;= date and date &lt;= 1462406400</p>
+	<p><b>…which filters the date variable </b>date <b>between </b>
+		<nobr>'03-May-2015</nobr> 02:00:00' <b>and </b>
+		<nobr>'05-May-</nobr> 2016 02:00:00'<b>.</b>
+	</p>
+	<p>Inside the Dashboard Panel, the calendar interface is available to easily create different queries on dates:
+		Click here:</p>
+	<p>Inside the <nobr>Early-Access</nobr> version of Kibella, relative date values like <nobr>“now-1w/w”</nobr> (which
+		appears as default in Kibella) are currently not supported.</p>
+
+	<h3>Automatic Refresh of the Page</h3>
+	<p>You can configure a refresh interval to automatically refresh the page with the latest index data. This
+		periodically resubmits the search query.</p>
+	<p>When a refresh interval is set, it is displayed to the left of the Time Filter in the menu bar.</p>
+	<p>To set the refresh interval:</p>
+	<p><b>1.</b><b>Click the </b><b>Time Filter </b> in the upper right corner of the menu bar:</p>
+	<p><b>2.</b><b>Click the </b>Refresh Interval <b>tab.</b></p>
+	<p><b>3.</b><b>Choose a refresh interval from the list.</b></p>
+	<p>To automatically refresh the data, click the </b>button and select an autorefresh interval:</p>
+	<p>When <nobr>auto-refresh</nobr> is enabled, Kibella’s top bar displays a pause button and the <nobr>auto-refresh
+		</nobr> interval: Pause </b>button to pause <nobr>auto-refresh.</nobr>
+	</p>
+	<h1>Deploying your dashboards in production</h1>
+	<p>You need to copy to the production server:</p>
+	<p><b>the “</b><b>"</b><b>&lt;WampInstallDir&gt;</b><b>/www/kibella/kibella.sqlite</b>”
+		file: This file contains all the visualizations and all the dashboards.</p>
+	<p><b>the files contains the queried datasets (from the kibella datadir)</b></p>
+	<h1>Managing Several Kibella’s installed on the same server</h1>
+	<p>Already possible.</p>
+	<p>Still need to write Documentation.</p>
