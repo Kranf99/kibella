@@ -7,17 +7,24 @@ define(function(require) {
 
   require('style-loader!css-loader!less-loader!./guide.less');
 
-  var app = require("ui/modules").get("app/admin");
+  var app = require("ui/modules").get("app/guide", [
+    'elasticsearch',
+    'ngRoute',
+    'kibana/courier',
+    'kibana/config',
+    'kibana/notify',
+    'kibana/typeahead'
+  ]);
 
   app.directive('guideText', function ($location) {
     return {
       restrict: 'EA',
-      template: require('./guide.html')
+      template: require("text!./guide.html")
   }});
 
   require("routes").when("/guide", {
     controller: "guideController",
-    template: require("./index.html")
+    template: require("text!./index.html")
   });
 
   app.controller("guideController", function($scope, $anchorScroll, $compile, $location) {
@@ -47,7 +54,7 @@ define(function(require) {
   });
 
   var apps = require("ui/registry/apps");
-  apps.register(function DashboardAppModule() {
+  apps.register(function GuideAppModule() {
     return {
       id: "guide",
       name: "User Guide",

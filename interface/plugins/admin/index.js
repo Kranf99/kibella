@@ -32,8 +32,7 @@ define(function (require) {
     var adminOnly = {};
 
     adminOnly.check = function() {
-      $rootScope;
-      if($rootScope.user.is_admin !== "true") {
+      if($rootScope.user.is_admin !== "true" && $rootScope.user.is_admin !== "TRUE") {
         $location.path('/');
       }
     }
@@ -70,10 +69,10 @@ define(function (require) {
   
   kib.run(function($http, kbnPath, $route) {
     $http.post(kbnPath + '/JSON_SQL_Bridge/users/actions/getMe.php').then(function(response) {
-      if(response.data.is_admin === "true") {
+      if(response.data.is_admin === "true" || response.data.is_admin === "TRUE") {
 
         var apps = require('ui/registry/apps');
-        apps.register(function DashboardAppModule() {
+        apps.register(function AdminAppModule() {
           return {
             id: 'admin',
             name: 'Administration',

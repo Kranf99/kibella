@@ -4,6 +4,7 @@
   "shard_timeout": 0,
   "plugins": [
     "plugins/admin/index",
+    "plugins/guide/index",
     "plugins/dashboard/index",
     "plugins/discover/index",
     "plugins/doc/index",

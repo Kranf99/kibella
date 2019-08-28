@@ -62,7 +62,7 @@ class User {
       
       $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="sqlite");
 
-      if($result[0]['is_admin'] == "true")
+      if($result[0]['is_admin'] == "true" || $result[0]['is_admin'] == "TRUE")
         return true;
     }
 
