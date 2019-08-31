@@ -1,0 +1,55 @@
+<div admin-app>
+
+<div class="head">
+  <h2>User list</h2>
+  <div class="user-search-bar" style="float: right;">
+    <input ng-model="searchTxt" placeholder="Search for users ...">
+    <i class="fa fa-search"></i>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Email</th>
+      <th>is Admin</th>
+      <th class="action"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users | filter:searchTxt">
+      <td>{{ user.firstname }} {{ user.lastname }}</td>
+      <td>{{ user.email }}</td>
+      <td><i class="fa fa-check" ng-show="user.is_admin"></i></td>
+      <!--<td><a href="edit.php?id=' . $user['id'] . '"><i class="fa fa-pencil"></i></a></td>-->
+      <td>
+
+
+<div class="dropdown" dropdown>
+  <button class="btn btn-default dropdown-toggle" dropdown-toggle type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    ...
+    <!--<span class="caret"></span>-->
+  </button>
+  <ul class="dropdown-menu" style="left: initial; right: 0;" dropdown-menu aria-labelledby="dropdownMenu1">
+    <!--<li><a class="edit" type="submit" ng-href="#/admin/profile/{{user.id}}"><i class="fa fa-user"></i> Profile</a></li>-->
+    <li><a class="edit" type="submit" ng-href="#/admin/edit/{{user.id}}"><i class="fa fa-pencil"></i> Edit</a></li>
+    <li><a class="delete" type="submit" ng-click="delete(user.email)"><i class="fa fa-remove"></i> Delete</a></li>
+    <!--<li role="separator" class="divider"></li>-->
+  </ul>
+</div>
+
+        <!--<form action="manage.php" method="post">-->
+          <!--return confirm(\'Do you REALLY want to remove this user ?\nThis action is permanent.\')-->
+          
+        <!--</form>-->
+      </td>
+    </tr>
+  
+  </tbody>
+</table>
+
+  <!--<p ng-show="form_error !== null && form_error !== undefined" class="error" style="color: red;">Error: {{ form_error }}</p>-->
+  <!--<p ng-show="form_error === null" class="success"  style="color: green;">User deleted.</p>-->
+
+</div>

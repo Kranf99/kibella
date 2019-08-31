@@ -1,0 +1,114 @@
+<div admin-app>
+
+<div class="insert ">
+
+<!--
+namespace kibella;
+require_once __DIR__ . '/../../../../src/config.php';
+require_once(__DIR__ . '/../../../../src/users/user.php');
+$user = new User();-->
+
+<!--<?php
+  if($user->isAdmin()) {
+?>-->
+
+
+  <div class="head">
+    <h2>Insert / Update Table</h2>
+  </div>
+
+ <!-- Ref for forms: http://www.w3schools.com/html/html_forms.asp -->
+ 
+ <div class="col-lg-6" style="float: none; margin: 0 auto;">
+	
+	<p>Database <span style="font-size:14px"> (case sensitive under Linux server)</span></p>
+
+	<div class="form-group ">
+		<!--<input type="file" name="db" class="form-control" placeholder=""  fileread="table.db"  autofocus></input>-->
+		<input type="text" name="db" class="form-control" placeholder=""  ng-model="table.db"  autofocus></input>
+		<!--{{ table.db }}-->
+
+		<!--<ng-dropzone class="dropzone" options="dzOptions" callbacks="dzCallbacks" methods="dzMethods"></ng-dropzone>-->
+	</div>
+
+	<!--<?php
+	$datadir = DATADIR;
+	echo <<<HTML
+	<em style="font-size:16px">Name of the SQLite database file where the table is located (Ex: CensusIncome.sqlite)</em><br>
+	<em style="font-size:16px">Currently selected database location (in kibella.ini): <b>'$datadir'</b></em>
+HTML;
+	?>-->
+
+	<p>
+		Name of the SQLite database file where the table is located (Ex: CensusIncome.sqlite)</em>
+		Currently selected database location (in kibella.ini): <b> {{ DATADIR }} </b>
+	</p>
+
+	<div class="form-group">
+		<p>Table: <span style="font-size:14px"> (not case sensitive)</span></p>
+	
+		<input type="text" name="table" class="form-control" placeholder="Table Name" ng-model="table.table"></input>
+	</div>
+
+
+	<p>Name of the table to register</p>
+	<b>Date fields:</b><span style="font-size:14px"> (not case sensitive)</span><br>
+	
+
+	<div class="form-group">
+		<input type="text" name="datefields" class="form-control" size=75 ng-model="table.datefields" value=""></input>
+	</div>
+
+	<em>List any date fields in the table separated by commas (Ex: salesdate, date previous sale, "event date")</em><br>
+	<em>(names with spaces may or may not be enclosed in single or double quotes)</em>
+	<br>
+	<br>
+	<b>Geo-coordinate fields:</b><span style="font-size:14px"> (not case sensitive)</span><br>
+
+	<div class="form-group">
+		<input type="text" name="geofields" size=75 class="form-control" ng-model="table.geofields"></input>
+	</div>	
+	
+	<em>List any geo-coordinate fields separated by commas (Ex: latlon, "latitude longitude")</em><br>
+	<em>(names with spaces may or may not be enclosed in single or double quotes)</em>
+	<br>
+	<br>
+	<b>Image fields:</b><span style="font-size:14px"> (not case sensitive)</span><br>
+	
+	<div class="form-group">
+		<input type="text" name="linkfields" size=75 class="form-control" ng-model="table.linkfields"></input>
+	</div>
+	
+	<em>List any fields whose content is the name of an image file to be used as icons in the Discover Tab (separated by commas)</em><br>
+	<em>(names with spaces may or may not be enclosed in single or double quotes)</em>
+	
+	<div class="form-group">
+		<!--<input type="text" name="enablecache" ng-model="table.enablecache" size=1 value=1 class="form-control"></input><br>
+		-->
+		<br><input type="checkbox" name="enablecache" value="">
+		<!--<input class="checkbox" type="checkbox" name="enablecache" checked class="form-control" ng-model="table.enablecache"> -->
+		Enable the cache for the results run on this table?<span style="font-size:14px"></span>
+	</div>
+
+	<div ng-show="success_msg !== ''" ng-bind-html="success_msg" style="color: #505050;">
+		Success
+		{{ success_msg }}
+	</div>
+
+	<div class="insert-submit-button col-lg-5 col-md-6 col-sm-8 col-xs-10" type="submit" value="Create Index" ng-click="submit(table)">
+		<div>
+			<!--<i class="fa fa-plus"></i>--> INSERT
+		</div>
+	</div>
+</div>
+<?php 
+  } else {
+    echo 'You have to be an admin to access this page.';
+  }
+?>
+
+
+	
+</div>
+
+</div>

@@ -56,7 +56,7 @@ var options = {
             {
                 test: /\.html$/, loader: "html-loader",
                 include: [path.resolve(__dirname, "plugins/")],
-                exclude: /(visualize|dashboard|discover|doc(?!_)|kibana(?!-)|settings|vis_types)/
+                exclude: /(visualize|dashboard|discover|doc(?!_)|kibana(?!-)|settings|vis_types|guide)/
             },
             /*{
                 test: /\.html
