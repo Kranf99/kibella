@@ -120,8 +120,8 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 
 		function isInt(y) {
 			return y.reduce(function(acc, v){
-				return acc ? acc : v % 1 === 0;
-			}, false)
+				return !acc ? false : v % 1 === 0;
+			}, true)
 		}
 
 		function gen_data(x, y, type, text, name, color, rightY) {
