@@ -1,0 +1,51 @@
+.hoverinfo {
+	display:none;
+	position: absolute;
+	pointer-events: none;
+	margin-left: 10px;
+	margin-top: 10px;
+	z-index: 99999;
+
+	padding: 5px;
+	white-space: nowrap;
+	font-family: verdana;
+	font-size: 14px;
+	color: #000;
+	background-color: #f5f4ed;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #808074;
+	box-shadow: 3px 3px 10px rgba(0,0,0,.2);
+	max-width: 70%;
+	overflow: hidden;
+
+	table {
+		margin: 8px;
+	}
+
+	table td {
+		padding: 4px;
+	}
+
+	table tr:first-child {
+		border-top: none;
+	}
+	table tr {
+		border-top: 1px solid #95a5a6;
+	}
+
+	.sep-table {
+		width: 100%;
+		border-top: 1px dashed #95a5a6;
+	}
+}
+
+// default tooltip
+.hoverlayer {
+	display: none;
+}
+
+.js-plotly-plot .plotly rect.cursor-ns-resize {
+	cursor: pointer;
+}
