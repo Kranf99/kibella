@@ -28,9 +28,9 @@
     <select
       style="width: 50%; margin: auto;"
       class="form-control"
-      ng-init="indexPattern.selection = indexPattern.list[0]"
+      
       ng-model="indexPattern.selection"
-      ng-options="pattern as pattern for pattern in indexPattern.list | orderBy:'toString()'">
+      ng-options="pattern.id as pattern.id for pattern in indexPattern.list | orderBy:'toString()'">
     </select>
     <h2>Select Visualization Type</h2>
     <a class="wizard-vis-type"

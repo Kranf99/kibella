@@ -19,7 +19,6 @@ define(function (require) {
 
     return function (esResponse) {
       var vis = this.vis;
-
       if (vis.isHierarchical()) {
         if(vis.type.name == "pie" && vis.params.displayOther == true) {
           var source = courier.createSource('search');
@@ -44,7 +43,6 @@ define(function (require) {
               if(otherAggs.length > 0) {
                 esResponse.aggregations['2'].buckets.push(groupAggs('Other', otherAggs));
               }
-              
               return aggResponse.hierarchical(vis, esResponse);
             });
           }

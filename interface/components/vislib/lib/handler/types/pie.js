@@ -10,6 +10,7 @@ define(function (require) {
      */
 
     return function (vis) {
+      console.log(vis.data, vis._attr)
       var data = new Data(vis.data, vis._attr);
 
       return new Handler(vis, {

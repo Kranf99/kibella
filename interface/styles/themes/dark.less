@@ -6,7 +6,7 @@
 @dark-border-color: #676767;
 @dark-dashboard-panel-bg-color: #2f2e35;
 
-body.dark {
+body.dark.application-dashboard {
   background-color:  @dark-bg-color;
   color:  @dark-text-color;
   .app-container .subnav, .sidebar-container, .sidebar-container .sidebar-list .sidebar-item, .sidebar-container .sidebar-list-header, .app-container > nav, .app-container > navbar, .typeahead .typeahead-items .typeahead-item, filter-bar .bar, .config .container-fluid, .config .config-close, .list-group-item, .admin-section-container .panel-body, .discover-field-details-close, .discover-field-details {
@@ -46,6 +46,18 @@ body.dark {
   }
   navbar .inline-form .input-group button {
     color: @main-color !important;
+  }
+  div.typeahead.ng-isolate-scope input {
+      border-color: #d473ff !important;
+  }
+  .list-group.list-group-menu li {
+    color: #eee !important;
+  }
+  .dashboard-panel-picker .nav-tabs a {
+     background: transparent;
+  }
+  .dashboard-panel-picker .nav-tabs a:hover {
+     color: #d473ff;
   }
   td {
     color: @dark-text-color;

@@ -25,6 +25,7 @@ define(function (require) {
       PieChart.Super.apply(this, arguments);
 
       var charts = this.handler.data.getVisData();
+      console.log(charts)
       this._validatePieData(charts);
 
       this._attr = _.defaults(handler._attr || {}, {
@@ -179,8 +180,10 @@ define(function (require) {
       var self = this;
 
       return function (selection) {
+
         selection.each(function (data) {
           var slices = data.slices;
+          console.log("s",this,selection,slices)
           var div = d3.select(this);
           var width = $(this).width();
           var height = $(this).height();

@@ -5,6 +5,7 @@ define(function (require) {
     var AggConfigResult = require('components/vis/_agg_config_result');
     return function transformAggregation(agg, metric, aggData, parent) {
       return _.map(extractBuckets(aggData, agg), function (bucket) {
+
         var aggConfigResult = new AggConfigResult(
           agg,
           parent && parent.aggConfigResult,

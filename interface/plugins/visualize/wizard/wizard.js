@@ -18,19 +18,33 @@ define(function (require) {
   routes.when('/visualize/step/1', {
     template: templateStep(1, require('text!plugins/visualize/wizard/step_1.html')),
     indexPatternIds: function (courier) {
-      
         return courier.indexPatterns.getIds();
       }
   });
 
-  module.controller('VisualizeWizardStep1', function ($scope, $route, $location, timefilter, kbnUrl, Private, courier) {
+  module.controller('VisualizeWizardStep1', function ($scope, $route, $location, timefilter, kbnUrl, Private, courier, config) {
     timefilter.enabled = false;
     $scope.indexPattern = {
       selection: null,
-      list: $route.current.locals.indexPatternIds
+      list: null
     };
     $scope.visTypes = Private(require('ui/registry/vis_types'));
- 
+        config.$bind($scope, 'defaultIndex');
+        $scope.$watch('defaultIndex', function () {
+          $scope.indexPattern.list = _($route.current.locals.indexPatternIds)
+            .map(function (id) {
+              if($scope.defaultIndex === id) {
+                $scope.indexPattern.selection = id
+              }
+              return {
+                id: id,
+                default: $scope.defaultIndex === id
+              };
+            })
+            .value();
+        });
+        $scope.$emit('application.load');
+
     $scope.visTypeUrl = function (visType) {
       return '#/visualize/create?type='+ visType.name +'&indexPattern=' + $scope.indexPattern.selection;
     };
