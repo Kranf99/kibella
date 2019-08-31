@@ -118,6 +118,12 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		var total_data = []
 		var p_data = parsed_data
 
+		function isInt(y) {
+			return y.reduce(function(acc, v){
+				return acc ? acc : v % 1 === 0;
+			}, false)
+		}
+
 		function gen_data(x, y, type, text, name, color, rightY) {
 			return {
 				x: x,
@@ -130,7 +136,10 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 				marker: {
 					color: color,
 			  		size: 6,
-				}, 
+				},
+				hovertemplate: '<b> '+name+'</b> %{y:,.' + (isInt(y) ? '0' : '3') +'f}<br>'+
+				'<b> </b>' + (bucket_type !== "terms" ? '<b>'+x_label+'</b> ' : '') + '%{x}' +
+				'<extra></extra>'
 			}
 		}
 		
@@ -316,16 +325,15 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 			hovermode: 'closest',
 			showlegend: true,
 			legend: legend_v,
-			hoverinfo: "name",
 			hoverlabel: {
-        bgcolor: '#ddd',
-        bordercolor: 'darkgrey',
-        font: {
-          color: '#444',
-          family: 'Verdana',
-          size: 14
-    	}
-  	}
+		        bgcolor: '#f9f9f9',
+		        bordercolor: '#ccc',
+		        font: {
+		          color: '#444',
+		          family: 'Verdana',
+		          size: 14
+		    	}
+		  	}
 		};
 
 		if($scope.vis.params.grouped)
