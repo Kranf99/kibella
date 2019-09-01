@@ -206,11 +206,12 @@
 
 
         
-        $rootScope.theme = $state["theme"]
-        //$state["theme"] = $rootScope.theme
-        console.log(dash)
+        $rootScope.theme = dash.theme
+        $state["theme"] = dash.theme
+        console.log($state["theme"])
+        console.log("dash", dash)
 
-          
+        
         // Setup configurable values for config directive, after objects are initialized
         $scope.opts = {
           dashboard: dash,
@@ -221,8 +222,9 @@
           themes: ["bright", "dark"],
           selectedTheme: $rootScope.theme || $rootScope.defaultTheme,
           updateTheme: function(e) {
-            console.log(this, $scope.opts)
-            console.log($rootScope)
+
+            console.log("kiki", this, $scope.opts)
+            console.log("kuku", $rootScope)
             $rootScope.theme = $scope.opts.selectedTheme;
             $state["theme"] = $scope.opts.selectedTheme;
 

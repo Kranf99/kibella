@@ -81,14 +81,16 @@ define(function (require) {
      * @returns {void}
      */
     State.prototype.save = function (replace) {
-      
-      
 
       var stash = this._readFromURL();
       var state = this.toObject();
       replace = replace || false;
 
       console.log(stash, state, this)
+      console.log("state", state)
+      if(state["theme"] !== undefined) {
+        $rootScope.theme = state["theme"]
+      }
 
       if (!stash) {
         replace = true;

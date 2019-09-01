@@ -299,31 +299,32 @@ var gd3 = Plotly.d3.select(idchart[0])
             var queryFilter = Private(require('ui/filter_bar/query_filter'));
             var buildQueryFilter = require('ui/filter_manager/lib/query');
             var buildRangeFilter = require('ui/filter_manager/lib/range');
-            console.log("pts",pts)
-        //     if(bucket_type === "terms") {
-	       //      var field1 = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
-	       //      var match = {};
-	       //      match[field1] = { 'query': pts.x, 'type': 'phrase' }
-	       //      queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
-        // 	}
-        	//else
-        	if(bucket_type === "histogram") {
-        		var age = data['rows'][pts.n].names[0]
+            console.log("pts",pts, $scope.vis.aggs.bySchemaName['segment'][0].params.field.displayName)
+            if(bucket_type === "terms") {
+            	var field = $scope.vis.aggs.bySchemaName['segment'][0].params.field.displayName;
+	            var match = {};
+	            match[field] = { 'query': pts.v, 'type': 'phrase' }
+	            queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
+        	}
+        	else if(bucket_type === "histogram") {
+        
         		var field = $scope.vis.aggs.bySchemaName['segment'][0].params.field.displayName;
         		var match = {};
-	            match[field] = { 'query': pts.x, 'type': 'number' }
+	            match[field] = { 'query': pts.v, 'type': 'number' }
         		//queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
-	            queryFilter.addFilters(buildRangeFilter({name:$scope.vis.aggs.bySchemaName['segment'][0].params.field.displayName},
-                                            {gte: pts.v, lte: pts.v + (pts.data[pts.data.length-1] - pts.data[pts.data.length-2] - 1) },
+	            queryFilter.addFilters(buildRangeFilter({name: field},
+                                            {gte: parseInt(data.slices.children[pts.i].name),
+                                            lte: parseInt(data.slices.children[pts.i].name) + parseInt(data.slices.children[1].name) - parseInt(data.slices.children[0].name) - 1 },
                                             $scope.vis.indexPattern));
-         	}// else if(bucket_type === "range") {
-        // 		var field = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
-        // 		var range = {};
-        // 		var filter_values = pts.x.split(' - ')
-        // 		queryFilter.addFilters(buildRangeFilter({name: $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName},
-        //                                     {gte: filter_values[0]   , lte: filter_values[1] },
-        //                                     $scope.vis.indexPattern));
-        // 	}
+         	} else if(bucket_type === "range") {
+        		var field = $scope.vis.aggs.bySchemaName['segment'][0].params.field.displayName;
+        		var range = {};
+        		 var filter_values = data.slices.children[pts.i].name.split(' to ')
+        		 console.log(filter_values, data.slices.children[pts.i].name)
+        		queryFilter.addFilters(buildRangeFilter({name: field},
+                                            {gte: filter_values[0]   , lte: filter_values[1] - 1 },
+                                            $scope.vis.indexPattern));
+        	}
           });
         }
 
