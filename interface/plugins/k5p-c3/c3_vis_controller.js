@@ -9,6 +9,8 @@ var ResizeSensor = require('css-element-queries/src/ResizeSensor');
 // Require Plotly
 var Plotly = require('plotly.js/dist/plotly-basic');
 
+var chartHover = require('components/chart_hover/chart_hover')
+
 function getValuesOfObject(obj) {
   var r = [];
 
@@ -118,12 +120,6 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		var total_data = []
 		var p_data = parsed_data
 
-		function isInt(y) {
-			return y.reduce(function(acc, v){
-				return acc ? acc : v % 1 === 0;
-			}, false)
-		}
-
 		function gen_data(x, y, type, text, name, color, rightY) {
 			return {
 				x: x,
@@ -136,10 +132,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 				marker: {
 					color: color,
 			  		size: 6,
-				},
-				hovertemplate: '<b> '+name+'</b> %{y:,.' + (isInt(y) ? '0' : '3') +'f}<br>'+
-				'<b> </b>' + (bucket_type !== "terms" ? '<b>'+x_label+'</b> ' : '') + '%{x}' +
-				'<extra></extra>'
+				}
 			}
 		}
 		
@@ -324,16 +317,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 			margin: { t: 0, l: 35, r: 5, b: 50},
 			hovermode: 'closest',
 			showlegend: true,
-			legend: legend_v,
-			hoverlabel: {
-		        bgcolor: '#f9f9f9',
-		        bordercolor: '#ccc',
-		        font: {
-		          color: '#444',
-		          family: 'Verdana',
-		          size: 14
-		    	}
-		  	}
+			legend: legend_v
 		};
 
 		if($scope.vis.params.grouped)
@@ -344,41 +328,45 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 
 		var gd3 = Plotly.d3.select(idchart[0])
 		var gd = gd3.node()
+		
+		chartHover.destroy();
+
 		$scope.chart = null
         $scope.chart = Plotly.newPlot(gd, total_data, layout, { showLink: false, responsive: true })
 
         if(viscontainer) {
         	gd.on('plotly_click', function(d){
-        	
-            var pts = d.points[0];
-            var queryFilter = Private(require('ui/filter_bar/query_filter'));
-            var buildQueryFilter = require('ui/filter_manager/lib/query');
-            var buildRangeFilter = require('ui/filter_manager/lib/range');
+	            var pts = d.points[0];
+	            var queryFilter = Private(require('ui/filter_bar/query_filter'));
+	            var buildQueryFilter = require('ui/filter_manager/lib/query');
+	            var buildRangeFilter = require('ui/filter_manager/lib/range');
 
-            if(bucket_type === "terms") {
-	            var field1 = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
-	            var match = {};
-	            match[field1] = { 'query': pts.x, 'type': 'phrase' }
-	            queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
-        	}
-        	else if(bucket_type === "histogram") {
-        		var field = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
-        		var match = {};
-	            match[field] = { 'query': pts.x, 'type': 'number' }
-        		//queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
-	            queryFilter.addFilters(buildRangeFilter({name: $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName},
-                                            {gte: pts.x, lte: pts.x + (pts.data.x[pts.data.x.length-1] - pts.data.x[pts.data.x.length-2] - 1) },
-                                            $scope.vis.indexPattern));
+	            if(bucket_type === "terms") {
+		            var field1 = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
+		            var match = {};
+		            match[field1] = { 'query': pts.x, 'type': 'phrase' }
+		            queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
+	        	}
+	        	else if(bucket_type === "histogram") {
+	        		var field = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
+	        		var match = {};
+		            match[field] = { 'query': pts.x, 'type': 'number' }
+	        		//queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
+		            queryFilter.addFilters(buildRangeFilter({name: $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName},
+	                                            {gte: pts.x, lte: pts.x + (pts.data.x[pts.data.x.length-1] - pts.data.x[pts.data.x.length-2] - 1) },
+	                                            $scope.vis.indexPattern));
 
-        	} else if(bucket_type === "range") {
-        		var field = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
-        		var range = {};
-        		var filter_values = pts.x.split(' - ')
-        		queryFilter.addFilters(buildRangeFilter({name: $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName},
-                                            {gte: filter_values[0]   , lte: filter_values[1] },
-                                            $scope.vis.indexPattern));
-        	}
-          });
+	        	} else if(bucket_type === "range") {
+	        		var field = $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName;
+	        		var range = {};
+	        		var filter_values = pts.x.split(' - ')
+	        		queryFilter.addFilters(buildRangeFilter({name: $scope.vis.aggs.bySchemaName.buckets[0].params.field.displayName},
+	                                            {gte: filter_values[0]   , lte: filter_values[1] },
+	                                            $scope.vis.indexPattern));
+	        	}
+          	});
+
+          	chartHover.init(viscontainer, gd);
         }
 
 		new ResizeSensor(viscontainer, function() {
