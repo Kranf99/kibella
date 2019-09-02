@@ -23,7 +23,7 @@ define(function (require) {
 		  	hoverInfo.setAttribute('class', 'hoverinfo');
 		  	viscontainer.firstChild.after(hoverInfo);
 
-		  	viscontainer.onmousemove = function(e) {
+		  	viscontainer.onmousemove = function(event) {
 		  		var pos = [
 					event.clientX - viscontainer.getBoundingClientRect().left,
 					event.clientY - viscontainer.getBoundingClientRect().top
