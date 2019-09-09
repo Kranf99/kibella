@@ -118,6 +118,7 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 			// console.log(children, arr)
 
 			if(typeof arr === "number") return;
+			console.log("yyuuusqdsd", names)
 			// arr.push([])
 			for (var i = 0; i < children.length; i++) {
 				//if(i === children.length-1)
@@ -176,8 +177,9 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 
 		if (slices !== undefined) {
 			result = [[]]
-			flatten(slices.children, 0, result)
-			total_data = res(result)
+			result_names = [[]]
+			flatten(slices.children, 0, result, result_names)
+			total_data = res(result, result_names)
 		} else if (data.rows !== undefined) {
 			type = 'rows'
 			result = []
@@ -195,14 +197,16 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 			data.columns.map(function (row, ind) {
 				result.push([])
 				result[ind].push([])
-				flatten(row.slices.children, 0, result[ind])
-				total_data = total_data.concat(res(result[ind], result_names[ind], ind, type))
+				result_names.push([])
+				result_names[ind].push([])
+				flatten(row.slices.children, 0, result[ind], result_names[ind])
+				total_data  =  total_data.concat(res(result[ind], result_names[ind], ind, type))
 			})
 		}
 		var viscontainer = idchart[0].parentElement.parentElement;
 
-			console.log("result", result)
-			console.log("tot", total_data)
+			// console.log("result", result)
+			// console.log("tot", total_data)
 		// Chart Layout
 		var layout = {
 			//autosize: true,
@@ -222,7 +226,7 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 		// 	layout.xaxis.dtick = $scope.vis.aggs[1].params.interval
 
 		Plotly.newPlot(gd, total_data, layout, { showLink: false, responsive: true })
-       // chartHover.init(viscontainer, gd);
+       chartHover.init(viscontainer, gd);
 
 		if (viscontainer && bucket_type) {
 			gd.on('plotly_click', function (d) {
