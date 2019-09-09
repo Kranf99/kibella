@@ -86,8 +86,6 @@ define(function (require) {
       var state = this.toObject();
       replace = replace || false;
 
-      console.log(stash, state, this)
-      console.log("state", state)
       if(state["theme"] !== undefined) {
         $rootScope.theme = state["theme"]
       }

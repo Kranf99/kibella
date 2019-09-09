@@ -19,8 +19,9 @@ define(function (require) {
 
     return function (esResponse) {
       var vis = this.vis;
+      // debugger
       if (vis.isHierarchical()) {
-        if(vis.type.name == "pie" && vis.params.displayOther == true) {
+        if(vis.type.name == "pie" || vis.type.name == "pie_chart" && vis.params.displayOther == true) {
           var source = courier.createSource('search');
           source._state = _.clone(requestQueue[requestQueue.length-1].source._state);
           var req = source._createRequest();
@@ -42,8 +43,13 @@ define(function (require) {
               });
               if(otherAggs.length > 0) {
                 esResponse.aggregations['2'].buckets.push(groupAggs('Other', otherAggs));
+                var result = aggResponse.hierarchical(vis, esResponse);
+                console.log("result", result)
+                result.names[result.names.length - 1] = "Others";
+                return result;
+              } else {
+                return aggResponse.hierarchical(vis, esResponse);
               }
-              return aggResponse.hierarchical(vis, esResponse);
             });
           }
         }
