@@ -1,15 +1,15 @@
 define(function (require) {
-  require('plugins/k5p-c3/c3_vis.less');
-  require('plugins/k5p-c3/c3_vis_controller');
+  require('plugins/pie/c3_vis.less');
+  require('plugins/pie/c3_vis_controller');
   var TemplateVisTypeTemplateVisTypeProvider = require('ui/template_vis_type/TemplateVisType');
   var VisSchemasProvider = require('ui/Vis/Schemas');
   var c3VisTemplate = require('plugins/pie/c3_vis.html');
   var c3VisParamsTemplate = require('plugins/pie/c3_vis_params.html');
 
   // register the provider with the visTypes registry
-  require('ui/registry/vis_types').register(c3VisProvider);
+  require('ui/registry/vis_types').register(pieVisProvider);
 
-  function c3VisProvider(Private) {
+  function pieVisProvider(Private) {
       var TemplateVisType = Private(TemplateVisTypeTemplateVisTypeProvider);
       var Schemas = Private(VisSchemasProvider);
     
@@ -64,7 +64,7 @@ define(function (require) {
       });
   }
 
-  return c3VisProvider;
+  return pieVisProvider;
 });
 
 

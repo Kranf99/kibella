@@ -35,7 +35,7 @@ var default_colors = [
 	'rgb(188, 82, 188)',
 ]
 
-module.controller('KbnC3VisController', function ($scope, $element, Private, $location) {
+module.controller('KbnPieVisController', function ($scope, $element, Private, $location) {
 	var hold = "";
 	var wold = "";
 	$scope.$root.label_keys = [];
@@ -55,11 +55,9 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 	var message = 'This chart require more than one data point. Try adding an X-Axis Aggregation.';
 	var gd3 = Plotly.d3.select(idchart[0])
 	var gd = gd3.node()
-	// console.log(Plotly.d3, gd3, gd)
 
 	// Be alert to changes in vis_params
 	$scope.$watch('vis.params', function (params) {
-
 		if (!$scope.$root.show_chart) return;
 		//if (Object.keys(params.editorPanel).length == 0 && params.enableZoom == previo_zoom) return;
 		renderResp();
@@ -106,46 +104,94 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 			i++;
 		});
 
-		var v = []
-		for (var i = 0; i < buckets.length; i++) {
-			v.push(buckets[i].doc_count)
-		}
+		
+		function flatten(childrens, ind, arrays) {
+			if(typeof arrays.values === "number")
+				return;
 
-		var result = []
-		var result_names = []
-		var index = 0;
-		function flatten(children, ind, arr, names) {
-			// console.log(children, arr)
+			// total for percentage calculation
+			var total = childrens.reduce(function(acc, child) {
+				return acc + child.size
+			}, 0)
+	
+			childrens.map(function(child) {
+				arrays.values[ind].push(child.size)
+				arrays.names[ind].push(child.name)
+				arrays.parents[ind].push(child.parent)
+				arrays.percents[ind].push(child.size / total * 100)
+				//arrays.real_values[ind].push(child.real_value)
 
-			if(typeof arr === "number") return;
-			console.log("yyuuusqdsd", names)
-			// arr.push([])
-			for (var i = 0; i < children.length; i++) {
-				//if(i === children.length-1)
-				console.log("children", children[i])
-				arr[ind].push(children[i].size)
-				names[ind].push(children[i].name)
-				if (children[i].children !== undefined) {
-					// console.log("uuu")
-					if (arr[ind + 1] === undefined) {
-						// console.log("ooo")
-						 arr.push([])
-						 names.push([])
+				if (child.children !== undefined) {
+					if (arrays.values[ind + 1] === undefined) {
+						Object.keys(arrays).map(function(key) {
+							arrays[key].push([])
+						})
 					}
-					// console.log(children[i])
-					//arr[i].push([])
-					flatten(children[i].children, ind+1, arr, names)
+					flatten(child.children, ind+1, arrays)
 				}
-			}
+			})
 		}
+		function res(arrays, row_index, type) {
+			return arrays.values.map(function (values, index) {
+				var labels = arrays.names[index].map(function(label, i, arr) {
+					var n = arr.slice(0,i).reduce(function(acc, l) {
+						return acc + (l === label ? 1 : 0);
+					}, 0);
 
-		function res(ress, resname, row_index, type) {
-			return ress.map(function (el, indd, arr) {
-				console.log("bonjour", data, resname, ress, indd, arr, el)
+					return label + Array(n).fill(' ').join('');
+				});
+				var first_tot = arrays.values[0].reduce(function(acc, val) {
+					return acc + val;
+				}, 0);
+				var parents = arrays.parents[index].map(function(parent, i) {
+					if(parent !== undefined) {
+						delete parent.children
+						delete parent.aggConfig
+						delete parent.aggConfigResult
+						parent.field =  $scope.vis.aggs.bySchemaName['segment'][index-1].params.field.displayName
+						parent.percents = arrays.percents[index-1];
+						if(parent.parent !== undefined) {
+							var siblings = _.uniq(arrays.parents[index].reduce(function(acc, p) {
+								return _.isEqual(p.parent, parent.parent) ? acc.concat(p) : acc;
+							}, []));
+							var tot = siblings.reduce(function(acc, s) {
+								return acc + s.size;
+							}, 0);
+							parent.percent = parent.size / tot * 100;
+						} else {
+							parent.percent = parent.size / first_tot * 100;
+						}
+						
+						if(index > 0) {
+							var addParentPercent = function(par, v) {
+								if(par.parent === undefined) {
+									return v*(par.percent/100);
+								}
+								return addParentPercent(par.parent, v*(par.percent/100));
+							}
+							var percent = addParentPercent(parent, 1);
+							parent.real_value = percent;
+						}
+					}
+					return parent
+				});
+
+				var corrected_values = values;
+				if(index > 0) {
+					corrected_values = values.map(function(v, i) {
+						return parents[i].real_value*arrays.percents[index][i];
+					});
+				}
+				
 				var set = {
-					values: el,
-					
-					labels: resname[indd],
+					values: corrected_values,
+					real_values: values,
+					labels: labels,
+					parents: parents,
+					customdata: values,
+					percents: arrays.percents[index],
+					ind: index,
+					field: $scope.vis.aggs.bySchemaName['segment'][index].params.field.displayName,
 					type: 'pie',
 					sort: false,
 					marker: {
@@ -161,52 +207,52 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 
 				if (type === "rows")
 					set.domain.row = row_index
-				else
+				else(type === "columns")
 					set.domain.column = row_index
 
-				if (indd == 0 && $scope.vis.params.isDonut)
+				if (index == 0 && $scope.vis.params.isDonut)
 					set.hole = 0.3
 					//		set.domain = {'x': [0.15,0.85], 'y': [0.15,0.85]}
-				else if (indd >= 1) {
-					set.hole = 0.6 + (1 / arr.length) * 0.6 * (indd-1)
+				else if (index >= 1) {
+					set.hole = 0.6 + (1 / arrays.values.length) * 0.6 * (index-1)
 				}
 
 				return set
 			})
 		}
 
-		if (slices !== undefined) {
-			result = [[]]
-			result_names = [[]]
-			flatten(slices.children, 0, result, result_names)
-			total_data = res(result, result_names)
-		} else if (data.rows !== undefined) {
-			type = 'rows'
-			result = []
-			data.rows.map(function (row, ind) {
-				result.push([])
-				result[ind].push([])
-				result_names.push([])
-				result_names[ind].push([])
-				flatten(row.slices.children, 0, result[ind], result_names[ind])
-				total_data  =  total_data.concat(res(result[ind], result_names[ind], ind, type))
-			})
-		} else if (data.columns !== undefined) {
-			type = 'columns'
-			result = []
-			data.columns.map(function (row, ind) {
-				result.push([])
-				result[ind].push([])
-				result_names.push([])
-				result_names[ind].push([])
-				flatten(row.slices.children, 0, result[ind], result_names[ind])
-				total_data  =  total_data.concat(res(result[ind], result_names[ind], ind, type))
-			})
+		var arrays = {
+			values: [],
+			real_values: [],
+			names: [],
+			parents: [],
+			percents: []
 		}
+
+		if (slices !== undefined) {
+			arrays = {values: [[]], names: [[]], parents: [[]], percents: [[]], real_values: [[]]}
+			flatten(slices.children, 0, arrays)
+			total_data = res(arrays, 0, 'rows')
+		} else {
+			if (data.rows !== undefined)
+				type = 'rows'
+			else type = 'columns'
+
+			data[type].map(function (row, i) {
+				Object.keys(arrays).map(function(key) {
+					arrays[key].push([])
+					arrays[key][i].push([])
+				})
+
+				row_arrays = {values: arrays.values[i], names:arrays.names[i], parents:arrays.parents[i], percents:arrays.percents[i], real_values:arrays.real_values[i]}
+				flatten(row.slices.children, 0, row_arrays)
+				total_data = total_data.concat(res(row_arrays, i, type))
+			})
+		} 
+
+
 		var viscontainer = idchart[0].parentElement.parentElement;
 
-			// console.log("result", result)
-			// console.log("tot", total_data)
 		// Chart Layout
 		var layout = {
 			//autosize: true,
@@ -216,58 +262,133 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 		};
 
 		if (type === 'rows')
-			layout.grid.rows = result.length
+			layout.grid.rows = arrays.values.length
 		else if (type === 'columns')
-			layout.grid.columns = result.length
-		// if($scope.vis.params.grouped)
-		// 	layout.barmode = 'stack'
+			layout.grid.columns = arrays.values.length
 
-		// if(bucket_type === "histogram")
-		// 	layout.xaxis.dtick = $scope.vis.aggs[1].params.interval
-
-		Plotly.newPlot(gd, total_data, layout, { showLink: false, responsive: true })
-       chartHover.init(viscontainer, gd);
+		Plotly.newPlot(gd, total_data, layout, { showLink: false, showTips: false, responsive: true })
+		chartHover.destroy();
+		chartHover.init(viscontainer, gd, data, total_data);
 
 		if (viscontainer && bucket_type) {
+			var makeLegendItemsGoUp = function(item) {
+				var v = item.transform.baseVal.getItem(0).matrix.f - 19;
+				item.setAttribute('transform', 'translate(0,'+v+')');
+				if(item.nextSibling) {
+					return makeLegendItemsGoUp(item.nextSibling);
+				}
+			}
+			
+			if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
+				$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
+					$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)')
+				});
+			}
+			
+			//var lastClickTime = 0;
+			//var numClicks = 0;
+			gd.on('plotly_legendclick', function(d) {
+				return false;
+				// simulate a click on legend items of the same type, this is currently useless
+				/*if(d.event.natural === false) { return; }
+				clickTime = (new Date()).getTime();
+				if(clickTime - lastClickTime < gd._context.doubleClickDelay) {
+					numClicks = 2;
+					lastClickTime = 0;
+				} else {
+					numClicks = 1;
+					setTimeout(function() {
+						if(numClicks > 1) { numClicks = 1; return; }
+						$(gd).find('.groups > .traces').each(function(i) {
+							var text = $(this).find('.legendtext').text();
+							if(text !== d.label && text.trim() === d.label) {
+								var toggle = $(this).find('.legendtoggle')[0];
+	
+								var down = new MouseEvent("mousedown");
+								down.natural = false;
+								toggle.dispatchEvent(down);
+								gd._legendMouseDownTime = 0;
+								var up = new MouseEvent("mouseup");
+								up.natural = false;
+								toggle.dispatchEvent(up);
+							}
+						});
+					}, gd._context.doubleClickDelay)
+				}
+				lastClickTime = clickTime;*/
+			});
+
+			gd.on('plotly_afterplot', function() {
+				$(gd).find('.groups > .traces').each(function(i) {
+					if($(this.firstChild).text().slice(-1) === " ") {
+						$(this).hide();
+						if(this.nextSibling) {
+							makeLegendItemsGoUp(this.nextSibling)
+						}
+					}
+				});
+
+				if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
+					$(gd).find('.legend > .scrollbar').hide();
+					$(gd).find('clipPath').hide();
+					$(gd).find('.groups > .traces').each(function(i) {
+						var t = $(this).attr("transform");
+						$(this).attr("transform", t.slice(0,t.indexOf(')')+1));
+					});
+					$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
+						$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)');
+					});
+
+					var event = document.createEvent("HTMLEvents");
+					event.initEvent("wheel", true, true);
+					event.eventName = "wheel";
+					event = _.merge(event, { deltaX:0,deltaY:0 });
+
+					$(gd).find('.legend')[0].dispatchEvent(event);
+				}
+			});
+
 			gd.on('plotly_click', function (d) {
 				var pts = d.points[0];
 				var queryFilter = Private(require('ui/filter_bar/query_filter'));
 				var buildQueryFilter = require('ui/filter_manager/lib/query');
 				var buildRangeFilter = require('ui/filter_manager/lib/range');
-				// console.log("pts", pts, $scope.vis.aggs.bySchemaName['segment'][0].params.field.displayName)
-				// console.log(data.slices, pts.i)
-				console.log(pts, data)
+
 				var row = type === 'rows' ? pts.data.domain.row : pts.data.domain.column;
-				var field = $scope.vis.aggs.bySchemaName['segment'][0].params.field.displayName;
+				var field = total_data[pts.curveNumber].field;
+
+				bucket_type = $scope.vis.aggs.bySchemaName['segment'][pts.data.ind].type.name;
 
 				var rootdata; 
 				if(type === "rows"  ||  type === "columns")
 					rootdata = data[type][row]
 				else
 					rootdata = data	
-
-				console.log("AH ",d, rootdata, row, pts)
-				
+					
 				var raw_d;
 				if(pts.i !== undefined) {
-					raw_d = total_data[pts.curveNumber].labels[pts.i].toString()//[pts.curveNumber]//.children[pts.i].name;
+					raw_d = total_data[pts.curveNumber].labels[pts.i].toString()
 				} else {
 					raw_d = pts.label
 				}
-				
-				console.log("rawd", raw_d, row, pts.curveNumber, pts.i)
+
 				var d = parseInt(raw_d.replace(',', ''))
 				var d1;
-				var d0 = parseInt(total_data[pts.curveNumber].labels[0].replace(',', ''))
-				if(total_data[pts.curveNumber].labels.length <= 1) {
-					d1 = d0;
-				}else{
-					d1 = parseInt(total_data[pts.curveNumber].labels[1].replace(',', ''))
-				}
+				var ns = $scope.vis.aggs.length - 1
+
+				var ii = pts.data.ind + 1
+				if($scope.vis.aggs[1].__schema.name === "split")
+					ii++
+
+				var d0 = $scope.vis.aggs[ii].params.interval
+
+				// if(total_data[pts.curveNumber].labels.length <= 1) {
+					// d1 = d0;
+				// }else{
+					// d1 = parseInt(total_data[pts.curveNumber].labels[1].replace(',', '').split(': ')[1])
+				// }
 				// var d = raw_d
 				
-
-				console.log("yuuuuu", d1, d0, bucket_type, "ok" )
 				if (bucket_type === "terms") {
 					var match = {};
 					match[field] = { 'query': raw_d, 'type': 'phrase' }
@@ -278,11 +399,11 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 					// match[field] = { 'query': pts.v, 'type': 'number' }
 					
 					var lte;
-					console.log(d1, d0, "OKOKOK")
+					
 					if(d1 == d0)
 						lte = d
 					else
-						lte = d + (d1 - d0) - 1
+						lte = d + (d0) - 1
 
 					queryFilter.addFilters(buildRangeFilter({ name: field },
 						{
@@ -293,7 +414,6 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 				} else if (bucket_type === "range") {
 					var range = {};
 					var filter_values = raw_d.replace(',', '').replace(',', '').split(' to ')
-					// console.log(filter_values, raw_d)
 					queryFilter.addFilters(buildRangeFilter({ name: field },
 						{ gte: filter_values[0], lte: filter_values[1] - 1 },
 						$scope.vis.indexPattern));
@@ -310,17 +430,14 @@ module.controller('KbnC3VisController', function ($scope, $element, Private, $lo
 		if (!resp) { resp = lastResp; }
 		if (resp) {
 			var buildChartData = Private(require('plugins/vis_types/vislib/_build_chart_data'));
-			this.vis = $scope.vis
-			var bcd = _.bind(buildChartData, this, resp)
-			console.log("resp", resp)
-			var chartData = Promise.resolve(bcd()).then(function (res) {
-				data = res
-				slices = data.slices
-				console.log("res", res)
+			this.vis = $scope.vis;
+			var bcd = _.bind(buildChartData, this, resp);
+			Promise.resolve(bcd()).then(function (res) {
+				data = res;
+				slices = data.slices;
 				$scope.chartGen();
 			})
 		}
 	}
 	$scope.$watch('esResponse', renderResp);
 });
-
