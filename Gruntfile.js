@@ -7,8 +7,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     
     dev: __dirname + '/dev',
-    dist: '/mnt/f/soft/wamp64/www/kibella',
-//    dist: __dirname + '/../kibella',
+    //dist: '/mnt/f/soft/wamp64/www/kibella',
+    dist: __dirname + '/../kibella_dist',
     interface: __dirname + '/interface',
     
     clean: {

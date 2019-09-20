@@ -18,16 +18,14 @@ define(function (require) {
 	function createTablePie(data, total_data, tot) {
 		var p = data.points[0];
 		var i = p.pointNumbers[0];
-console.log(data)
-		//var field_list = total_data.raw.columns.filter(function(el, i) { return i % 2 === 0; }).map(function(el) { return el.label; })
-
+		
 		var line = function(x, ind) {
 			if(x.label.indexOf(":") >= 0)
 				x.label= x.label.split(':')[1]
 			var percent = ""
 			if(x.percent) percent = x.percent.toFixed(2) + "%";
 
-			return '<tr><td>' + x.field + '</td><td>'+x.label+'</td><td>' + d3.format(',.'+(isInt([x.value])?'0':'3')+'f')(x.value)  + " (" + percent + ")" + '</td></tr>';
+			return '<tr><td>' + x.field + '</td><td>'+x.label.replace(/\<br\>/g, " ")+'</td><td>' + d3.format(',.'+(isInt([x.value])?'0':'3')+'f')(x.value)  + " (" + percent + ")" + '</td></tr>';
 		}
 		
 		var v = [{field: p.data.field, value: p.customdata[0], label: p.label, percent: p.data.percents[i]}] //, [p.data.parents[p.pointNumbers], p.data.parents[p.pointNumbers] ]]

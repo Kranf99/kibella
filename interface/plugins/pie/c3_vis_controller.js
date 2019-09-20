@@ -11,21 +11,9 @@ var Plotly = require('plotly.js/dist/plotly-basic');
 
 var chartHover = require('components/chart_hover/chart_hover')
 
-var data = {}
-var slices = []
-var type = ''
-function getValuesOfObject(obj) {
-	var r = [];
-
-	for (var i in obj)
-		r.push(obj[i]);
-
-	return r;
-}
-
-Array.prototype.min = function () {
-	return Math.min.apply(null, this);
-};
+var data = {};
+var slices = [];
+var type = '';
 
 var default_colors = [
 	'rgb(212, 115, 255)',
@@ -119,7 +107,6 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 				arrays.names[ind].push(child.name)
 				arrays.parents[ind].push(child.parent)
 				arrays.percents[ind].push(child.size / total * 100)
-				//arrays.real_values[ind].push(child.real_value)
 
 				if (child.children !== undefined) {
 					if (arrays.values[ind + 1] === undefined) {
@@ -131,6 +118,20 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 				}
 			})
 		}
+		function stringDivider(str, width, spaceReplacer) {
+			if (str.length>width) {
+				var p=width;
+				for (;p>0 && str[p]!=' ';p--) {
+				}
+				if (p>0) {
+					var left = str.substring(0, p);
+					var right = str.substring(p+1);
+					return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
+				}
+			}
+			return str;
+		}
+
 		function res(arrays, row_index, type) {
 			return arrays.values.map(function (values, index) {
 				var labels = arrays.names[index].map(function(label, i, arr) {
@@ -138,7 +139,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 						return acc + (l === label ? 1 : 0);
 					}, 0);
 
-					return label + Array(n).fill(' ').join('');
+					return stringDivider(label, 20, '<br>') + Array(n).fill(' ').join('');
 				});
 				var first_tot = arrays.values[0].reduce(function(acc, val) {
 					return acc + val;
@@ -255,8 +256,13 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 
 		// Chart Layout
 		var layout = {
-			//autosize: true,
 			showlegend: $scope.vis.params.addLegend,
+			legend: {
+				xanchor: 'left',
+				x: 1000,
+				itemsizing: 'constant'
+			},
+			
 			hovermode: $scope.vis.params.addTooltip,
 			grid: { rows: 1, columns: 1 }
 		};
@@ -265,8 +271,8 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 			layout.grid.rows = arrays.values.length
 		else if (type === 'columns')
 			layout.grid.columns = arrays.values.length
-
-		Plotly.newPlot(gd, total_data, layout, { showLink: false, showTips: false, responsive: true })
+		
+		Plotly.newPlot(gd, total_data, layout, { showLink: false, showTips: false, responsive: true });
 		chartHover.destroy();
 		chartHover.init(viscontainer, gd, data, total_data);
 
@@ -319,6 +325,8 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 			});
 
 			gd.on('plotly_afterplot', function() {
+				if(!layout.showlegend) { return; }
+
 				$(gd).find('.groups > .traces').each(function(i) {
 					if($(this.firstChild).text().slice(-1) === " ") {
 						$(this).hide();
@@ -380,15 +388,8 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 				if($scope.vis.aggs[1].__schema.name === "split")
 					ii++
 
-				var d0 = $scope.vis.aggs[ii].params.interval
+				var d0 = $scope.vis.aggs[ii].params.interval;
 
-				// if(total_data[pts.curveNumber].labels.length <= 1) {
-					// d1 = d0;
-				// }else{
-					// d1 = parseInt(total_data[pts.curveNumber].labels[1].replace(',', '').split(': ')[1])
-				// }
-				// var d = raw_d
-				
 				if (bucket_type === "terms") {
 					var match = {};
 					match[field] = { 'query': raw_d, 'type': 'phrase' }
@@ -396,8 +397,6 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 				}
 				else if (bucket_type === "histogram") {
 					var match = {};
-					// match[field] = { 'query': pts.v, 'type': 'number' }
-					
 					var lte;
 					
 					if(d1 == d0)

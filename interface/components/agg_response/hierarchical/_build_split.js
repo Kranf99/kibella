@@ -3,7 +3,6 @@ define(function (require) {
     var transformer = Private(require('components/agg_response/hierarchical/_transform_aggregation'));
     var collectKeys = require('components/agg_response/hierarchical/_collect_keys');
     return function (agg, metric, aggData) {
-      console.log("hhhh",agg,metric,aggData)
       // Ceate the split structure
       var split = { label: '', slices: { children: [] } };
 

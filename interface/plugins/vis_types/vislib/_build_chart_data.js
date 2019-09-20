@@ -44,7 +44,6 @@ define(function (require) {
               if(otherAggs.length > 0) {
                 esResponse.aggregations['2'].buckets.push(groupAggs('Other', otherAggs));
                 var result = aggResponse.hierarchical(vis, esResponse);
-                console.log("result", result)
                 result.names[result.names.length - 1] = "Others";
                 return result;
               } else {
