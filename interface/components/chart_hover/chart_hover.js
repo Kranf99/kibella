@@ -49,25 +49,26 @@ define(function (require) {
 		init: function(viscontainer, gd, total_data, tot) {
 			hoverInfo = document.createElement('div');
 		  	hoverInfo.setAttribute('class', 'hoverinfo');
-		  	viscontainer.firstChild.after(hoverInfo);
+		  	document.body.after(hoverInfo);
 
 		  	viscontainer.onmousemove = function(event) {
+				var body = document.body;
 		  		var pos = [
-					event.clientX - viscontainer.getBoundingClientRect().left,
-					event.clientY - viscontainer.getBoundingClientRect().top
+					event.clientX - body.getBoundingClientRect().left,
+					event.clientY - body.getBoundingClientRect().top
 				];
 
 			    hoverInfo.style.left = pos[0] + 'px';
 			    hoverInfo.style.top = pos[1] + 'px';
 
 			    // correct right overflow
-			    if(hoverInfo.getBoundingClientRect().right > viscontainer.getBoundingClientRect().right) {
-			    	hoverInfo.style.left = (pos[0] - (hoverInfo.getBoundingClientRect().right-viscontainer.getBoundingClientRect().right))+'px';
+			    if(hoverInfo.getBoundingClientRect().right > body.getBoundingClientRect().right) {
+			    	hoverInfo.style.left = (pos[0] - (hoverInfo.getBoundingClientRect().right-body.getBoundingClientRect().right) - 10)+'px';
 			    }
 
 			    // correct bottom overflow
-			    if(hoverInfo.getBoundingClientRect().bottom > viscontainer.getBoundingClientRect().bottom) {
-			    	hoverInfo.style.top = (pos[1] - (hoverInfo.getBoundingClientRect().bottom-viscontainer.getBoundingClientRect().bottom))+'px';
+			    if(hoverInfo.getBoundingClientRect().bottom > body.getBoundingClientRect().bottom) {
+			    	hoverInfo.style.top = (pos[1] - (hoverInfo.getBoundingClientRect().bottom-body.getBoundingClientRect().bottom) - 10)+'px';
 			    }
 		  	}
 
