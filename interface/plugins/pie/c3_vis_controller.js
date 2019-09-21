@@ -267,7 +267,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 		else if (type === 'columns')
 			layout.grid.columns = arrays.values.length
 		
-		Plotly.newPlot(gd, total_data, layout, { showLink: false, showTips: false, responsive: true, modeBarButtonsToAdd: [{
+		Plotly.newPlot(gd, total_data, layout, { showLink: false, showTips: false, responsive: true, modeBarButtonsToRemove: ['toImage'], modeBarButtonsToAdd: [{
 			name: 'Toggle legend',
 			icon: Plotly.Icons.question,
 			ascent: 100,
@@ -294,29 +294,6 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 
 		function showLegend() {
 			Plotly.relayout(gd, {showlegend:true});
-
-			var makeLegendItemsGoUp = function(item) {
-				var v = item.transform.baseVal.getItem(0).matrix.f - 19;
-				item.setAttribute('transform', 'translate(0,'+v+')');
-				if(item.nextSibling) {
-					return makeLegendItemsGoUp(item.nextSibling);
-				}
-			}
-
-			if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
-				$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
-					$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)')
-				});
-			}
-
-			$(gd).find('.groups > .traces').each(function(i) {
-				if($(this.firstChild).text().slice(-1) === " ") {
-					$(this).hide();
-					if(this.nextSibling) {
-						makeLegendItemsGoUp(this.nextSibling)
-					}
-				}
-			});
 		}
 		function hideLegend() {
 			Plotly.relayout(gd, {showlegend:false});
@@ -378,6 +355,29 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 
 			gd.on('plotly_afterplot', function() {
 				if(!layout.showlegend) { return; }
+
+				var makeLegendItemsGoUp = function(item) {
+					var v = item.transform.baseVal.getItem(0).matrix.f - 19;
+					item.setAttribute('transform', 'translate(0,'+v+')');
+					if(item.nextSibling) {
+						return makeLegendItemsGoUp(item.nextSibling);
+					}
+				}
+	
+				if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
+					$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
+						$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)')
+					});
+				}
+	
+				$(gd).find('.groups > .traces').each(function(i) {
+					if($(this.firstChild).text().slice(-1) === " ") {
+						$(this).hide();
+						if(this.nextSibling) {
+							makeLegendItemsGoUp(this.nextSibling)
+						}
+					}
+				});
 
 				if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
 					$(gd).find('.legend > .scrollbar').hide();
@@ -464,7 +464,6 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 		}
 
 		new ResizeSensor(viscontainer, function () {
-			toggleLegend();
 			Plotly.Plots.resize(gd);
 		});
 	};
