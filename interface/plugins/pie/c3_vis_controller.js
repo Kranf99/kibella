@@ -23,6 +23,9 @@ var default_colors = [
 	'rgb(188, 82, 188)',
 ]
 
+var showLegendWhenSmall = false;
+var showLegendWhenBig = false;
+
 module.controller('KbnPieVisController', function ($scope, $element, Private, $location) {
 	var hold = "";
 	var wold = "";
@@ -118,20 +121,6 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 				}
 			})
 		}
-		function stringDivider(str, width, spaceReplacer) {
-			if (str.length>width) {
-				var p=width;
-				for (;p>0 && str[p]!=' ';p--) {
-				}
-				if (p>0) {
-					var left = str.substring(0, p);
-					var right = str.substring(p+1);
-					return left + spaceReplacer + stringDivider(right, width, spaceReplacer);
-				}
-			}
-			return str;
-		}
-
 		function res(arrays, row_index, type) {
 			return arrays.values.map(function (values, index) {
 				var labels = arrays.names[index].map(function(label, i, arr) {
@@ -139,7 +128,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 						return acc + (l === label ? 1 : 0);
 					}, 0);
 
-					return stringDivider(label, 20, '<br>') + Array(n).fill(' ').join('');
+					return label + Array(n).fill(' ').join('');
 				});
 				var first_tot = arrays.values[0].reduce(function(acc, val) {
 					return acc + val;
@@ -258,25 +247,54 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 		var layout = {
 			showlegend: $scope.vis.params.addLegend,
 			legend: {
-				xanchor: 'left',
-				x: 1000,
-				itemsizing: 'constant'
+				xanchor: 'right',
+				x: 1000
 			},
-			
+			margin: {
+				l: 20,
+				t: 20,
+				b: 20,
+				r: 20
+			},
+
 			hovermode: $scope.vis.params.addTooltip,
 			grid: { rows: 1, columns: 1 }
 		};
+		showLegendWhenBig = layout.showlegend;
 
 		if (type === 'rows')
 			layout.grid.rows = arrays.values.length
 		else if (type === 'columns')
 			layout.grid.columns = arrays.values.length
 		
-		Plotly.newPlot(gd, total_data, layout, { showLink: false, showTips: false, responsive: true });
+		Plotly.newPlot(gd, total_data, layout, { showLink: false, showTips: false, responsive: true, modeBarButtonsToAdd: [{
+			name: 'Toggle legend',
+			icon: Plotly.Icons.question,
+			ascent: 100,
+			filp: true,
+			click: function(gd) {
+				if(layout.showlegend) { hideLegend(); }
+				else { showLegend(); }
+				
+				if(layout.showlegend) {
+					var pie = $(viscontainer).find('.pielayer')[0].getBoundingClientRect();
+					var legend = $(viscontainer).find('.legend')[0].getBoundingClientRect();
+					if(pie.right > legend.left) {
+						showLegendWhenSmall = true;
+					}
+					showLegendWhenBig = true;
+				} else {
+					showLegendWhenBig = false;
+					showLegendWhenSmall = false;
+				}
+			}
+		}] });
 		chartHover.destroy();
 		chartHover.init(viscontainer, gd, data, total_data);
 
-		if (viscontainer && bucket_type) {
+		function showLegend() {
+			Plotly.relayout(gd, {showlegend:true});
+
 			var makeLegendItemsGoUp = function(item) {
 				var v = item.transform.baseVal.getItem(0).matrix.f - 19;
 				item.setAttribute('transform', 'translate(0,'+v+')');
@@ -284,12 +302,46 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 					return makeLegendItemsGoUp(item.nextSibling);
 				}
 			}
-			
+
 			if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
 				$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
 					$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)')
 				});
 			}
+
+			$(gd).find('.groups > .traces').each(function(i) {
+				if($(this.firstChild).text().slice(-1) === " ") {
+					$(this).hide();
+					if(this.nextSibling) {
+						makeLegendItemsGoUp(this.nextSibling)
+					}
+				}
+			});
+		}
+		function hideLegend() {
+			Plotly.relayout(gd, {showlegend:false});
+		}
+		
+		function toggleLegend() {
+			showLegend(); // show legend to check overlap
+			
+			var pie = $(viscontainer).find('.pielayer')[0].getBoundingClientRect();
+			var legend = $(viscontainer).find('.legend')[0].getBoundingClientRect();
+			if(pie.right > legend.left) {
+				if(showLegendWhenSmall) {
+					showLegend();
+				} else {
+					hideLegend();
+				}
+			} else if($scope.vis.params.addLegend && showLegendWhenBig) {
+				showLegend();
+			} else {
+				hideLegend();
+			}
+		}
+
+		if (viscontainer && bucket_type) {
+			toggleLegend();
 			
 			//var lastClickTime = 0;
 			//var numClicks = 0;
@@ -326,15 +378,6 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 
 			gd.on('plotly_afterplot', function() {
 				if(!layout.showlegend) { return; }
-
-				$(gd).find('.groups > .traces').each(function(i) {
-					if($(this.firstChild).text().slice(-1) === " ") {
-						$(this).hide();
-						if(this.nextSibling) {
-							makeLegendItemsGoUp(this.nextSibling)
-						}
-					}
-				});
 
 				if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
 					$(gd).find('.legend > .scrollbar').hide();
@@ -421,7 +464,8 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 		}
 
 		new ResizeSensor(viscontainer, function () {
-			Plotly.Plots.resize(gd)
+			toggleLegend();
+			Plotly.Plots.resize(gd);
 		});
 	};
 

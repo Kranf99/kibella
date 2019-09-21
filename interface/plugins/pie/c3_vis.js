@@ -22,7 +22,7 @@ define(function (require) {
         params: {
           defaults: {
             addTooltip: true,
-            addLegend: true,
+            addLegend: false,
             isDonut: false,
             displayOther: true
           },
