@@ -291,9 +291,57 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 		}] });
 		chartHover.destroy();
 		chartHover.init(viscontainer, gd, data, total_data);
+		initLegend();
+
+		function initLegend() {
+			if(!layout.showlegend) { return; }
+
+			var makeLegendItemsGoUp = function(item) {
+				var v = item.transform.baseVal.getItem(0).matrix.f - 19;
+				item.setAttribute('transform', 'translate(0,'+v+')');
+				if(item.nextSibling) {
+					return makeLegendItemsGoUp(item.nextSibling);
+				}
+			}
+
+			if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
+				$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
+					$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)')
+				});
+			}
+
+			$(gd).find('.groups > .traces').each(function(i) {
+				if($(this.firstChild).text().slice(-1) === " ") {
+					$(this).hide();
+					if(this.nextSibling) {
+						makeLegendItemsGoUp(this.nextSibling)
+					}
+				}
+			});
+
+			if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
+				$(gd).find('.legend > .scrollbar').hide();
+				$(gd).find('clipPath').hide();
+				$(gd).find('.groups > .traces').each(function(i) {
+					var t = $(this).attr("transform");
+					$(this).attr("transform", t.slice(0,t.indexOf(')')+1));
+				});
+				$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
+					$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)');
+				});
+
+				var event = document.createEvent("HTMLEvents");
+				event.initEvent("wheel", true, true);
+				event.eventName = "wheel";
+				event = _.merge(event, { deltaX:0,deltaY:0 });
+
+				$(gd).find('.legend')[0].dispatchEvent(event);
+			}
+		}
 
 		function showLegend() {
 			Plotly.relayout(gd, {showlegend:true});
+			initLegend();
 		}
 		function hideLegend() {
 			Plotly.relayout(gd, {showlegend:false});
@@ -319,7 +367,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 
 		if (viscontainer && bucket_type) {
 			toggleLegend();
-			
+
 			//var lastClickTime = 0;
 			//var numClicks = 0;
 			gd.on('plotly_legendclick', function(d) {
@@ -353,51 +401,9 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 				lastClickTime = clickTime;*/
 			});
 
-			gd.on('plotly_afterplot', function() {
-				if(!layout.showlegend) { return; }
-
-				var makeLegendItemsGoUp = function(item) {
-					var v = item.transform.baseVal.getItem(0).matrix.f - 19;
-					item.setAttribute('transform', 'translate(0,'+v+')');
-					if(item.nextSibling) {
-						return makeLegendItemsGoUp(item.nextSibling);
-					}
-				}
-	
-				if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
-					$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
-						$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)')
-					});
-				}
-	
-				$(gd).find('.groups > .traces').each(function(i) {
-					if($(this.firstChild).text().slice(-1) === " ") {
-						$(this).hide();
-						if(this.nextSibling) {
-							makeLegendItemsGoUp(this.nextSibling)
-						}
-					}
-				});
-
-				if($(gd).find('.legend > .scrollbox')[0].getBBox().height < $(gd).find('.legend > .bg')[0].getBBox().height - 10) {
-					$(gd).find('.legend > .scrollbar').hide();
-					$(gd).find('clipPath').hide();
-					$(gd).find('.groups > .traces').each(function(i) {
-						var t = $(this).attr("transform");
-						$(this).attr("transform", t.slice(0,t.indexOf(')')+1));
-					});
-					$(gd).find('.legend')[0].addEventListener('wheel', function(e) {
-						$(gd).find('.legend > .scrollbox').attr('transform', 'translate(0, 0)');
-					});
-
-					var event = document.createEvent("HTMLEvents");
-					event.initEvent("wheel", true, true);
-					event.eventName = "wheel";
-					event = _.merge(event, { deltaX:0,deltaY:0 });
-
-					$(gd).find('.legend')[0].dispatchEvent(event);
-				}
-			});
+			// gd.on('plotly_afterplot', function() {
+			// 	initLegend();
+			// });
 
 			gd.on('plotly_click', function (d) {
 				var pts = d.points[0];
@@ -465,6 +471,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 
 		new ResizeSensor(viscontainer, function () {
 			Plotly.Plots.resize(gd);
+			toggleLegend();
 		});
 	};
 
