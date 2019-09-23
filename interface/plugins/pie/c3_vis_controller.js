@@ -441,7 +441,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 
 				if (bucket_type === "terms") {
 					var match = {};
-					match[field] = { 'query': raw_d, 'type': 'phrase' }
+					match[field] = { 'query': raw_d.trim(), 'type': 'phrase' }
 					queryFilter.addFilters(buildQueryFilter({ 'match': match }, $scope.vis.indexPattern.id));
 				}
 				else if (bucket_type === "histogram") {
