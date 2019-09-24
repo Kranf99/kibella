@@ -62,13 +62,13 @@ define(function (require) {
 			    hoverInfo.style.top = pos[1] + 'px';
 
 			    // correct right overflow
-			    if(hoverInfo.getBoundingClientRect().right > body.getBoundingClientRect().right) {
-			    	hoverInfo.style.left = (pos[0] - (hoverInfo.getBoundingClientRect().right-body.getBoundingClientRect().right) - 10)+'px';
+			    if(hoverInfo.getBoundingClientRect().right > (body.getBoundingClientRect().right+window.scrollX)) {
+			    	hoverInfo.style.left = (pos[0] - (hoverInfo.getBoundingClientRect().right-(body.getBoundingClientRect().right+window.scrollX)) - 10)+'px';
 			    }
 
 			    // correct bottom overflow
-			    if(hoverInfo.getBoundingClientRect().bottom > body.getBoundingClientRect().bottom) {
-			    	hoverInfo.style.top = (pos[1] - (hoverInfo.getBoundingClientRect().bottom-body.getBoundingClientRect().bottom) - 10)+'px';
+			    if(hoverInfo.getBoundingClientRect().bottom > (body.getBoundingClientRect().bottom+window.scrollY)) {
+			    	hoverInfo.style.top = (pos[1] - (hoverInfo.getBoundingClientRect().bottom-(body.getBoundingClientRect().bottom+window.scrollY)) - 10)+'px';
 			    }
 		  	}
 
