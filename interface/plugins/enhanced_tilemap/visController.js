@@ -98,7 +98,7 @@ define(function (require) {
       //     numGeoBuckets = aggs[key].buckets.length;
       //   }
       // });
-      console.log("geogrids: " + numGeoBuckets);
+      
       if (numGeoBuckets === 0) return;
       var tableGroup = aggResponse.tabify($scope.vis, resp, {
         canSplit: true,

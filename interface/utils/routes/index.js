@@ -40,7 +40,7 @@ define(function (require) {
               if(!res.data) {
                 if(dashboard) {
                   $http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/isShared.php', { id: $route.current.params.id }).then(function(_res) {
-                    if(_res.data !== "1") {
+                    if(_res.data !== "1" || _res.data !== 1) {
                       window.location = loginPath;
                       defer.resolve(false);
                     } else {

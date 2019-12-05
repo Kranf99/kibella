@@ -15,22 +15,20 @@ var data = {};
 var slices = [];
 var type = '';
 
-var default_colors = [
-	'rgb(212, 115, 255)',
-	'rgb(118, 93, 224)',
-	'rgb(112, 145, 255)',
-	'rgb(142, 216, 243)',
-	'rgb(188, 82, 188)',
-]
+var _ = require('lodash')
 
 var showLegendWhenSmall = false;
 var showLegendWhenBig = false;
 
+
 module.controller('KbnPieVisController', function ($scope, $element, Private, $location) {
+	
+	
+
 	var hold = "";
 	var wold = "";
 	$scope.$root.label_keys = [];
-	$scope.$root.editorParams = {};
+	$scope.$root.editor = {};
 	$scope.$root.activate_grouped = false;
 	var tabifyAggResponse = Private(AggResponseTabifyTabifyProvider);
 	var x_axis_values = [];
@@ -47,13 +45,12 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 	var gd3 = Plotly.d3.select(idchart[0])
 	var gd = gd3.node()
 
-	// Be alert to changes in vis_params
-	$scope.$watch('vis.params', function (params) {
+	// Be alert to changes in vis_
+	$scope.$watch('vis.', function () {
 		if (!$scope.$root.show_chart) return;
-		//if (Object.keys(params.editorPanel).length == 0 && params.enableZoom == previo_zoom) return;
+		//if (Object.keys(.editorPanel).length == 0 && .enableZoom == previo_zoom) return;
 		renderResp();
 	});
-
 
 	// C3JS chart generator
 	$scope.chartGen = function () {
@@ -172,7 +169,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 						return parents[i].real_value*arrays.percents[index][i];
 					});
 				}
-				
+						
 				var set = {
 					values: corrected_values,
 					real_values: values,
@@ -185,7 +182,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 					type: 'pie',
 					sort: false,
 					marker: {
-						colors: default_colors
+						colors: require('components/colors/colors')[$scope.vis.params.colors](values, $scope.vis.params)
 					},
 					direction: 'clockwise',
 					textinfo: 'none',
@@ -437,7 +434,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 				if($scope.vis.aggs[1].__schema.name === "split")
 					ii++
 
-				var d0 = $scope.vis.aggs[ii].params.interval;
+				var d0 = $scope.vis.aggs[ii].interval;
 
 				if (bucket_type === "terms") {
 					var match = {};

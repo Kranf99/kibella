@@ -120,10 +120,29 @@
           $scope.$emit('application.load');
         }
 
+
         function updateQueryOnRootSource() {
           var filters = queryFilter.getFilters();
-         
           if ($state.query) {
+
+              if( $state.query.query_string !== undefined       &&
+                  $state.query.query_string.query !== undefined &&
+                  $state.query.query_string.query !== "*"       ){
+
+                $state.query.query_string.query.split(/( AND | OR | and | or )/)
+                  .map(function(str,i) {
+                    if(!str.includes(" AND ") && !str.includes(" OR ") &&
+                      !str.includes(" and ") && !str.includes(" or ")) {
+                      return str.split("=").map(function(str,i) {
+                        if(i % 2 !== 0)
+                          return str.replace('"', "'").replace('"', "'")
+                        return str;
+                      }).join('=')
+                    }
+                    return str;
+                  }).join(' ')
+              }
+
             dash.searchSource.set('filter', _.union(filters, [{
               query: $state.query
             }]));
@@ -131,6 +150,7 @@
             dash.searchSource.set('filter', filters);
           }
         }
+
 
         // update root source when filters update
         $scope.$listen(queryFilter, 'update', function () {
@@ -160,7 +180,6 @@
           dash.timeFrom = dash.timeRestore ? timefilter.time.from : undefined;
           dash.timeTo = dash.timeRestore ? timefilter.time.to : undefined;
 
-          console.log(dash)
           dash["theme"] = $rootScope.theme;
           dash.save()
           .then(function (id) {
@@ -208,8 +227,6 @@
         
         $rootScope.theme = dash.theme
         $state["theme"] = dash.theme
-        console.log($state["theme"])
-        console.log("dash", dash)
 
         
         // Setup configurable values for config directive, after objects are initialized
@@ -222,9 +239,6 @@
           themes: ["bright", "dark"],
           selectedTheme: $rootScope.theme || $rootScope.defaultTheme,
           updateTheme: function(e) {
-
-            console.log("kiki", this, $scope.opts)
-            console.log("kuku", $rootScope)
             $rootScope.theme = $scope.opts.selectedTheme;
             $state["theme"] = $scope.opts.selectedTheme;
 

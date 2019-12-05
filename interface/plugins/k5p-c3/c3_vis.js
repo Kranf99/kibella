@@ -43,7 +43,9 @@ define(function (require) {
             few_x_axis: false,
             legend_position: "right",
             time_format: "%d-%m-%Y",
-            grouped: false
+            grouped: false,
+            threshold: false,
+            threshold_value: 0,
 
           },
               editor: c3VisParamsTemplate

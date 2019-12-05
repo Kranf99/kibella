@@ -25,7 +25,7 @@ define(function (require) {
       PieChart.Super.apply(this, arguments);
 
       var charts = this.handler.data.getVisData();
-      console.log(charts)
+      
       this._validatePieData(charts);
 
       this._attr = _.defaults(handler._attr || {}, {

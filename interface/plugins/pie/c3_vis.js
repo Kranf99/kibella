@@ -5,7 +5,8 @@ define(function (require) {
   var VisSchemasProvider = require('ui/Vis/Schemas');
   var c3VisTemplate = require('plugins/pie/c3_vis.html');
   var c3VisParamsTemplate = require('plugins/pie/c3_vis_params.html');
-
+  var colors = require('components/colors/colors');
+console.log("cc", colors.params)
   // register the provider with the visTypes registry
   require('ui/registry/vis_types').register(pieVisProvider);
 
@@ -20,12 +21,12 @@ define(function (require) {
         description: 'This is Kibella plugin which uses the JavaScript library Plotly for data representations.',
         template: c3VisTemplate,
         params: {
-          defaults: {
+          defaults: Object.assign({
             addTooltip: true,
             addLegend: true,
             isDonut: false,
-            displayOther: true
-          },
+            displayOther: true },
+            colors.default_params),
           editor: c3VisParamsTemplate
         },
         hierarchicalData: true,

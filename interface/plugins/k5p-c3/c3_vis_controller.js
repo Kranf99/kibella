@@ -317,8 +317,23 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 			margin: { t: 0, l: 35, r: 5, b: 50},
 			hovermode: 'closest',
 			showlegend: true,
-			legend: legend_v
+			legend: legend_v,
 		};
+
+		if($scope.vis.params.threshold)
+			layout.shapes = [{
+					type: 'line',
+					xref: 'paper',
+					x0: 0,
+					y0: $scope.vis.params.threshold_value,
+					x1: 1,
+					y1: $scope.vis.params.threshold_value,
+					line:{
+						color: 'rgb(50, 50, 50)',
+						width: 2,
+						dash:'dot'
+					}
+			}]
 
 		if($scope.vis.params.grouped)
 			layout.barmode = 'stack'
@@ -332,7 +347,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		chartHover.destroy();
 
 		$scope.chart = null
-		console.log(total_data)
+		console.log($scope.vis.params.threshold)
         $scope.chart = Plotly.newPlot(gd, total_data, layout, { showLink: false, responsive: true })
 
         if(viscontainer) {
