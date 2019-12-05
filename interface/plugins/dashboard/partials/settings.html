@@ -1,0 +1,9 @@
+<form role="form" class="vis-share">
+  <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+      <div class="kbn-settings-personalization" >
+        <h2>Dashboard Theme</h2>
+        <select class="form-control" ng-model="opts.selectedTheme" ng-options="theme as theme for theme in opts.themes" ng-change="opts.updateTheme()">
+        </select>
+      </div>
+    </div>
+</form>

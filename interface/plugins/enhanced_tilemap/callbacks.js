@@ -118,9 +118,6 @@ define(function (require) {
         if (!agg) return;
         var indexPatternName = agg.vis.indexPattern.id;
 
-        console.log(agg);
-        console.log(event);
-
         var newFilter = void 0;
         var field = void 0;
         event.bounds.top_left.lat = parseFloat(event.bounds.top_left.lat);

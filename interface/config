@@ -3,6 +3,8 @@
   "default_app_id": "dashboard",
   "shard_timeout": 0,
   "plugins": [
+    "plugins/admin/index",
+    "plugins/guide/index",
     "plugins/dashboard/index",
     "plugins/discover/index",
     "plugins/doc/index",
@@ -14,5 +16,5 @@
     "plugins/vis_types/index",
     "plugins/visualize/index"
   ],
-  "elasticsearch": "../db"
+  "elasticsearch": "http://vps714395.ovh.net/kibella/db"
 }

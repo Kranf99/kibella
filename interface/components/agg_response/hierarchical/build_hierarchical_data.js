@@ -14,6 +14,8 @@ define(function (require) {
     });
 
     return function (vis, resp) {
+
+      // debugger
       // Create a refrenece to the buckets
       var buckets = vis.aggs.bySchemaGroup.buckets;
 

@@ -16,56 +16,38 @@ define(function (require) {
   /** Wizard Step 1
   /********/
   routes.when('/visualize/step/1', {
-    template: templateStep(1, require('text!plugins/visualize/wizard/step_1.html'))
-  });
-
-  module.controller('VisualizeWizardStep1', function ($scope, $route, $location, timefilter, Private) {
-    timefilter.enabled = false;
-    $scope.visTypes = Private(require('ui/registry/vis_types'));
-    $scope.visTypeUrl = function (visType) {
-      if (!visType.requiresSearch) return '#/visualize/create?type=' + encodeURIComponent(visType.name);
-      else return '#/visualize/step/2?type=' + encodeURIComponent(visType.name);
-    };
-    $scope.checkTooltips = checkTooltips;
-  });
-
-  /********
-  /** Wizard Step 2
-  /********/
-  routes.when('/visualize/step/2', {
-    template: templateStep(2, require('text!plugins/visualize/wizard/step_2.html')),
-    resolve: {
-      indexPatternIds: function (courier) {
+    template: templateStep(1, require('text!plugins/visualize/wizard/step_1.html')),
+    indexPatternIds: function (courier) {
         return courier.indexPatterns.getIds();
       }
-    }
   });
 
-  module.controller('VisualizeWizardStep2', function ($route, $scope, $location, timefilter, kbnUrl) {
-    var type = $route.current.params.type;
-
-    $scope.step2WithSearchUrl = function (hit) {
-      return kbnUrl.eval('#/visualize/create?&type={{type}}&savedSearchId={{id}}', {type: type, id: hit.id});
-    };
-
+  module.controller('VisualizeWizardStep1', function ($scope, $route, $location, timefilter, kbnUrl, Private, courier, config) {
     timefilter.enabled = false;
-
     $scope.indexPattern = {
       selection: null,
-      list: $route.current.locals.indexPatternIds
+      list: null
     };
+    $scope.visTypes = Private(require('ui/registry/vis_types'));
+        config.$bind($scope, 'defaultIndex');
+        $scope.$watch('defaultIndex', function () {
+          $scope.indexPattern.list = _($route.current.locals.indexPatternIds)
+            .map(function (id) {
+              if($scope.defaultIndex === id) {
+                $scope.indexPattern.selection = id
+              }
+              return {
+                id: id,
+                default: $scope.defaultIndex === id
+              };
+            })
+            .value();
+        });
+        $scope.$emit('application.load');
 
-    $scope.$watch('stepTwoMode', function (mode) {
-      if (mode === 'new') {
-        if ($scope.indexPattern.list && $scope.indexPattern.list.length === 1) {
-          $scope.indexPattern.selection = $scope.indexPattern.list[0];
-        }
-      }
-    });
-
-    $scope.$watch('indexPattern.selection', function (pattern) {
-      if (!pattern) return;
-      kbnUrl.change('/visualize/create?type={{type}}&indexPattern={{pattern}}', {type: type, pattern: pattern});
-    });
+    $scope.visTypeUrl = function (visType) {
+      return '#/visualize/create?type='+ visType.name +'&indexPattern=' + $scope.indexPattern.selection;
+    };
+    $scope.checkTooltips = checkTooltips;
   });
 });

@@ -75,8 +75,8 @@ define(function (require) {
 
       $tooltip.css({
         visibility: 'visible',
-        left: placement.left,
-        top: placement.top
+        left: placement.left+window.scrollX,
+        top: placement.top+window.scrollY
       });
     };
 

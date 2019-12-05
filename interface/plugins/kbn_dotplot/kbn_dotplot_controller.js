@@ -74,6 +74,7 @@ define(function (require) {
           }
         }
 
+        var Colors = require('components/colors/colors');
 
         var defaultDotSize = 10
         // compite size for single bucket
@@ -86,17 +87,74 @@ define(function (require) {
           var step = max - min
           var chartDiff = chartMax - chartMin
         }
+
+        var sizes = resp.aggregations[firstFieldAggId].buckets.reduce(function (acc, bucket) {
+          if (bucket[secondFieldAggId]) {
+            var s = bucket[secondFieldAggId].buckets.reduce(function (accc, buck) {
+              var size = defaultDotSize
+              if (metricsAgg_radius) {
+                size = ((metricsAgg_radius.getValue(buck) - min) / step) * chartDiff + chartMin
+              }
+              accc.push(size)
+              return accc;
+            }, []);
+            acc.push(s)
+            return acc;
+          } else {
+            var size = defaultDotSize
+              if (metricsAgg_radius) {
+                size = ((metricsAgg_radius.getValue(bucket) - min) / step) * chartDiff + chartMin
+              }
+            acc.push(size);
+            return acc;
+          }
+        }, []);
+        function isColorUndefined() {
+          return $scope.vis.aggs.bySchemaName['dotcolor'] === undefined || (
+            resp.aggregations[firstFieldAggId].buckets[0][secondFieldAggId] === undefined ?
+              resp.aggregations[firstFieldAggId].buckets[0][$scope.vis.aggs.bySchemaName['dotcolor'][0].id] === undefined :
+              resp.aggregations[firstFieldAggId].buckets[0][secondFieldAggId].buckets[0][$scope.vis.aggs.bySchemaName['dotcolor'][0].id] === undefined
+          )
+        }
+        // dot color values, instanciate to 'dot size' values if metric is undefined
+        var colors_b = isColorUndefined() ? sizes : resp.aggregations[firstFieldAggId].buckets.reduce(function (acc, bucket) {
+          if (bucket[secondFieldAggId]) {
+            var s = bucket[secondFieldAggId].buckets.reduce(function (accc, buck) {
+              accc.push(buck[$scope.vis.aggs.bySchemaName['dotcolor'][0].id].value);
+              return accc;
+            }, []);
+            acc.push(s)
+            return acc;
+          } else {
+            acc.push(bucket[$scope.vis.aggs.bySchemaName['dotcolor'][0].id].value);
+            return acc;
+          }
+        }, []);
+        
+        if(resp.aggregations[firstFieldAggId].buckets[0][secondFieldAggId]) {
+          var colors = colors_b.reduce(function(acc, size) {
+            acc = acc.concat(size)
+            return acc
+          }, [])
+
+          colors = Colors[$scope.vis.params.colors](colors, $scope.vis.params)
+        } else {
+          var colors = Colors[$scope.vis.params.colors](colors_b, $scope.vis.params)
+        }
+
         var dataParsed = resp.aggregations[firstFieldAggId].buckets.map(function (bucket, bucket_i) {
           var colorOrg = bucket_i < colors.length-1 ? colors[bucket_i] : randomColor();
+
           //If two buckets selected
           if (bucket[secondFieldAggId]) {
-            var aux = bucket[secondFieldAggId].buckets.map(function (buck) {
+            var aux = bucket[secondFieldAggId].buckets.map(function (buck, buck_i, bucks) {
 
               //Size
               var size = defaultDotSize
               if (metricsAgg_radius) {
                 size = ((metricsAgg_radius.getValue(buck) - min) / step) * chartDiff + chartMin
               }
+              
               return {
                 mode: 'markers',
                 name: '',
@@ -106,7 +164,8 @@ define(function (require) {
                 field1: bucket.key,
                 field2: buck.key,
                 marker: {
-                  color: colorOrg,
+                  color: colors[bucket_i * bucks.length + buck_i],
+         //                  color: colorOrg,
                   sizemode: 'diameter',
                   size: size
                 }
@@ -115,11 +174,13 @@ define(function (require) {
 
             return aux;
           }
+
           //If only one bucket selected
           var size = defaultDotSize
           if (metricsAgg_radius) {
             size = ((metricsAgg_radius.getValue(bucket) - min) / step) * chartDiff + chartMin
           }
+          
           return {
             mode: 'markers',
             name: '',
@@ -127,12 +188,13 @@ define(function (require) {
             y: [metricsAgg_yAxis.getValue(bucket)],
             text: fieldAggName + ': ' + bucket.key,
             marker: {
-              color: colorOrg,
+              color: colors[bucket_i],
               sizemode: 'diameter',
               size: size,
             }
           }
         });
+        
         var layout = {
           xaxis: { title: metricsAgg_xAxis_title + " " + metricsAgg_xAxis_name },
           yaxis: { title: metricsAgg_yAxis_title + " " + metricsAgg_yAxis_name },

@@ -2,10 +2,10 @@
   <div class="panel-heading">
 		<span class="panel-title"><i class="panel-icon fa {{savedObj.vis.type.icon}}"></i> <span class="panel-name">{{savedObj.title}}</span></span>
     <div class="btn-group">
-      <a aria-label="Edit" ng-show="!appEmbedded && editUrl" ng-href="{{editUrl}}">
+      <a aria-label="Edit" tooltip="Edit Visualization" tooltip-placement="top" tooltip-popup-delay="400" tooltip-append-to-body="1" ng-show="!appEmbedded && editUrl" ng-href="{{editUrl}}">
         <i aria-hidden="true" class="fa fa-circle panel-button-edit"></i>
       </a>
-      <a aria-label="Remove" ng-show="!appEmbedded" ng-click="remove()">
+      <a aria-label="Remove" tooltip="Remove Visualization" tooltip-placement="top" tooltip-popup-delay="400" tooltip-append-to-body="1"  ng-show="!appEmbedded" ng-click="remove()">
         <i aria-hidden="true" class="fa fa-circle panel-button-remove"></i>
       </a>
     </div>

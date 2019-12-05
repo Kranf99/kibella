@@ -9,6 +9,7 @@ var TemplateVisTypeProvider = require('ui/template_vis_type/TemplateVisType');
 var VisSchemasProvider = require('ui/Vis/Schemas');
 var DotplotVisTemplate = require('plugins/kbn_dotplot/kbn_dotplot.html');
 var VisTypesRegistryProvider = require('ui/registry/vis_types');
+var colors = require('components/colors/colors');
 // we need to load the css ourselves
 
 // we also need to load the controller and used by the template
@@ -39,7 +40,7 @@ function DotplotVisTypeProvider(Private) {
     // category: VisType.CATEGORY.DATA,
     template: DotplotVisTemplate,
     params: {
-      defaults: {
+      defaults: Object.assign({
         perPage: 10,
         showPartialRows: false,
         showMeticsAtAllLevels: false,
@@ -49,8 +50,8 @@ function DotplotVisTypeProvider(Private) {
         },
         showTotal: false,
         totalFunc: 'sum',
-        caseSensitive: true
-      },
+        caseSensitive: true,
+      }, colors.default_params),
       editor: '<dotplot-vis-params></dotplot-vis-params>'
     },
     implementsRenderComplete: true,
@@ -80,6 +81,14 @@ function DotplotVisTypeProvider(Private) {
         title: 'Dot Size',
         aggFilter: '!geo_centroid',
         min: 1,
+        max: 1
+      },
+      {
+        group: 'metrics',
+        name: 'dotcolor',
+        title: 'Dot Color',
+        aggFilter: '!geo_centroid',
+        min: 0,
         max: 1
       },
       {

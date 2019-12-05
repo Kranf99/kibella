@@ -6,12 +6,10 @@
       </ul>
 
   <li class="list-group-item" ng-switch-when="visualization">
-      
-
-    <saved-object-finder title="Choose a visualization" type="visualizations" on-choose="opts.addVis"></saved-object-finder>
+     <saved-object-finder title="Choose a visualization" type="visualizations" on-choose="opts.addVis" per-page="5"></saved-object-finder>
   </li>
 
   <li class="list-group-item" ng-switch-when="search">
-    <saved-object-finder title="Choose a search" type="searches" on-choose="opts.addSearch"></saved-object-finder>
+   <saved-object-finder title="Choose a search" type="searches" on-choose="opts.addSearch" per-page="5"></saved-object-finder>
   </li>
 </div>

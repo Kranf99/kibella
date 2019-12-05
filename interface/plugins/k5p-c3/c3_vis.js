@@ -9,31 +9,33 @@ define(function (require) {
   // register the provider with the visTypes registry
   require('ui/registry/vis_types').register(c3VisProvider);
 
-  // Require the JavaScript CSS file
-  require('c3/c3.css');
-
   function c3VisProvider(Private) {
       var TemplateVisType = Private(TemplateVisTypeTemplateVisTypeProvider);
       var Schemas = Private(VisSchemasProvider);
     
       return new TemplateVisType({
-        name: 'c3Charts',
-        title: 'C3 charts widget',
-        icon: 'fa-spinner',
-        description: 'This is Kibella 5 plugin which uses the JavaScript library C3.js for data representations.',
+        name: 'c3Charts', // Unchanged for not bothering current kibella users
+        title: 'Bar & Line',
+        icon: 'fa-bar-chart',
+        description: 'This is Kibella plugin which uses the JavaScript library Plotly for data representations.',
         template: c3VisTemplate,
         params: {
           defaults: {
-            type1: 'line',
-            color1: '#1f77b4',
-            type2: 'line',
-            color2: '#ff7f0e',
-            type3: 'line',
-            color3: '#2ca02c', 
-            type4: 'line',
-            color4: '#d62728',
-            type5: 'line',
-            color5: '#9467bd',
+            type1: 'bar',
+            color1: 'rgb(212, 115, 255)',
+            rightY1: false,
+            type2: 'bar',
+            color2: 'rgb(118, 93, 224)',
+            rightY2: false,
+            type3: 'bar',
+            color3: 'rgb(112, 145, 255)', 
+            rightY3: false,
+            type4: 'bar',
+            color4: 'rgb(142, 216, 243)',
+            rightY4: false,
+            type5: 'bar',
+            color5: 'rgb(188, 82, 188)',
+            rightY5: false,
             enableZoom: false,
             dataLabels: false,
             hidePoints: false,
@@ -41,7 +43,9 @@ define(function (require) {
             few_x_axis: false,
             legend_position: "right",
             time_format: "%d-%m-%Y",
-            grouped: false
+            grouped: false,
+            threshold: false,
+            threshold_value: 0,
 
           },
               editor: c3VisParamsTemplate

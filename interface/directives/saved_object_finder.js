@@ -27,6 +27,7 @@ define(function (require) {
         type: '@',
         title: '@?',
         hideindex: '@?',
+        perPage: '@?',
         // optional make-url attr, sets the userMakeUrl in our scope
         userMakeUrl: '=?makeUrl',
         // optional on-choose attr, sets the userOnChoose in our scope
@@ -83,7 +84,10 @@ define(function (require) {
 
           if ($event.isDefaultPrevented()) return;
 
+
           var url = $scope.makeUrl(hit);
+
+           console.log(hit, url)
           if (!url || url.charAt(0) !== '#') return;
 
           $event.preventDefault();

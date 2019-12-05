@@ -22,7 +22,7 @@ define(function (require) {
         self.vislibVis.on(event, listener);
       });
 
-      if (this.chartData) self.vislibVis.render(this.chartData);
+      if (this.chartData) this.chartData.then(function(res) { return self.vislibVis.render(res); });
     };
 
     VislibRenderbot.prototype._getVislibParams = function () {
@@ -38,8 +38,11 @@ define(function (require) {
 
     VislibRenderbot.prototype.buildChartData = buildChartData;
     VislibRenderbot.prototype.render = function (esResponse) {
-      this.chartData = this.buildChartData(esResponse);
-      this.vislibVis.render(this.chartData);
+      var self = this;
+      this.chartData = Promise.resolve(this.buildChartData(esResponse)).then(function(res) {
+        self.vislibVis.render(res);
+        return res;
+      });
     };
 
     VislibRenderbot.prototype.destroy = function () {

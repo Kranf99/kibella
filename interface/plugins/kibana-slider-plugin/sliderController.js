@@ -40,7 +40,6 @@ define(function (require) {
                                             value,
                                             $scope.vis.indexPattern);
 
-      console.log(rangeFilter);
         queryFilter.addFilters(rangeFilter);
       }
       else {

@@ -1,0 +1,116 @@
+<div class="form-group">
+
+        <label>Colors</label>
+        <select ng-model="params.colors" class="form-control">
+            <option value="Categorical">Categorical</option>
+            <option value="Sequential">Sequential</option>
+            <option value="Diverging">Diverging</option>
+        </select>
+    
+        <style>
+            .discrete {
+                margin:auto;
+                text-align: center;
+                margin-top: 15px;
+            }
+            .colorslide {
+                position: relative;
+                width:100%;
+                margin:auto;
+                text-align: center;
+                margin-top: 15px;
+            }
+            .colorslide .grad {
+                height: 15px;
+                margin-top: 15px;
+                position: relative;
+                margin-bottom: 0;
+                border-radius: 50px;
+            }
+            .colorslide .step {
+                text-align: center;
+            }
+            .colorslide .min {
+                position: absolute;
+                left: 0;
+                top:30px;
+            }
+            .colorslide .mid {
+                /*position: absolute;
+                left: 50%;*/
+                margin: auto;
+                /* margin-top: 25px;             */
+            }
+            .colorslide .max {
+                position: absolute;
+                right:0;
+                top:30px;
+            }
+            .discrete .step {
+                display: inline-block;
+                margin-left: 2px;
+                margin-right: 2px;
+            }
+            .input-container {
+                width: 29px;
+                height: 29px;
+                overflow: hidden;
+                border-radius: 50%;
+                margin: auto;
+            }
+            input[type="color"] {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
+                margin-top: -6px;
+                margin-left: -6px;
+            }
+            .discrete .step label {
+                font-weight: normal;
+            }
+            input[type="color"]::-webkit-color-swatch-wrapper {
+                padding: 0;
+            }
+            input[type="color"]::-webkit-color-swatch {
+                border: none;
+            }
+        </style>
+        <!-- <label>Gradient</label> -->
+        <div class="colorslide" ng-if="params.colors !== 'Categorical'">
+            <div class="grad"  ng-style="{'background': params.colors === 'Diverging' ?  'linear-gradient(to right,' + params.min + ',' + params.mid + ',' + params.max + ')' : 'linear-gradient(to right,' + params.min + ',' + params.max + ')'}">
+            </div>
+            <div style="margin-top:15px;">
+                <div class="step min">
+                    <div class="input-container">
+                        <input type="color" ng-model="params.min" />
+                    </div>
+                    Minimum
+                </div>
+                <div class="step mid" ng-if="params.colors === 'Diverging'">
+                    <div class="input-container">
+                        <input type="color" ng-model="params.mid" />
+                    </div>
+                    Middle
+                </div>
+                <div class="step max">
+                    <div class="input-container">
+                        <input type="color" ng-model="params.max" value="params.max"/>
+                    </div>
+                    Maximum
+                </div>
+            </div>
+        </div>
+
+        <div class="discrete" ng-if="params.colors === 'Categorical'">
+            <div class="step"  ng-repeat="c in params.colorlist track by $index">
+                <div class="input-container">
+                    <input class=""  type="color" ng-model="params.colorlist[$index]" />
+                </div>
+                <label>{{$index + 1}}</label>
+            </div>
+        </div>
+
+    </div>

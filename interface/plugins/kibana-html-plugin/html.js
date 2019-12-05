@@ -13,6 +13,9 @@ define(function (require) {
       description: 'Useful for displaying html in dashboards.',
       template: require('plugins/kibana-html-plugin/html.html'),
       params: {
+        defaults: {
+          html: '<i>italic</i> and <b>bold</b>'
+        },
         editor: require('plugins/kibana-html-plugin/htmlOptions.html')
       },
       requiresSearch: true

@@ -1,0 +1,40 @@
+<div admin-app>
+  <div class="cache ">
+    <div class="head"  style="text-align: center;">
+      <h2>Cache</h2>
+    </div>
+    
+    <div class="col-lg-6" style="float: none; margin: 0 auto;">
+    <section> 
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Current settings</h3>
+        </div>
+        <div class="panel-body">
+          {{ RES }} the current visualization request.
+        </div>
+      </div>
+    </section>
+    
+    <section>  
+      <h2>Delete</h2>
+      <hr>
+      <div class="alert" role="alert"><i class="fa fa-warning"></i><b> Theses actions are irreversible<br></b></div>
+      
+      <ul>
+          <li class="button oldcache">
+            <a class="" ng-click="delete_old_cache()">
+              <i class="fa fa-trash-o"></i><span>Delete Old Cache</span>
+            </a>
+          </li>
+          <li class="button cache">
+            <a class="" ng-click="delete_cache()">
+              <i class="fa fa-trash"></i><span>Delete Cache</span>
+            </a>
+          </li>
+      </ul>
+    </section>
+    </div>
+
+  </div>
+</div>

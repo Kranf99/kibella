@@ -166,7 +166,7 @@
             <!-- <a ng-href="#{{app === activeApp ? app.rootPath : app.lastPath}}" ng-html="app.logo ? app.logo : app.name"></a> -->
 
             <a bindonce class="app-field" ng-href="#{{app === activeApp ? app.rootPath : app.lastPath}}">
-              <div class="app-icon" bo-html="app.icon"></div>
+              <div class="app-icon" bo-html="app.icon" tooltip="{{ app.name }}" tooltip-placement="right" tooltip-popup-delay="400" tooltip-append-to-body="1"></div>
               <span class="app-name" ng-show="nav.isExpand">{{ app.name }}</span>
             </a>
 
@@ -175,10 +175,10 @@
         <div class="bottom-menu" ng-show="user">
           <ul>
             <div user-panel ng-class="{hidden: !isUserPanelShowed}"></div>
-            <li class="user" ng-click="isUserPanelShowed = !isUserPanelShowed"><i class="fa fa-user"></i></li>
+            <li class="user" ng-click="isUserPanelShowed = !isUserPanelShowed" tooltip="User" tooltip-placement="right" tooltip-popup-delay="400" tooltip-append-to-body="1"><i class="fa fa-user"></i></li>
           </ul>
 
-          <ul ng-if="setupComplete" ng-show="timefilter.enabled" class="nav navbar-nav navbar-right navbar-timepicker">
+          <ul ng-if="setupComplete" ng-show="timefilter.enabled" class="nav navbar-nav navbar-right navbar-timepicker" tooltip="Timer" tooltip-placement="right" tooltip-popup-delay="400" tooltip-append-to-body="1">
             <li>
               <a  ng-click="toggleRefresh()"
                   ng-show="timefilter.refreshInterval.value > 0">
@@ -206,7 +206,7 @@
           </ul>
         </div>
 
-        <div class="expander">
+        <div class="expander" tooltip="Expand" tooltip-placement="right" tooltip-popup-delay="400" tooltip-append-to-body="1">
           <a ng-click="nav.isExpand === true ? nav.compress() : nav.expand()" class="fa" ng-class="{'fa-compress': nav.isExpand, 'fa-expand': !nav.isExpand}"></a>
         </div>
 
