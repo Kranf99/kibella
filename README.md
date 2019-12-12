@@ -4,7 +4,7 @@ Kibella is a Self-service BI/Dashboarding Tool.
 
 Upon writing these lines (2018/4), Kibella is the only open source, self-service BI solution that is running on a simple, easy&cheap to maintain infrastructure (Apache+PHP). 
 
-Kibella is so efficient that it runs easily on any basic WebHosting platform. For example, you can deploy a fully working Kibella dashboard on a Webserver that costs only 1.5€/month (from <a href="https://www.ovh.com/fr/hebergement-web/">here</a>). This makes Kibella the cheapest and the most versatile dashboarding solution available on the market.
+Kibella is so efficient that it runs easily on any basic WebHosting platform. For example, you can deploy a fully working Kibella dashboard on a Webserver that costs only 12€/year (from <a href="https://www.ovh.com/fr/hebergement-web/">here</a>). This makes Kibella the cheapest and the most versatile dashboarding solution available on the market. This means that there are actually no limits to the deployement of Kibella everywhere! You can deploy Kibella anywhere for any use case. Cool! :smile:
 
 The design tool (to create new dashboard or to edit/customize existing dashboards) is running 100% in the Browser so that there can be an unlimited of dashboard designers.
 
@@ -16,13 +16,21 @@ Typical examples of such setup includes:
   * LAMP: https://en.wikipedia.org/wiki/LAMP_(software_bundle)
   * WAMP: https://en.wikipedia.org/wiki/LAMP_(software_bundle)#WAMP
 
+The datasets injected into Kibella for visualization can be produced by <b>*any*</b> data management tool (ETL tool) supporting SQLite (you have complete freedom!). However, when producing new datasets for Kibella, we advise you to use the <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a> data management solution because <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a> is well integrated with Kibella: i.e. <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a> has specific functionnalities (i.e. a little box) that allows you to very easily and very quickly exports any datasets to Kibella.
+
+Kibella is a popular dashboarding solution when you have to deploy a large quantity of completely separated self-service BI environments. A whole Kibella system is around 11MB. This means that, if you need to create completely separated BI environments (e.g. for each of your different customers), you can just duplicate these 11MB and make several Kibella installation on the same Webserver. Each different installation can have different users, different dashboards, different datasets (nothing is shared). So, to deploy 1000 different, completely separated self-service BI environments, you just need 11GB (=1000x11MB) of hard drive space! Nothing more! Neat! :smile:  As a comparison, the cost of creating 1000 self-service BI environments using any other technology than Kibella is usually around several hundred thousands euros. The parameters (users,vizualizations,datasets) of each of these 1000 different installation can be automatically computed by any ETL tool supporting SQLite (e.g. <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a>).
+
+
+---
+# WINDOWS Installation for Simple Users
+
 Under MS-Windows, Kibella runs inside the famous open-source&free project "UwAMP" that you can download here
   https://www.uwamp.com/en/
 The installation of Kibella inside a UwAMP server is now 100% automated: Just unzip the file "Kibella_UwAmp.zip" (available in the "releases" section), run "UwAmp.exe" and open inside your browser "http://localhost".
 
 
 ---
-# LUNIX Installation for Simple Users (i.e. non developers)
+# LUNIX Installation for Simple Users
 
 * download and unzip the zip file "kibella_alone_linux.zip" (available in the "releases" section)
 * Copy the Kibella files inside a directory XX served by Apache.
@@ -33,6 +41,7 @@ RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
 ```
 For your convenience, such a file is directly provided inside the Kibella distribution.
 
+---
 # Installation for Developers
 
 For windows developers, the best way to work on Kibella is to use the 
@@ -61,12 +70,13 @@ sudo apt-get install make
     * custom must include full hostname + absolute path, eg:"http://localhost:8988/kibella/db"
 
 5. Build
+
  5.1. Build a large index.js for easy debugging
 ```
 (sudo) grunt dev
 ```
 
-     This will delete all in `/dev` if it exist, copy all the non-interface folders (`/public`,`/src`...) and transpile the bundle within `/dev/interface` and keep the process alive for watching your modifications (webpack --watch)
+ This will delete all in `/dev` if it exist, copy all the non-interface folders (`/public`,`/src`...) and transpile the bundle within `/dev/interface` and keep the process alive for watching your modifications (webpack --watch)
 
  5.2. Build a small index.js for distribution
 
@@ -74,10 +84,10 @@ sudo apt-get install make
 (sudo) grunt dist --force
 ```
 
-      This will delete all in `/dist` if it exist, copy all the non-interface folders (`/public`,`/src`...) and transpile the bundle within `/dist/interface`*
+ This will delete all in `/dist` if it exist, copy all the non-interface folders (`/public`,`/src`...) and transpile the bundle within `/dist/interface`*
 
 
-
+---
 # Troubleshooting
 
 1. Troubleshooting Linux Installation
@@ -121,6 +131,6 @@ If it does not appear, enable it with:
 sudo a2enmod rewrite
 ```
 
-
+---
 Copyright 2017 Frank Vanden berghen
 All Right reserved.
