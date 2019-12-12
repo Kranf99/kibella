@@ -1,10 +1,10 @@
 # Kibella
 
-Kibella is a Self-service BI/Dashboarding Tool.
+Kibella is a free Self-service BI/Dashboarding Tool that runs everywhere.
 
 Upon writing these lines (2018/4), Kibella is the only open source, self-service BI solution that is running on a simple, easy&cheap to maintain infrastructure (Apache+PHP). 
 
-Kibella is so efficient that it runs easily on any basic WebHosting platform. For example, you can deploy a fully working Kibella dashboard on a Webserver that costs only 12€/year (from <a href="https://www.ovh.com/fr/hebergement-web/">here</a>). This makes Kibella the cheapest and the most versatile dashboarding solution available on the market. This means that there are actually no limits to the deployement of Kibella everywhere! You can deploy Kibella anywhere and for any use case. Cool! :smile:
+Kibella is so efficient that it runs easily on any basic WebHosting platform. For example, you can deploy a fully working Kibella dashboard on a Webserver that costs only 18€/year (from <a href="https://www.ovh.com/fr/hebergement-web/">here</a>). This makes Kibella the cheapest and the most versatile dashboarding solution available on the market. This means that there are actually no limits to the deployement of Kibella everywhere! You can deploy Kibella anywhere and for any use case. Cool! :smile:
 
 The design tool (to create new dashboard or to edit/customize existing dashboards) is running 100% in the Browser so that there can be an unlimited of dashboard designers.
 
