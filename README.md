@@ -56,7 +56,8 @@ For windows developers, the best way to work on Kibella is to use the
   https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
 1. install npm libraries 
-   Here ar the installation instructions extracted from https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/:
+
+   Here are the installation instructions extracted from https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/:
 ```
 sudo curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install nodejs
@@ -72,6 +73,7 @@ sudo apt-get install make
    with `sudo npm install -g grunt-cli`
 
 4. (optional) Config
+
     Change hostname and port in `interface/config`
     * the default is `"elasticsearch": "../db"`
     * custom must include full hostname + absolute path, eg:"http://localhost:8988/kibella/db"
