@@ -61,15 +61,21 @@ For windows developers, the best way to work on Kibella is to use the
 "Ubuntu on Windows". More information on this subject here:
   https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
+from https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/:
+sudo curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+sudo apt-get install nodejs
+sudo apt-get install make
+cd /mnt/f/soft/UwAmp2/www/kibella_src
+
 1. Install npm dependencies at root of project for Grunt & Webpack and in `/interface` for 
-   front-end dependencies with `npm install` in `/`
+   front-end dependencies with `sudo npm install` in `/`
    
    This should download & unpack a whole bunch of required third party librairies. These 
    librairies will be located in the 2 directories "node_modules" and "interface/node_modules".
    For your convenience, I packed all these librairies in one big zip file here: https://github.com/Kranf99/kibella/releases/tag/v0.1
 
 2. If it's your first time using grunt, you must install it globally 
-   with `npm install -g grunt-cli`
+   with `sudo npm install -g grunt-cli`
 
 
 # Config
@@ -92,7 +98,7 @@ and keep the process alive for watching your modifications (webpack --watch)*
 ## Distribution
 
 ```
-(sudo) grunt dist
+(sudo) grunt dist --force
 ```
 
 *This will delete all in `/dist` if it exist, copy all the non-interface folders 

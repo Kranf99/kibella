@@ -143,9 +143,6 @@ define(function (require) {
 
             var orderAgg = agg.params.orderAgg || vis.aggs.getResponseAggById(agg.params.orderBy);
 
-            // TODO: This works around an Elasticsearch bug the always casts terms agg scripts to strings
-            // thus causing issues with filtering. This probably causes other issues since float might not
-            // be able to contain the number on the elasticsearch side
             if (output.params.script) {
               output.params.valueType = agg.field().type === 'number' ? 'float' : agg.field().type;
             }

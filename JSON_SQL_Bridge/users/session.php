@@ -10,9 +10,7 @@
  */
 namespace kibella;
 
-require_once(__DIR__ . '/../constants.php');
-require_once(__DIR__ . '/../functionsdb.php');
-require_once(__DIR__ . '/../classes.php');
+require_once __DIR__ . '/../config.php';
 
 class Session {
 
@@ -34,8 +32,8 @@ class Session {
 
   private function login() {
     if ($this->checkLoginFormDataNotEmpty()) {
-      $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
-      if ($this->db_connection) {
+      $this->db_connection = dbCreateDBH(KIBELLADB);
+      if ($this->db_connection->getDBHandle()) {
           $this->checkPasswordCorrectnessAndLogin();
       }
     }
@@ -54,7 +52,7 @@ class Session {
               WHERE email = "' . addslashes(htmlentities($_POST['email'], ENT_QUOTES)) . '"
               LIMIT 1';
       
-      $result_row = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="sqlite");
+      $result_row = dbDBHExecuteSqlQuery($this->db_connection->getDBHandle(), $sql, $mode="query");
       if ($result_row) {
         // using PHP 5.5's password_verify() function to check password
         if ((!strlen($result_row[0]['password']))||(password_verify($_POST['password'], $result_row[0]['password']))) {

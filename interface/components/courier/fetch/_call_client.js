@@ -66,7 +66,7 @@ define(function (require) {
       };
 
       // Now that all of THAT^^^ is out of the way, lets actually
-      // call out to elasticsearch
+      // call out to Back-end
       Promise.map(executable, function (req) {
         return Promise.try(req.getFetchParams, void 0, req)
         .then(function (fetchParams) {

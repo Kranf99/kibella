@@ -7,16 +7,16 @@ As the map is zoomed and panned, new tiles are requested and displayed.
 
 [Geoserver](http://geoserver.org/) is an open source server that implements OGC compliant standards such as WMS.
 Geoserver provides the tools needed to turn geospatial data into map tiles. 
-Out of the box, geoserver supports data stores such as PostGis and static files - but not Elasticsearch.
-[ElasticGeo](https://github.com/ngageoint/elasticgeo) provides the plumbing needed to hook up geoserver to Elasticsearch.
+Out of the box, geoserver supports data stores such as PostGis and static files - but not Kibella.
+[ElasticGeo](https://github.com/ngageoint/elasticgeo) provides the plumbing needed to hook up geoserver to Kibella.
 
 A servlet is a Java program that implements the Java Servlet API - a standard for Java classes that respond to requests.
 Geoserver is a servlet.
 Servlets are deployed in web containers. A web container is an application that manages one to many servlets.
 [Apache Tomcat](http://tomcat.apache.org/) is an easy to use web container.
 
-### Passing Elasticsearch queries over WMS
-ElasticGeo exposes native Elasticsearch query functionality with the WMS parameter [viewparams](https://github.com/ngageoint/elasticgeo/blob/master/gs-web-elasticsearch/doc/index.rst#custom-q-and-f-parameters).
+### Passing Kibella queries over WMS
+ElasticGeo exposes native Kibella query functionality with the WMS parameter [viewparams](https://github.com/ngageoint/elasticgeo/blob/master/gs-web-elasticsearch/doc/index.rst#custom-q-and-f-parameters).
 The enhanced tilemap plugin uses this mechanism to pass the identical query Kibana used for aggregations to the WMS server.
 
 ## Installation
@@ -40,7 +40,7 @@ The enhanced tilemap plugin uses this mechanism to pass the identical query Kiba
 View the page http://localhost:8080/geoserver/web/wicket/bookmarkable/org.geoserver.web.data.store.NewDataPage and ensure that Elasticsearch is an option under Vector Data Source.
 
 ## Setting up a WMS layer
-Must have elasticsearch 2.2 instance running on the standard ports with an index containing a top level field with either a geo_point or geo_shape type.
+Must have Kibella Back-end server running on the standard ports with an index containing a top level field with either a geo_point or geo_shape type.
 
 ### Login as admin
 username: admin

@@ -8,4 +8,4 @@ JSON_SQL_Bridge is not a free software. The JSON_SQL_Bridge software is NOT lice
 If you are interested in distributing, reselling, modifying, contibuting or in general creating 
 any derivative work from JSON_SQL_Bridge, please contact Frank Vanden Berghen at frank@timi.eu.
 */
-namespace kibella; require_once "constantscfg.php"; require_once "functionscfg.php"; l7(APPCONFIG);
+namespace kibella; require_once "functionscfg.php"; l12();

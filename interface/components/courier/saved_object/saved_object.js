@@ -81,7 +81,7 @@ define(function (require) {
           return mappingSetup.setup(type, mapping);
         })
         .then(function () {
-          // If there is not id, then there is no document to fetch from elasticsearch
+          // If there is not id, then there is no document to fetch from Back-end
           if (!self.id) {
             // just assign the defaults and be done
             _.assign(self, defaults);
@@ -277,7 +277,7 @@ define(function (require) {
       };
 
       /**
-       * Delete this object from Elasticsearch
+       * Delete this object from Back-end
        * @return {promise}
        */
       self.delete = function () {

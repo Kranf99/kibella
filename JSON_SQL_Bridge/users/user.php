@@ -10,9 +10,7 @@
  */
 namespace kibella;
 
-require_once(__DIR__ . '/../constants.php');
-require_once(__DIR__ . '/../functionsdb.php');
-require_once(__DIR__ . '/../classes.php');
+require_once __DIR__ . '/../config.php';
 
 class User {
 
@@ -22,14 +20,14 @@ class User {
     if($this->isLoggedIn()) {
       $id = addslashes(htmlentities($_SESSION['id'], ENT_QUOTES));
 
-      $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
+      $this->db_connection = dbCreateDBH(KIBELLADB);
 
-      $sql = 'SELECT *
+      $sql = 'SELECT firstname, lastname, email, is_admin
               FROM Users
               WHERE id = "' . $id . '"
               LIMIT 1';
       
-      $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="sqlite");
+      $result = dbDBHExecuteSqlQuery($this->db_connection->getDBHandle(), $sql, $mode="query");
 
       if(isset($result[0]))
         return $result[0];
@@ -53,14 +51,14 @@ class User {
     if($this->isLoggedIn()) {
       $id = addslashes(htmlentities($_SESSION['id'], ENT_QUOTES));
 
-      $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
+      $this->db_connection = dbCreateDBH(KIBELLADB);
 
       $sql = 'SELECT is_admin
               FROM Users
               WHERE id = "' . $id . '"
               LIMIT 1';
       
-      $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="sqlite");
+      $result = dbDBHExecuteSqlQuery($this->db_connection->getDBHandle(), $sql, $mode="query");
 
       if($result[0]['is_admin'] == "true" || $result[0]['is_admin'] == "TRUE")
         return true;

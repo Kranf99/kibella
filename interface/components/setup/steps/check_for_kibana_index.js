@@ -9,7 +9,7 @@ define(function (require) {
         index: configFile.kibana_index
       })
       .catch(function (err) {
-        throw new SetupError('Unable to check for Kibana index "<%= configFile.kibana_index %>"', err);
+        throw new SetupError('Unable to check for any Kibella back-end "<%= configFile.kibana_index %>"', err);
       })
       .then(complete, complete.failure);
     };

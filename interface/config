@@ -16,5 +16,5 @@
     "plugins/vis_types/index",
     "plugins/visualize/index"
   ],
-  "elasticsearch": "http://vps714395.ovh.net/kibella/db"
+  "elasticsearch": "../db"
 }

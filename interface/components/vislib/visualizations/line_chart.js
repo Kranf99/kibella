@@ -16,7 +16,7 @@ define(function (require) {
      * @extends Chart
      * @param handler {Object} Reference to the Handler Class Constructor
      * @param el {HTMLElement} HTML element to which the chart will be appended
-     * @param chartData {Object} Elasticsearch query results for this specific chart
+     * @param chartData {Object} query results for this specific chart
      */
     _(LineChart).inherits(PointSeriesChart);
     function LineChart(handler, chartEl, chartData) {
