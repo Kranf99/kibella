@@ -1,4 +1,4 @@
-KIBELLA 1.2
+KIBELLA 3.0
 Copyright 2016 Frank Vanden berghen
 All Right reserved.
 
@@ -17,7 +17,6 @@ The Kibella software is composed of:
  * the following additional files:
      ../data/income.sqlite
      ../data/testGeoPoint.sqlite
-     dev/*
      forms/*
      ../favicon.ico
      .gitignore
