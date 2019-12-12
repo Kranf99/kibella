@@ -24,12 +24,16 @@ Kibella is a popular dashboarding solution when you have to deploy a large quant
 ---
 # WINDOWS Installation for Simple Users
 
-Under MS-Windows, Kibella runs inside the famous open-source&free project "UwAMP" that you can download here
-  https://www.uwamp.com/en/
-The installation of Kibella inside a UwAMP server is now 100% automated: Here are the steps:
+There are no administrative privileges required! <br/>
+Anybody can install&run Kibella! Complete freedom!<br/>
+
+The installation of Kibella inside a UwAMP server is now 100% automated: <br/>
+Here are the 3 simple steps:
 * Unzip the file "Kibella_UwAmp.zip" (available in the <a href="https://github.com/Kranf99/kibella/releases">"releases" section</a>)
-* Run "UwAmp.exe" (no administrative privileges required! Annbody can install&run Kibella!)
-* Open Kibella inside your browser "http://localhost/kibella".
+* Run "UwAmp.exe"
+* Open Kibella inside your browser: i.e. open the URL "http://localhost/kibella".
+
+Under MS-Windows, Kibella runs inside the famous open-source&free project "UwAMP" that you can download <a href="https://www.uwamp.com/en/">here</a>.
 
 
 ---
