@@ -33,11 +33,11 @@ Here are the 3 simple steps:
 * Run "UwAmp.exe"
 * Open Kibella inside your browser: i.e. open the URL "http://localhost/kibella".
 
-Under MS-Windows, Kibella runs inside the famous open-source&free project "UwAMP" that you can download <a href="https://www.uwamp.com/en/">here</a>.
+Under MS-Windows, Kibella runs inside the famous open-source&free project "UwAMP" that you can download <a href="https://www.uwamp.com/en/">here</a> (no need to download UwAmp yourself: it's already included in the Kibella zip file).
 
 
 ---
-# LUNIX Installation for Simple Users
+# LINUX Installation for Simple Users
 
 * download and unzip the zip file "kibella_alone_linux.zip" (available in the "releases" section)
 * Copy the Kibella files inside a directory XX served by Apache.
