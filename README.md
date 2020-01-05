@@ -140,6 +140,29 @@ If it does not appear, enable it with:
 sudo a2enmod rewrite
 ```
 
+
+---
+# How To contribute
+
+1. Regarding the Front-End code.
+
+We are always open to receive any contribution to the front-end code (i.e. the code that is running inside the Web Browser). 
+
+The front-end is written in Angular.js. Nearly all the vizualitions modules in the Front-end are built "on top" of Plotly.js or D3.js. A Kibella vizualitions module is just a small layout ("on top" of Plotly.js or D3.js) that provides a self-service, zero-code interface that allows to create all the charts using only the mouse. Thanks to a modular code architecture, it's very easy to add new vizualitions modules! So, grab your keyboards and let's create together the ultimate Self-service Dashboarding Tool! ...So that everybody can enjoy beautiful dashboards everywhere!
+
+2. Regarding the Back-End code.
+
+We are not interested in any help regarding the back-end code (i.e. the code that is runnning on the Web Server). 
+
+The back-end code is pure PHP code that interfaces with a classical database (SQLite, MS-SQLServer) through SQL. We don't want to change that: For us, PHP+SQL is already the best solution because it offers:
+(1) ..the highest portability (i.e. you can deploy PHP almost everywhere)
+(2) ..the highest level of security (i.e. By default, Kibella runs inside Apache and Apache is the most secure Web server currently available)
+(3) ..the easiest to maintain & support solution (i.e. what's easier to maintain than a simple Apache+PHP server?)
+(4) ..a relatively fast processing speed (i.e. it really depends on which SQL database you are using. ..But you should know that the official TPC-H benchmarck is telling us that the MS-SQLServer engine is the fastest non-clustered database engine currently available).
+We won't respond to questions related to the back-end code (since we are not interested in contributions for to the back-end code).
+
+
+
 ---
 Copyright 2017 Frank Vanden berghen
 All Right reserved.
