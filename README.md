@@ -156,10 +156,10 @@ A good place to find what could be interesting as a contribution is inside the <
 2. Regarding the Back-End code.
 
 We are not interested in any help regarding the back-end code (i.e. the back-end code is the code that is runnning on the Web Server). The back-end code is pure PHP code that interfaces with a classical database (SQLite, MS-SQLServer) through SQL. We don't want to change that: For us, PHP+SQL is already the best solution because it offers:
-1. ..the highest portability (i.e. you can deploy PHP almost everywhere)
-2. ..the highest level of security (i.e. By default, Kibella runs inside Apache and Apache is the most secure Web server currently available)
-3. ..the easiest to maintain & support solution (i.e. what's easier to maintain than a simple Apache+PHP server?)
-4. ..a relatively fast processing speed (i.e. it really depends on which SQL database you are using. ..But you should know that the official TPC-H benchmarck is telling us that the MS-SQLServer engine is the fastest non-clustered database engine currently available).
+* ..the highest portability (i.e. you can deploy PHP almost everywhere)
+* ..the highest level of security (i.e. By default, Kibella runs inside Apache and Apache is the most secure Web server currently available)
+* ..the easiest to maintain & support solution (i.e. what's easier to maintain than a simple Apache+PHP server?)
+* ..a relatively fast processing speed (i.e. it really depends on which SQL database you are using. ..But you should know that the official TPC-H benchmarck is telling us that the MS-SQLServer engine is the fastest non-clustered database engine currently available).
 
 By default, we won't follow-up on any question that is related to the back-end code (since we are not interested in contributions to the back-end code).
 
