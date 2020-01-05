@@ -146,7 +146,7 @@ sudo a2enmod rewrite
 
 1. Regarding the Front-End code.
 
-We are always Hapopy to receive any contribution to the front-end code (i.e. to the code that is running inside the Web Browser)! :smile:
+We are always happy to receive any contribution to the front-end code (i.e. to the code that is running inside the Web Browser)! :smile:
 
 The front-end is written in Angular.js + Webpack + Grunt. Nearly all the vizualisation modules in the Front-end are built "on top" of Plotly.js or D3.js. A Kibella vizualisation module is just a small layout ("on top" of Plotly.js or D3.js) that provides a self-service, zero-code interface that allows to create all the charts using only the mouse. Thanks to a modular code architecture, it's very easy to add new vizualitions modules! So, grab your keyboards and let's create together the ultimate Self-service Dashboarding Tool! ...So that everybody can enjoy beautiful dashboards everywhere! Yes! :smile:
 
