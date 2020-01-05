@@ -150,7 +150,7 @@ We are always open to receive any contribution to the front-end code (i.e. to th
 
 The front-end is written in Angular.js + Webpack + Grunt. Nearly all the vizualisation modules in the Front-end are built "on top" of Plotly.js or D3.js. A Kibella vizualisation module is just a small layout ("on top" of Plotly.js or D3.js) that provides a self-service, zero-code interface that allows to create all the charts using only the mouse. Thanks to a modular code architecture, it's very easy to add new vizualitions modules! So, grab your keyboards and let's create together the ultimate Self-service Dashboarding Tool! ...So that everybody can enjoy beautiful dashboards everywhere! Yes! :smile:
 
-A good place to find what could be interesting as a contribution is inside the <ha href="https://github.com/Kranf99/kibella/issues">issue section</a> of the Kibella Github repository.
+A good place to find what could be interesting as a contribution is inside the <a href="https://github.com/Kranf99/kibella/issues">issue section</a> of the Kibella Github repository.
 
 
 2. Regarding the Back-End code.
