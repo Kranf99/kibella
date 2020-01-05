@@ -18,7 +18,7 @@ Typical examples of such setup includes:
 
 The datasets injected into Kibella for visualization can be produced by <b>*any*</b> data management tool (ETL tool) supporting SQLite (you have complete freedom!). However, when producing new datasets for Kibella, we advise you to use the <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a> data management solution because <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a> is well integrated with Kibella: i.e. <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a> has specific functionnalities (i.e. a little box) that allows you to very easily and very quickly exports any datasets to Kibella.
 
-Kibella is a popular dashboarding solution when you have to deploy a large quantity of completely separated self-service BI environments. A whole Kibella system is around 11MB. This means that, if you need to create completely separated BI environments (e.g. for each of your different customers), you can just duplicate these 11MB and make several Kibella installation on the same Webserver. Each different installation can have different users, different dashboards, different datasets (nothing is shared). So, to deploy 1000 different, completely separated self-service BI environments, you just need 11GB (=1000x11MB) of hard drive space! Nothing more! Neat! :smile:  As a comparison, the cost of creating 1000 self-service BI environments using any other technology than Kibella is usually around several hundred thousands euros. The parameters (users,vizualizations,datasets) of each of these 1000 different installation can be automatically computed by any ETL tool supporting SQLite (e.g. <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a>).
+Kibella is a popular dashboarding solution when you have to deploy a large quantity of completely separated self-service BI environments. A whole Kibella system is around 11MB. This means that, if you need to create completely separated BI environments (e.g. for each of your different customers), you can just duplicate these 11MB and make several Kibella installations on the same Webserver. Each different installation can have different users, different dashboards, different datasets (nothing is shared). So, to deploy 1000 different, completely separated self-service BI environments, you just need 11GB (=1000x11MB) of hard drive space! Nothing more! Neat! :smile:  As a comparison, the cost of creating 1000 independent self-service BI environments using any other technology than Kibella is usually around several hundred thousands euros. The parameters (users,vizualizations,datasets) of each of these 1000 different installation can be automatically computed by any ETL tool supporting SQLite (e.g. <a href="https://timi.eu/products-solutions/timi/anatella/">Anatella</a>).
 
 
 ---
@@ -146,20 +146,19 @@ sudo a2enmod rewrite
 
 1. Regarding the Front-End code.
 
-We are always open to receive any contribution to the front-end code (i.e. the code that is running inside the Web Browser). 
+We are always open to receive any contribution to the front-end code (i.e. to the code that is running inside the Web Browser). 
 
-The front-end is written in Angular.js. Nearly all the vizualitions modules in the Front-end are built "on top" of Plotly.js or D3.js. A Kibella vizualitions module is just a small layout ("on top" of Plotly.js or D3.js) that provides a self-service, zero-code interface that allows to create all the charts using only the mouse. Thanks to a modular code architecture, it's very easy to add new vizualitions modules! So, grab your keyboards and let's create together the ultimate Self-service Dashboarding Tool! ...So that everybody can enjoy beautiful dashboards everywhere!
+The front-end is written in Angular.js + Webpack + Grunt. Nearly all the vizualisation modules in the Front-end are built "on top" of Plotly.js or D3.js. A Kibella vizualisation module is just a small layout ("on top" of Plotly.js or D3.js) that provides a self-service, zero-code interface that allows to create all the charts using only the mouse. Thanks to a modular code architecture, it's very easy to add new vizualitions modules! So, grab your keyboards and let's create together the ultimate Self-service Dashboarding Tool! ...So that everybody can enjoy beautiful dashboards everywhere! Yes! :smile:
 
 2. Regarding the Back-End code.
 
-We are not interested in any help regarding the back-end code (i.e. the code that is runnning on the Web Server). 
+We are not interested in any help regarding the back-end code (i.e. the back-end code is the code that is runnning on the Web Server). The back-end code is pure PHP code that interfaces with a classical database (SQLite, MS-SQLServer) through SQL. We don't want to change that: For us, PHP+SQL is already the best solution because it offers:
+1. ..the highest portability (i.e. you can deploy PHP almost everywhere)
+2. ..the highest level of security (i.e. By default, Kibella runs inside Apache and Apache is the most secure Web server currently available)
+3. ..the easiest to maintain & support solution (i.e. what's easier to maintain than a simple Apache+PHP server?)
+4. ..a relatively fast processing speed (i.e. it really depends on which SQL database you are using. ..But you should know that the official TPC-H benchmarck is telling us that the MS-SQLServer engine is the fastest non-clustered database engine currently available).
 
-The back-end code is pure PHP code that interfaces with a classical database (SQLite, MS-SQLServer) through SQL. We don't want to change that: For us, PHP+SQL is already the best solution because it offers:
-(1) ..the highest portability (i.e. you can deploy PHP almost everywhere)
-(2) ..the highest level of security (i.e. By default, Kibella runs inside Apache and Apache is the most secure Web server currently available)
-(3) ..the easiest to maintain & support solution (i.e. what's easier to maintain than a simple Apache+PHP server?)
-(4) ..a relatively fast processing speed (i.e. it really depends on which SQL database you are using. ..But you should know that the official TPC-H benchmarck is telling us that the MS-SQLServer engine is the fastest non-clustered database engine currently available).
-We won't respond to questions related to the back-end code (since we are not interested in contributions for to the back-end code).
+By default, we won't follow-up on any question that is related to the back-end code (since we are not interested in contributions to the back-end code).
 
 
 
