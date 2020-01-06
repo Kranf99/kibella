@@ -12,7 +12,6 @@ $user = new User();-->
   if($user->isAdmin()) {
 ?>-->
 
-
   <div class="head">
     <h2>Insert / Update Table</h2>
   </div>
@@ -83,11 +82,16 @@ HTML;
 	<em>(names with spaces may or may not be enclosed in single or double quotes)</em>
 	
 	<div class="form-group">
-		<!--<input type="text" name="enablecache" ng-model="table.enablecache" size=1 value=1 class="form-control"></input><br>
-		-->
-		<br><input type="checkbox" name="enablecache" value="">
-		<!--<input class="checkbox" type="checkbox" name="enablecache" checked class="form-control" ng-model="table.enablecache"> -->
-		Enable the cache for the results run on this table?<span style="font-size:14px"></span>
+		<br>
+		<input
+			checked
+			class="checkbox"
+			type="checkbox"
+			name="enablecache"
+			class="form-control"
+			ng-model="table.enablecache">
+		</input>
+		Enable the cache for the results run on this table?
 	</div>
 
 	<div ng-show="success_msg !== ''" ng-bind-html="success_msg" style="color: #505050;">
@@ -105,10 +109,6 @@ HTML;
   } else {
     echo 'You have to be an admin to access this page.';
   }
-?>
-
-
-	
+?>	
 </div>
-
 </div>
