@@ -6,11 +6,12 @@ define(function (require) {
   var configFile = JSON.parse(require('text!config'));
 
   module.run(function(kbnPath) {
-    if (configFile.elasticsearch.indexOf('http://') === 0) return;
-    if(configFile.elasticsearch.indexOf('/') === 0)
-      configFile.elasticsearch = kbnPath + configFile.elasticsearch;
-    else
-      configFile.elasticsearch = kbnPath + '/interface/' + configFile.elasticsearch;
+  	  return;
+//    if (configFile.elasticsearch.indexOf('http://') === 0) return;
+//    if(configFile.elasticsearch.indexOf('/') === 0)
+//      configFile.elasticsearch = kbnPath + configFile.elasticsearch;
+//    else
+//      configFile.elasticsearch = kbnPath + '/interface/' + configFile.elasticsearch;
   });
 
   // allow the rest of the app to get the configFile easily
