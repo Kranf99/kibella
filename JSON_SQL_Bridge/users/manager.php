@@ -30,7 +30,7 @@ class UserManager {
 
   public function getAll() {
     $this->checkIfAdmin();
-    $this->db_connection = dbCreateDBH(KIBELLADB);
+    $this->db_connection = dbCreateDBConnection(KIBELLADB);
 
     $sql = 'SELECT * FROM Users';
     
@@ -43,7 +43,7 @@ class UserManager {
     if($id) {
       $id = addslashes(htmlentities($id, ENT_QUOTES));
 
-      $this->db_connection = dbCreateDBH(KIBELLADB);
+      $this->db_connection = dbCreateDBConnection(KIBELLADB);
 
       $sql = 'SELECT * FROM Users WHERE id = "' . $id . '"';
       
@@ -59,7 +59,7 @@ class UserManager {
   public function register(){
     $this->checkIfAdmin();
     if ($this->checkRegistrationData($edit=false)) {
-      $this->db_connection = dbCreateDBH(KIBELLADB);
+      $this->db_connection = dbCreateDBConnection(KIBELLADB);
       if ($this->db_connection) {
         if ($this->createNewUser()) 
         {
@@ -73,7 +73,7 @@ class UserManager {
 
   public function delete() {
     $this->checkIfAdmin();
-    $this->db_connection = dbCreateDBH(KIBELLADB);
+    $this->db_connection = dbCreateDBConnection(KIBELLADB);
 
     if ($this->db_connection) {
       $email = addslashes(htmlentities($_POST["delete"], ENT_QUOTES));
@@ -98,7 +98,7 @@ class UserManager {
     }
     if(isset($_POST['id'])) {
       if ($this->checkRegistrationData($edit=true)) {
-        $this->db_connection = dbCreateDBH(KIBELLADB);
+        $this->db_connection = dbCreateDBConnection(KIBELLADB);
         if ($this->db_connection) {
           $id = addslashes(htmlentities($_GET['id'], ENT_QUOTES));
           $email = addslashes(htmlentities($_POST['email'], ENT_QUOTES));

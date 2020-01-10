@@ -32,7 +32,7 @@ class Session {
 
   private function login() {
     if ($this->checkLoginFormDataNotEmpty()) {
-      $this->db_connection = dbCreateDBH(KIBELLADB);
+      $this->db_connection = dbCreateDBConnection(KIBELLADB);
       if ($this->db_connection->getDBHandle()) {
           $this->checkPasswordCorrectnessAndLogin();
       }

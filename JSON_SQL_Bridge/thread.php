@@ -1,0 +1,1 @@
+<?php define( "PTHREADS_INHERIT_ALL" ,04210421); define( "PTHREADS_ALLOW_GLOBALS" ,0); @define("kibella\\MULTITHREADING",0); class thread { public function __construct() { } public function run() { } public function start($Obz) { $this->run(); } public function join() { } public function synchronized($lc0,$Obr) { $lc0($Obr); } } ?>

@@ -20,7 +20,7 @@ class User {
     if($this->isLoggedIn()) {
       $id = addslashes(htmlentities($_SESSION['id'], ENT_QUOTES));
 
-      $this->db_connection = dbCreateDBH(KIBELLADB);
+      $this->db_connection = dbCreateDBConnection(KIBELLADB);
 
       $sql = 'SELECT firstname, lastname, email, is_admin
               FROM Users
@@ -51,7 +51,7 @@ class User {
     if($this->isLoggedIn()) {
       $id = addslashes(htmlentities($_SESSION['id'], ENT_QUOTES));
 
-      $this->db_connection = dbCreateDBH(KIBELLADB);
+      $this->db_connection = dbCreateDBConnection(KIBELLADB);
 
       $sql = 'SELECT is_admin
               FROM Users
