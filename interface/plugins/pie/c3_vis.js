@@ -6,7 +6,7 @@ define(function (require) {
   var c3VisTemplate = require('plugins/pie/c3_vis.html');
   var c3VisParamsTemplate = require('plugins/pie/c3_vis_params.html');
   var colors = require('components/colors/colors');
-console.log("cc", colors.params)
+
   // register the provider with the visTypes registry
   require('ui/registry/vis_types').register(pieVisProvider);
 

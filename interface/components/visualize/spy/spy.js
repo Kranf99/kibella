@@ -19,6 +19,8 @@ define(function (require) {
           var fullPageSpy = false;
           $scope.modes = modes;
 
+          $scope.spy.show = false;
+
           $scope.toggleDisplay = function () {
             $scope.setSpyMode($scope.spy.mode ? null : defaultMode);
           };

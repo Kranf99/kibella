@@ -20,6 +20,21 @@
           a {
             div.app-icon {
               font-size: 1.75em;
+
+              svg {
+                width: 30px;
+                max-height: 35px;
+                opacity: 0.6;
+              }
+            }
+          }
+        }
+        li.active {
+          a {
+            .app-icon {
+              svg {
+                opacity: 1;
+              }
             }
           }
         }
@@ -70,8 +85,10 @@
             div.app-icon {
               font-size: 1.6em;
               display: inline-block;
-              width: 30px;
+              width: 20px;
               text-align: center;
+
+              
             }
             span.app-name {
               font-size: 1.1em;

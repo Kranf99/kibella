@@ -347,7 +347,6 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		chartHover.destroy();
 
 		$scope.chart = null
-		console.log($scope.vis.params.threshold)
         $scope.chart = Plotly.newPlot(gd, total_data, layout, { showLink: false, responsive: true })
 
         if(viscontainer) {

@@ -1,4 +1,5 @@
-<div ng-click="toggleDisplay()" class="visualize-show-spy">
+<div ng-click="toggleDisplay()" class="visualize-show-spy" ng-show="spy.show">
+  {{ spy }}
   <div class="visualize-show-spy-tab">
     <i class="fa" ng-class="spy.mode ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
   </div>

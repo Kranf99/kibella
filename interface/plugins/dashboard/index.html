@@ -1,6 +1,9 @@
 <div dashboard-app class="app-container dashboard-container">
   <navbar ng-show="!appEmbedded">
-    <span class="name" ng-if="dash.id"><i aria-hidden="true" class="fa fa-th"></i> {{ dash.title }}</span>
+    <span class="name" ng-if="dash.id">
+      <i aria-hidden="true" class="fa fa-th"></i>
+      {{ dash.title }}
+    </span>
 		<span class="separator" ng-if="dash.id"></span>
     <form name="queryInput"
       class="fill inline-form"
@@ -21,7 +24,7 @@
             kbn-typeahead-input
             validate-query>
           <button type="submit" class="btn btn-default" ng-disabled="queryInput.$invalid" aria-label="Filter dashboards">
-            <span aria-hidden="true" class="fa fa-search"></span>
+            <span aria-hidden="true" class="fa fa-filter"></span>
           </button>
         </div>
 
@@ -84,6 +87,7 @@
           ng-click="configTemplate.toggle('settings');"
           class="big">
           <i aria-hidden="true" class="fa fa-cog"></i>
+
           <!--Share-->
         </button>
 			</kbn-tooltip>
@@ -94,7 +98,82 @@
           ng-class="{active: configTemplate.is('pickVis')}"
           ng-click="configTemplate.toggle('pickVis'); onToggle();"
           class="inverse-color">
-          <i aria-hidden="true" class="fa fa-cube"></i>
+          
+          <!--<i aria-hidden="true" class="fa fa-cube"></i>-->
+          <svg
+            style="height: 20px;
+            max-width: 20px;
+            float: left;
+            vertical-align: middle;
+            margin-right: 10px;"
+            xmlns:dc="http://purl.org/dc/elements/1.1/"
+            xmlns:cc="http://creativecommons.org/ns#"
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:svg="http://www.w3.org/2000/svg"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="9.8589878mm"
+            height="11.384176mm"
+            viewBox="0 0 5.9153923 6.8305057"
+            version="1.1"
+            id="svg8">
+            <defs
+              id="defs2">
+              <linearGradient
+                id="linearGradient6220">
+                <stop
+                  style="stop-color:#9745ba;stop-opacity:0.89411765"
+                  offset="0"
+                  id="stop6216" />
+                <stop
+                  style="stop-color:#d473ff;stop-opacity:1"
+                  offset="1"
+                  id="stop6218" />
+              </linearGradient>
+              <linearGradient
+                xlink:href="#linearGradient6220"
+                id="linearGradient6252"
+                gradientUnits="userSpaceOnUse"
+                x1="112.58333"
+                y1="-1378"
+                x2="95.262817"
+                y2="-1388"
+                gradientTransform="matrix(-0.4374999,-0.75777206,0.75777206,-0.4374999,1197.3881,-1918.0624)" />
+            </defs>
+            <metadata
+              id="metadata5">
+              <rdf:RDF>
+                <cc:Work
+                  rdf:about="">
+                  <dc:format>image/svg+xml</dc:format>
+                  <dc:type
+                    rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                  <dc:title></dc:title>
+                </cc:Work>
+              </rdf:RDF>
+            </metadata>
+            <g
+              id="layer1"
+              transform="translate(-139.97663,-77.933117)">
+              <g
+                transform="matrix(0.19515731,0,0,0.19515731,122.65298,351.25093)"
+                id="g6353-5-6">
+                <path
+                  style="fill:#9b47bf;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  d="m 103.92307,-1383 15.15545,-8.75 v 17.5 l -15.15545,8.75 z"
+                  id="path6347-61-2" />
+                <path
+                  id="path6349-1-1"
+                  d="m 103.92307,-1383 -15.155443,-8.75 15.155443,-8.75 15.15544,8.75 z"
+                  style="fill:url(#linearGradient6252);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+                <path
+                  style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                  d="m 103.92307,-1383 v 17.5 l -15.155445,-8.75 1e-6,-17.5 z"
+                  id="path6351-4-2" />
+              </g>
+            </g>
+          </svg>
+
           Add Visualization
         </button>
     </div>
@@ -105,8 +184,221 @@
   <filter-bar state="state"></filter-bar>
 
   <div ng-show="!state.panels.length" class="text-center start-screen">
-    <i aria-hidden="true" class="main-icon animated rotateIn fa fa-rocket"></i>
-		<div class="animated fadeInUp">
+    <!--<i aria-hidden="true" class="main-icon animated rotateIn fa fa-rocket"></i>-->
+    <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   width="228.61636"
+   height="217.80095"
+   viewBox="0 0 60.488078 57.626502"
+   version="1.1"
+   id="svg8">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient6220">
+      <stop
+         style="stop-color:#9745ba;stop-opacity:0.89411765"
+         offset="0"
+         id="stop6216" />
+      <stop
+         style="stop-color:#d473ff;stop-opacity:1"
+         offset="1"
+         id="stop6218" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient5651">
+      <stop
+         style="stop-color:#d473ff;stop-opacity:1;"
+         offset="0"
+         id="stop5647" />
+      <stop
+         style="stop-color:#9745ba;stop-opacity:0.89411765"
+         offset="1"
+         id="stop5649" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient5651"
+       id="linearGradient6170-9"
+       gradientUnits="userSpaceOnUse"
+       x1="77.941849"
+       y1="-1502.9999"
+       x2="77.942284"
+       y2="-1528"
+       gradientTransform="translate(-3.463877,8.4997879)" />
+    <linearGradient
+       xlink:href="#linearGradient6220"
+       id="linearGradient14383"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.4374999,-0.75777206,0.75777206,-0.4374999,1197.3881,-1918.0624)"
+       x1="112.58333"
+       y1="-1378"
+       x2="95.262817"
+       y2="-1388" />
+    <linearGradient
+       xlink:href="#linearGradient6220"
+       id="linearGradient14425"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.4374999,-0.75777206,0.75777206,-0.4374999,1197.3881,-1918.0624)"
+       x1="112.58333"
+       y1="-1378"
+       x2="95.262817"
+       y2="-1388" />
+    <linearGradient
+       xlink:href="#linearGradient6220"
+       id="linearGradient14489"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.4374999,-0.75777206,0.75777206,-0.4374999,1197.3881,-1918.0624)"
+       x1="112.58333"
+       y1="-1378"
+       x2="95.262817"
+       y2="-1388" />
+    <linearGradient
+       xlink:href="#linearGradient6220"
+       id="linearGradient14499"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-0.4374999,-0.75777206,0.75777206,-0.4374999,1197.3881,-1918.0624)"
+       x1="112.58333"
+       y1="-1378"
+       x2="95.262817"
+       y2="-1388" />
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     transform="translate(-213.44945,1370.0251)">
+    <g
+       id="g6168-0"
+       transform="matrix(1.3969123,0,0,1.3969123,139.6543,768.83159)">
+      <path
+         id="path5633-3"
+         d="m 74.47797,-1519.5001 -21.650635,12.5 21.650635,12.5 21.650635,-12.5 z"
+         style="fill:url(#linearGradient6170-9);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         style="fill:#9e49c1;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 74.47797,-1499.5001 v -5 l -4.330128,2.5 z"
+         id="path14204-0" />
+      <path
+         style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 74.477969,-1499.5001 v -5 l 4.330128,2.5 z"
+         id="path14204-7-6" />
+      <path
+         style="fill:#9e49c1;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 74.47797,-1509.5001 v -5 l -4.330128,2.5 z"
+         id="path14204" />
+      <path
+         style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 74.477969,-1509.5001 v -5 l 4.330128,2.5 z"
+         id="path14204-7" />
+      <path
+         style="fill:#9e49c1;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 83.138225,-1504.5001 v -5 l -4.330128,2.5 z"
+         id="path14204-9" />
+      <path
+         style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 83.138224,-1504.5001 v -5 l 4.330128,2.5 z"
+         id="path14204-7-4" />
+      <path
+         style="fill:#9e49c1;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 65.817716,-1504.5001 v -5 l -4.330128,2.5 z"
+         id="path14204-94" />
+      <path
+         style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 65.817715,-1504.5001 v -5 l 4.330128,2.5 z"
+         id="path14204-7-2" />
+      <g
+         transform="matrix(0.28400005,0,0,0.28400005,44.963813,-1133.3896)"
+         id="g6353-5">
+        <path
+           style="fill:#9b47bf;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 103.92307,-1383 15.15545,-8.75 v 17.5 l -15.15545,8.75 z"
+           id="path6347-61" />
+        <path
+           id="path6349-1"
+           d="m 103.92307,-1383 -15.155443,-8.75 15.155443,-8.75 15.15544,8.75 z"
+           style="fill:url(#linearGradient14383);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <path
+           style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 103.92307,-1383 v 17.5 l -15.155445,-8.75 1e-6,-17.5 z"
+           id="path6351-4" />
+      </g>
+      <path
+         style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 52.827333,-1507.0001 v 4.6212 l 21.650637,12.5 v -4.6212 z"
+         id="path14263" />
+      <path
+         style="fill:#9b48bf;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 74.47797,-1489.8789 v -4.6212 l 21.650635,-12.5 v 4.6212 z"
+         id="path14265" />
+      <g
+         id="g14421"
+         transform="matrix(0.28400005,0,0,0.28400005,36.303559,-1124.1068)">
+        <path
+           id="path14415"
+           d="m 103.92307,-1383 15.15545,-8.75 v 17.5 l -15.15545,8.75 z"
+           style="fill:#9b46bf;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <path
+           style="fill:url(#linearGradient14425);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 103.92307,-1383 -15.155443,-8.75 15.155443,-8.75 15.15544,8.75 z"
+           id="path14417" />
+        <path
+           id="path14419"
+           d="m 103.92307,-1383 v 17.5 l -15.155445,-8.75 1e-6,-17.5 z"
+           style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      </g>
+      <g
+         transform="matrix(0.28400005,0,0,0.28400005,44.937827,-1110.037)"
+         id="g6353-5-3">
+        <path
+           style="fill:#9b47bf;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 103.92307,-1383 15.15545,-8.75 0.0915,11.6515 -15.15545,8.75 z"
+           id="path6347-61-9" />
+        <path
+           id="path6349-1-2"
+           d="m 103.92307,-1383 -15.155443,-8.75 15.155443,-8.75 15.15544,8.75 z"
+           style="fill:url(#linearGradient14489);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <path
+           style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 103.92307,-1383 v 11.7043 l -15.155445,-8.75 1e-6,-11.7043 z"
+           id="path6351-4-4" />
+      </g>
+      <g
+         id="g14497"
+         transform="matrix(0.28400005,0,0,0.28400005,53.624067,-1118.8148)">
+        <path
+           id="path14491"
+           d="m 103.92307,-1383 15.15545,-8.75 v 17.5 l -15.15545,8.75 z"
+           style="fill:#9b47bf;fill-opacity:0.99607843;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+        <path
+           style="fill:url(#linearGradient14499);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 103.92307,-1383 -15.155443,-8.75 15.155443,-8.75 15.15544,8.75 z"
+           id="path14493" />
+        <path
+           id="path14495"
+           d="m 103.92307,-1383 v 17.5 l -15.155445,-8.75 1e-6,-17.5 z"
+           style="fill:#7e409a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.23151036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      </g>
+    </g>
+  </g>
+</svg>
+
+
+		<div class="animated fadeIn">
 			<h2>Let's draw your data !</h2>
     	<p style="color: #888">Click the <a style="font-size:15px; padding: 0 5px;" ng-click="configTemplate.open('pickVis'); toggleAddVisualization = !toggleAddVisualization" aria-label="Add visualization">"Add Visualization"</a> button in the menu bar above to add a visualization to the dashboard. <br/>If you haven't setup a visualization yet visit the <a href="#/visualize" title="Visualize">"Visualize"</a> tab to create your first visualization.</p>
 		</div>

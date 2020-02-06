@@ -176,6 +176,14 @@ body.dark.application-dashboard {
   .wizard-vis-types .wizard-vis-type .ktooltip:after {
     border-right-color:  @dark-dashboard-panel-bg-color;
   }
+  div.vis-tooltip, div.vis-tooltip table, div.vis-tooltip table thead, div.vis-tooltip table tr, div.vis-tooltip table th, div.vis-tooltip table td {
+    background:  @dark-dashboard-panel-bg-color !important;
+    color: #eee !important;
+  }
+  .hoverinfo {
+    background-color:  @dark-dashboard-panel-bg-color !important;
+    color: #eee !important;
+  }
   .btn-default.active {
     background: #6b6b6b;
   }
@@ -291,10 +299,10 @@ nav > ul > li.active > a, nav > ul > li > a:hover {
     }
   }
 
-  .c3-vis .legend rect.bg {
+  .plotly .legend rect.bg {
     fill: @dark-dashboard-panel-bg-color !important;
   }
-  .c3-vis .legend text {
+  .plotly .legend text {
     fill: #fff !important;
   }
 }
