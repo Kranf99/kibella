@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Kibella 2.5 - Sign in</title>
+  <title>Kibella 3.0 - Sign in</title>
   <link rel="stylesheet" href="styles/style.css">
   <link rel="stylesheet" href="../../styles/form.css">
   <link rel="stylesheet" href="../../lib/bootstrap.min.css">
@@ -20,7 +20,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <p class="message">You must sign in to access to the <em>Kibella</em> application.</p>
+            <p class="message">You must sign in to access the <em>Kibella</em> application.</p>
             <?php
               if($session->error) {
                 echo '<p class="error">' . $session->error . '</p>';

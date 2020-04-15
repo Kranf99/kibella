@@ -75,7 +75,7 @@ define(function (require) {
           return mappingSetup.setup(type, mapping);
         })
         .then(function () {
-          // If there is no id, then there is no document to fetch from elasticsearch
+          // If there is no id, then there is no document to fetch from Back-end
           if (!self.id) return;
 
           // fetch the object from ES

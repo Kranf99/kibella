@@ -10,7 +10,7 @@ define(function () {
       },
       'sort:options': {
         value: '{ "unmapped_type": "boolean" }',
-        description: 'Options the Elasticsearch sort parameter',
+        description: 'Options the sort parameter',
         type: 'json'
       },
       'dateFormat': {
@@ -35,8 +35,8 @@ define(function () {
         ' http://en.wikipedia.org/wiki/ISO_8601#Time_intervals'
       },
       'defaultIndex': {
-        value: null,
-        description: 'The index to access if no index is set',
+        value: "INCOME(income)",
+        description: 'The dataset to access if no dataset is set',
       },
       'metaFields': {
         value: ['_source', '_id', '_type', '_index'],
@@ -90,7 +90,7 @@ define(function () {
       },
       'indexPattern:fieldMapping:lookBack': {
         value: 5,
-        description: 'For index patterns containing timestamps in their names, look for this many recent matching ' +
+        description: 'For datasets containing timestamps in their names, look for this many recent matching ' +
           'patterns from which to query the field mapping.'
       },
       'format:defaultTypeMap': {

@@ -19,7 +19,7 @@ define(function () {
     var activeTypeCreations = {};
 
     /**
-     * Get the list of type's mapped in elasticsearch
+     * Get the list of type's mapped in Back-end
      * @return {[type]} [description]
      */
     var getKnownKibanaTypes = _.once(function () {

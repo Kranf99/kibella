@@ -11,6 +11,7 @@ define(function (require) {
       var modes = Private(require('ui/registry/spy_modes'));
       var defaultMode = modes.inOrder[0];
 
+      
       return {
         restrict: 'E',
         template: require('text!components/visualize/spy/_spy.html'),
@@ -20,17 +21,11 @@ define(function (require) {
           $scope.modes = modes;
 
           $scope.spy.show = true;
-
-          if($route.current.$$route.originalPath.includes("dashboard")) {
+          
+          if($route.current.$$route.originalPath.includes("dashboard") && (!$rootScope.user || !$rootScope.user === "false")) {
             $scope.spy.show = $rootScope.showSpy;
           }
-          /*$http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/showRawTables.php', { id: $route.current.params.id })
-            .then(function (resp) {
-                $scope.spy.show = Boolean(Number(resp.data))
-            }, function (err) {
-              console.error(err)
-            });
-*/
+        
           $scope.toggleDisplay = function () {
             $scope.setSpyMode($scope.spy.mode ? null : defaultMode);
           };

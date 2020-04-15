@@ -70,7 +70,7 @@ define(function (require) {
       })
       .catch(function (err) {
         if (err instanceof MissingIndices) {
-          notify.error('Could not locate any indices matching that pattern. Please add the index to Elasticsearch');
+          notify.error('Could not locate any indices matching that pattern. Please add the index to Kibella');
         }
         else notify.fatal(err);
       });

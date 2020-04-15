@@ -28,8 +28,8 @@ define(function () {
   };
 
   /**
-   * Returns an Elasticsearch filter that represents the result.
-   * @returns {object} Elasticsearch filter
+   * Returns an filter that represents the result.
+   * @returns {object} filter
    */
   AggConfigResult.prototype.createFilter = function () {
     return this.aggConfig.createFilter(this.key);

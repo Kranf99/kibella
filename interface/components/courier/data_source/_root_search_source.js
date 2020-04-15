@@ -21,14 +21,14 @@ define(function (require) {
      * @return {Promise}
      */
     function loadDefaultPattern() {
-      return notify.event('loading default index pattern', function () {
+      return notify.event('loading default Dataset', function () {
         var defId = config.get('defaultIndex');
 
         return Promise.cast(defId && indexPatterns.get(defId))
         .then(function (pattern) {
           pattern = pattern || undefined;
           globalSource.set('index', pattern);
-          notify.log('index pattern set to', defId);
+          notify.log('Current Dataset set to', defId);
         });
       });
     }

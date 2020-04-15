@@ -17,7 +17,7 @@ define(function (require) {
     // Vis object of this type.
     return new TemplateVisType({
       name: 'extended_metric',
-      title: 'Extended Metric',
+      title: 'Metric(Ext.)',
       description: 'Based on the core Metric-Plugin but gives you the ability' +
         'to output custom aggregates on metric-results.',
       icon: 'fa-calculator',

@@ -34,9 +34,9 @@ function DotplotVisTypeProvider(Private) {
   // Vis object of this type.
   return new TemplateVisType({
     name: 'dotplot',
-    title: 'Dot plot',
+    title: 'Scatter plot',
     icon: 'fa-ellipsis-v',
-    description: 'Display values in a dot plot',
+    description: 'Display values in a Scatter plot',
     // category: VisType.CATEGORY.DATA,
     template: DotplotVisTemplate,
     params: {

@@ -56,7 +56,7 @@ define(function (require) {
     err = err || false;
 
     KbnError.call(this,
-      'Request to Elasticsearch failed: ' + angular.toJson(resp || err.message),
+      'Request to WebServer failed: ' + angular.toJson(resp || err.message),
       errors.RequestFailure);
 
     this.origError = err;
@@ -133,7 +133,7 @@ define(function (require) {
    */
   errors.CacheWriteFailure = function CacheWriteFailure() {
     KbnError.call(this,
-      'A Elasticsearch cache write has failed.',
+      'A cache write has failed.',
       errors.CacheWriteFailure);
   };
   inherits(errors.CacheWriteFailure, KbnError);
@@ -228,7 +228,7 @@ define(function (require) {
   inherits(errors.NotEnoughData, KbnError);
 
   /**
-   * error thrown when no results are returned from an elasticsearch query
+   * error thrown when no results are returned from a query
    */
   errors.NoResults = function NoResults() {
     KbnError.call(this,
@@ -238,7 +238,7 @@ define(function (require) {
   inherits(errors.NoResults, KbnError);
 
   /**
-   * error thrown when no results are returned from an elasticsearch query
+   * error thrown when no results are returned from a query
    */
   errors.PieContainsAllZeros = function PieContainsAllZeros() {
     KbnError.call(this,
@@ -248,7 +248,7 @@ define(function (require) {
   inherits(errors.PieContainsAllZeros, KbnError);
 
   /**
-   * error thrown when no results are returned from an elasticsearch query
+   * error thrown when no results are returned from a query
    */
   errors.InvalidLogScaleValues = function InvalidLogScaleValues() {
     KbnError.call(this,

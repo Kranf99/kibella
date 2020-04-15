@@ -37,7 +37,7 @@ define(function (require) {
      * Renders the visualization
      *
      * @method render
-     * @param data {Object} Elasticsearch query results
+     * @param data {Object} query results
      */
     Vis.prototype.render = function (data) {
       var chartType = this._attr.type;

@@ -43,7 +43,7 @@ define(function (require) {
      * Stacks chart data values
      *
      * @method stackData
-     * @param data {Object} Elasticsearch query result for this chart
+     * @param data {Object} query result for this chart
      * @returns {Array} Stacked data objects with x, y, and y0 values
      */
     PointSeriesChart.prototype.stackData = function (data) {

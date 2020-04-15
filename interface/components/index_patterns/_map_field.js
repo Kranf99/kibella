@@ -5,7 +5,7 @@ define(function (require) {
 
     /**
      * Accepts a field object and its name, and tries to give it a mapping
-     * @param  {Object} field - the field mapping returned by elasticsearch
+     * @param  {Object} field - the field mapping returned by Back-end
      * @param  {String} type - name of the field
      * @return {Object} - the resulting field after overrides and tweaking
      */
@@ -16,7 +16,7 @@ define(function (require) {
       var mapping = _.cloneDeep(field.mapping[keys.shift()]);
       mapping.type = castMappingType(mapping.type);
 
-      // Override the mapping, even if elasticsearch says otherwise
+      // Override the mapping, even if Back-end says otherwise
       var mappingOverrides = {
         _timestamp: {
           type: 'date',
@@ -29,7 +29,7 @@ define(function (require) {
       };
 
       if (!mapping.index || mapping.index === 'no') {
-        // elasticsearch responds with false sometimes and 'no' others
+        // Back-end responds with false sometimes and 'no' others
         mapping.indexed = false;
       } else {
         mapping.indexed = true;

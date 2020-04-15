@@ -8,11 +8,4 @@
  If you are interested in distributing, reselling, modifying, contibuting or in general creating
  any derivative work from JSON_SQL_Bridge, please contact Frank Vanden Berghen at frank@timi.eu.
  */
-namespace kibella;
-
-require_once(__DIR__ . '/../dashboard.php');
-
-$data = json_decode(file_get_contents("php://input"));
-$dashboard = new Dashboard();
-
-echo $dashboard->isShared($data->id);
+namespace kibella; require_once ( __DIR__."/../dashboard.php"); $O7=json_decode(file_get_contents("php://input"),TRUE); $l8=new l0(); echo $l8->l1($O7["id"]);

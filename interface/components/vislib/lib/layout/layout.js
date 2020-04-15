@@ -17,7 +17,7 @@ define(function (require) {
      * @class Layout
      * @constructor
      * @param el {HTMLElement} HTML element to which the chart will be appended
-     * @param data {Object} Elasticsearch query results for this specific chart
+     * @param data {Object} query results for this specific chart
      * @param chartType {Object} Reference to chart functions, i.e. Pie
      */
     function Layout(el, data, chartType, opts) {

@@ -100,7 +100,7 @@ define(function (require) {
       };
 
       /**
-       * Clears mapping caches from elasticsearch and from local object
+       * Clears mapping caches from Back-end and from local object
        * @param {dataSource} dataSource
        * @returns {Promise}
        * @async

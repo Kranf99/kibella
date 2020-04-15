@@ -6,7 +6,7 @@ define(function () {
      * es used to sort them.
      *
      * background:
-     * When a hit is sorted by elasticsearch, es will write the values that it used
+     * When a hit is sorted by Back-end, Back-end will write the values that it used
      * to sort them into an array at the top level of the hit like so
      *
      * ```

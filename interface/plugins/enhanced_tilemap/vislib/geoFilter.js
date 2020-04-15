@@ -59,10 +59,10 @@ define(function (require) {
     }
 
     /**
-     * Convert elasticsearch geospatial filter to leaflet vectors
+     * Convert geospatial filter to leaflet vectors
      *
      * @method toVector
-     * @param filter {Object} elasticsearch geospatial filter
+     * @param filter {Object} geospatial filter
      * @param field {String} Index field name for geo_point or geo_shape field
      * @return {Array} Array of Leaftet Vector Layers constructed from filter geometries
      */

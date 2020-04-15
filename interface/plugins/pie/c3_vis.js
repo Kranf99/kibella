@@ -16,9 +16,9 @@ define(function (require) {
     
       return new TemplateVisType({
         name: 'pie_chart',
-        title: 'Plotly Pie',
+        title: 'Pie',
         icon: 'fa-pie-chart',
-        description: 'This is Kibella plugin which uses the JavaScript library Plotly for data representations.',
+        description: 'This is a Kibella plugin which uses the JavaScript library Plotly for data representations.',
         template: c3VisTemplate,
         params: {
           defaults: Object.assign({

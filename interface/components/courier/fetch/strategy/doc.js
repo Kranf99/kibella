@@ -15,8 +15,8 @@ define(function (require) {
       },
 
       /**
-       * Fetch the multiple responses from the ES Response
-       * @param  {object} resp - The response sent from Elasticsearch
+       * Fetch the multiple responses from the Back-end Response
+       * @param  {object} resp - The response sent from Back-end
        * @return {array} - the list of responses
        */
       getResponses: function (resp) {

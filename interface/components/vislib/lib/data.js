@@ -14,7 +14,7 @@ define(function (require) {
      *
      * @class Data
      * @constructor
-     * @param data {Object} Elasticsearch query results
+     * @param data {Object} query results
      * @param attr {Object|*} Visualization options
      */
     function Data(data, attr) {
