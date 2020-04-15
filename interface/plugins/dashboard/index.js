@@ -13,6 +13,7 @@
   require('plugins/dashboard/components/panel/panel');
   require('plugins/dashboard/services/saved_dashboards');
   require('css!plugins/dashboard/styles/main.css');
+  const anime = require('animejs');
 
   var rison = require('utils/rison');
 
@@ -56,6 +57,57 @@
         var notify = new Notifier({
           location: 'Dashboard'
         });
+
+
+        // Empty Dashboard Animation
+
+        var cubes = {
+          top: document.querySelector('#cube-top'),
+          bottom: document.querySelector('#cube-bottom'),
+          left: document.querySelector('#cube-left'),
+          right: document.querySelector('#cube-right')
+        }
+
+        anime({
+          targets: cubes.top,
+          transform: "matrix(0.28400005,0,0,0.28400005,44.963816,-1132.9252)",
+          loop: true,
+          direction: 'alternate',
+          easing: 'easeInOutExpo',
+          duration: 2000,
+          delay: 600,
+        });
+
+        anime({
+          targets: cubes.bottom,
+          transform: "matrix(0.28400004,0,0,0.28400004,44.963814,-1120.2128)",
+          loop: true,
+          direction: 'alternate',
+          easing: 'easeInOutExpo',
+          duration: 2000,
+          delay: 400,
+        });
+
+        anime({
+          targets: cubes.left,
+          transform: "matrix(0.28400005,0,0,0.28400005,36.303559,-1133.1068)",
+          loop: true,
+          direction: 'alternate',
+          easing: 'easeInOutExpo',
+          duration: 2000,
+        });
+
+        anime({
+          targets: cubes.right,
+          transform: "matrix(0.28400005,0,0,0.28400005,53.624067,-1127.3796)",
+          loop: true,
+          direction: 'alternate',
+          easing: 'easeInOutExpo',
+          duration: 2000,
+          delay: 200
+        });
+
+        //
 
         var dash = $scope.dash = $route.current.locals.dash;
 
@@ -221,7 +273,14 @@
         
         $rootScope.theme = dash.theme
         $state["theme"] = dash.theme
-        
+
+        $scope.location = $location
+
+        var prev_location = "";
+        var hash = "";
+
+        $rootScope.showSpy = true;
+
         // Setup configurable values for config directive, after objects are initialized
         $scope.opts = {
           dashboard: dash,
@@ -229,7 +288,7 @@
           addVis: $scope.addVis,
           addSearch: $scope.addSearch,
           isShared: $scope.shared,
-          showRawTables: $scope.showRawTables,
+          showRawTables: $rootScope.showSpy,
           themes: ["bright", "dark"],
           selectedTheme: $rootScope.theme || $rootScope.defaultTheme,
           updateTheme: function(e) {
@@ -256,15 +315,24 @@
           changeRawTables: function() {
             $http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/changeRawTables.php', { id: $route.current.params.id, showTablesValue: $scope.opts.showRawTables });
           },
-          shareData: function () {
-            return {
-              link: $location.absUrl(),
-              rolink: $location.absUrl().replace('?', '?embed&'),
-              embed: '<iframe src="' + $location.absUrl().replace('?', '?embed&') +
+          shareData: function () {        
+            return  {
+              link:  $location.absUrl().split('_g=()')[0].replace('?',''),
+              rolink: $location.absUrl().replace('?', '?embed').split('_g=()')[0],
+              embed: '<iframe src="' + $location.absUrl().replace('?', '?embed').split('_g=()')[0] +
                 '" height="600" width="800"></iframe>'
             };
           }
         };
+
+        $http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/showRawTables.php', { id: $route.current.params.id })
+          .then(function (resp) {
+              $rootScope.showSpy = Boolean(Number(resp.data))
+              $scope.opts.showRawTables = $rootScope.showSpy
+          }, function (err) {
+            console.error(err)
+          });
+
 
         init();
       }

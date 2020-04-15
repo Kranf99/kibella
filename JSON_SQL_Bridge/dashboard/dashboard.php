@@ -51,8 +51,7 @@ class Dashboard {
 
       $sql = 'UPDATE ' . OBJTABLE . '
               SET ' . OBJ_COLUMN_SHARED . ' = "' . $newValue . '"
-              WHERE ' . ALL_COLUMN_ID . ' = "' . $id . '" AND ' . OBJ_COLUMN_TYPE . ' = "' . NAME_DASHBOARD . '"
-              LIMIT 1';
+              WHERE ' . ALL_COLUMN_ID . ' = "' . $id . '" AND ' . OBJ_COLUMN_TYPE . ' = "' . NAME_DASHBOARD . '"';
       
       $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="exec");
 
@@ -63,13 +62,11 @@ class Dashboard {
   }
 
 
-
-  
   /* RAW TABLES */
   public function showRawTables($id) {
     $id = addslashes(htmlentities($id, ENT_QUOTES));
 
-    $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
+    $this->db_connection = dbdbhcreate(KIBELLADB, TABLESDIR, $mode="sqlite");
 
     $sql = 'SELECT ' . OBJ_COLUMN_SHOW_RAW_TABLES . '
             FROM ' . OBJTABLE . '
@@ -77,14 +74,22 @@ class Dashboard {
             LIMIT 1';
     
     $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="sqlite");
-
+    
     return $result[0][OBJ_COLUMN_SHOW_RAW_TABLES];
   }
 
   public function changeRawTables($id, $newValue) {
     $tuser = new User();
     
-    if($tuser->isLoggedIn() && is_bool($newValue)) {
+    if(!$tuser->isLoggedIn()) {
+      echo "You're not logged in.";
+      return;
+    }
+    if(!is_bool($newValue)) {
+      echo "Bad Value";
+      return;
+    }
+
       $id = addslashes(htmlentities($id, ENT_QUOTES));
 
       if($newValue)
@@ -92,18 +97,16 @@ class Dashboard {
       else
         $newValue = 0;
 
-      $this->db_connection = dbDBHCreate(KIBELLADB, TABLESDIR, $mode="sqlite");
+      $this->db_connection = dbdbhcreate(KIBELLADB, TABLESDIR, $mode="sqlite");
+      echo json_encode($this->db_connection);
 
       $sql = 'UPDATE ' . OBJTABLE . '
               SET ' . OBJ_COLUMN_SHOW_RAW_TABLES . ' = "' . $newValue . '"
-              WHERE ' . ALL_COLUMN_ID . ' = "' . $id . '" AND ' . OBJ_COLUMN_TYPE . ' = "' . NAME_DASHBOARD . '"
-              LIMIT 1';
+              WHERE ' . ALL_COLUMN_ID . ' = "' . $id . '" AND ' . OBJ_COLUMN_TYPE . ' = "' . NAME_DASHBOARD . '"';
       
       $result = dbDBHExecuteSqlQuery($this->db_connection, $sql, $mode="exec");
-
-      return $result;
-    }
-
-    return false;
+      
+      echo $result;
   }
+
 }

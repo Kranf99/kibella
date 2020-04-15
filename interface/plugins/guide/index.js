@@ -57,7 +57,7 @@ define(function(require) {
   apps.register(function GuideAppModule() {
     return {
       id: "guide",
-      name: "User Guide",
+      name: "Guide",
       icon: `<svg
       xmlns:dc="http://purl.org/dc/elements/1.1/"
       xmlns:cc="http://creativecommons.org/ns#"

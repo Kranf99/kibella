@@ -1,7 +1,7 @@
 define(function (require) {
   require('ui/modules')
     .get('app/visualize')
-    .directive('visualizeSpy', function (Private, $compile) {
+    .directive('visualizeSpy', function (Private, $compile, $http, kbnPath, $route, $rootScope) {
       var $ = require('jquery');
       var _ = require('lodash');
 
@@ -19,8 +19,18 @@ define(function (require) {
           var fullPageSpy = false;
           $scope.modes = modes;
 
-          $scope.spy.show = false;
+          $scope.spy.show = true;
 
+          if($route.current.$$route.originalPath.includes("dashboard")) {
+            $scope.spy.show = $rootScope.showSpy;
+          }
+          /*$http.post(kbnPath + '/JSON_SQL_Bridge/dashboard/actions/showRawTables.php', { id: $route.current.params.id })
+            .then(function (resp) {
+                $scope.spy.show = Boolean(Number(resp.data))
+            }, function (err) {
+              console.error(err)
+            });
+*/
           $scope.toggleDisplay = function () {
             $scope.setSpyMode($scope.spy.mode ? null : defaultMode);
           };
