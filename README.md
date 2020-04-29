@@ -51,7 +51,7 @@ RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
 ```
 cd kibella
 sudo chmod 777 tempdata/
-sudo chmod 777 tempdata/cache
+sudo chmod 777 tempdata/cache/
 ```
 
 ---
