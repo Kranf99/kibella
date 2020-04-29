@@ -126,8 +126,7 @@ file should (typically) look like this:
       Allow from all
 </Directory>
 ```
-If not, edit the "/etc/apache2/httpd.conf" configuration file (normally empty) 
-and add the following lines:
+If not, edit the "/etc/apache2/httpd.conf" configuration file (or the "/etc/apache2/apache2.conf" configuration file for the Linux Debian distribution) and add the following lines:
 ```
 <Directory /var/www/kibella>
       AllowOverride All
