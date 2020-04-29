@@ -46,7 +46,13 @@ Under MS-Windows, Kibella runs inside the famous open-source&free project "UwAMP
 RewriteEngine on
 RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
 ```
-For your convenience, such a file is directly provided inside the Kibella distribution.
+  For your convenience, such a file is directly provided inside the Kibella distribution.
+* Enable write access inside the sub-directory "tempdata" and "tempdata/cache" inside the Kibella installation dir:
+```
+cd kibella
+sudo chmod 777 tempdata/
+sudo chmod 777 tempdata/cache
+```
 
 ---
 # Installation for Developers
@@ -140,6 +146,68 @@ If it does not appear, enable it with:
 sudo a2enmod rewrite
 ```
 
+1.3. Install PHP SQlite3 module
+
+To detect tis type of error, you need to type:
+```
+tail -f /var/log/apache2/error.log 
+```
+If you see:
+```
+PHP Fatal error:  Class 'sqlite3' not found in /var/www/html/kibella/JSON_SQL_Bridge/classes.php on line 11
+```
+...it means that you need to install the PHP SQlite3 module
+
+Step 1 :
+
+ * For PHP5, use
+```
+        sudo apt-get install php5-sqlite
+```
+
+ * For PHP7.0, use
+```
+        sudo apt-get install php7.0-sqlite
+```
+
+ * For PHP7.1, use
+```
+        sudo apt-get install php7.1-sqlite
+```
+
+ * For PHP7.2, use
+```
+        sudo apt-get install php7.2-sqlite
+```
+
+ * For PHP7.3, use
+```
+        sudo apt-get install php7.3-sqlite
+```
+
+Step 2 :
+
+   Restart Apache:
+```
+        sudo service apache2 restart
+```
+
+1.4. Enable write access in temp directory
+
+To detect tis type of error, you need to type:
+```
+tail -f /var/log/apache2/error.log 
+```
+If you see:
+```
+PHP Warning: fopen(/var/www/kibella/tempdata/cache/query_INCOME(income)-278b7e89b0d371c514ea8b7c87a624cd.json_tmp ): failed to open stream: Permission denied in /var/www/kibella/JSON_SQL_Bridge/functionsparse.php on line 11
+```
+...it means that you need to enable write access inside the sub-directory "tempdata" and "tempdata/cache" inside the Kibella installation dir. This is done this way:
+```
+cd kibella
+sudo chmod 777 tempdata/
+sudo chmod 777 tempdata/cache/
+```
 
 ---
 # How To contribute
