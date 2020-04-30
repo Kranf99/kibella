@@ -50,8 +50,10 @@ RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
 * Enable write access inside the sub-directory "tempdata" and "tempdata/cache" inside the Kibella installation dir:
 ```
 cd kibella
-sudo chmod 666 tempdata
+sudo chmod 777 tempdata
 sudo chmod 777 tempdata/cache
+sudo chmod 666 tempdata/kibella.sqlite
+sudo chmod 666 tempdata/kibella_stats.sqlite
 ```
 
 ---
@@ -197,6 +199,7 @@ To detect tis type of error, you need to type:
 ```
 tail -f /var/log/apache2/error.log 
 ```
+
 If you see:
 ```
 PHP Warning: fopen(/var/www/kibella/tempdata/cache/query_INCOME(income)-278b7e89b0d371c514ea8b7c87a624cd.json_tmp ): failed to open stream: Permission denied in /var/www/kibella/JSON_SQL_Bridge/functionsparse.php on line 11
@@ -207,6 +210,26 @@ cd kibella
 sudo chmod 777 tempdata/
 sudo chmod 777 tempdata/cache/
 ```
+
+1.5. Enable write access to "kibella.sqlite"
+
+This happens often when you update the dashboard vizualisations with new ones (i.e. when you replace the kibella.sqlite file on your remote "production" server). To detect tis type of error, you need to type:
+```
+tail -f /var/log/apache2/error.log 
+```
+
+If you see:
+```
+PHP Notice:  session_start(): ps_files_cleanup_dir: opendir(/var/lib/php/sessions) failed: Permission denied (13) in /var/www/html/kibella/JSON_SQL_Bridge/users/user.php on line 41
+```
+...it means that you need to enable write access to "tempdata/kibella.sqlite" in the Kibella installation dir. 
+This is done this way:
+```
+cd kibella
+sudo chmod 666 tempdata/kibella.sqlite
+sudo chmod 666 tempdata/kibella_stats.sqlite
+```
+If that's not enough, you also might need to run some "chown" command.
 
 ---
 # How To contribute
