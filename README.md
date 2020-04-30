@@ -50,8 +50,8 @@ RewriteRule (db/.*) JSON_SQL_Bridge/requests.php [L]
 * Enable write access inside the sub-directory "tempdata" and "tempdata/cache" inside the Kibella installation dir:
 ```
 cd kibella
-sudo chmod 777 tempdata/
-sudo chmod 777 tempdata/cache/
+sudo chmod 666 tempdata
+sudo chmod 666 tempdata/cache/
 ```
 
 ---
