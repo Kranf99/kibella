@@ -1,6 +1,6 @@
 <?php
 /*
- JSON_SQL_Bridge 1.0
+ JSON_SQL_Bridge
  Copyright 2016 Frank Vanden berghen
  All Right reserved.
 

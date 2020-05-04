@@ -1,6 +1,6 @@
 <?php
 /*
- JSON_SQL_Bridge 1.0
+ JSON_SQL_Bridge
  Copyright 2016 Frank Vanden berghen
  All Right reserved.
 
@@ -8,4 +8,4 @@
  If you are interested in distributing, reselling, modifying, contibuting or in general creating
  any derivative work from JSON_SQL_Bridge, please contact Frank Vanden Berghen at frank@timi.eu.
  */
-namespace kibella; require_once ( __DIR__."/../dashboard.php"); $O7=json_decode(file_get_contents("php://input"),TRUE); $l8=new l0(); echo $l8->l1($O7["id"]);
+namespace kibella; require_once __DIR__."/../dashboard.php"; $l9=json_decode(file_get_contents("php://input"),TRUE); $O9=new l0(); echo $O9->l1($l9["id"]);
