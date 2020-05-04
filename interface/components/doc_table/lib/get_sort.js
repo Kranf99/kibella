@@ -5,7 +5,7 @@ define(function (require) {
    * Take a sorting array and make it into an object
    * @param {array} 2 item array [fieldToSort, directionToSort]
    * @param {object} indexPattern used for determining default sort
-   * @returns {object} a sort object suitable for returning to elasticsearch
+   * @returns {object} a sort object suitable for returning to Back-end
    */
   function getSort(sort, indexPattern) {
     var sortObj = {};

@@ -16,7 +16,7 @@ define(function (require) {
     // Vis object of this type.
     return new TemplateVisType({
       name: 'metric-vis-colors',
-      title: 'Simple Metric',
+      title: 'Metric(Simple)',
       description: 'One big number for all of your one big number needs. Perfect for showing ' +
         'a count of hits, or the exact average a numeric field. Now with customizable colors.',
       icon: 'fa-calculator',

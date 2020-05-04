@@ -24,7 +24,7 @@ define(function (require) {
       this.name = config.name;
 
       /**
-       * the name of the elasticsearch aggregation that this aggType represents. Usually just this.name
+       * the name of the aggregation that this aggType represents. Usually just this.name
        *
        * @property name
        * @type {string}

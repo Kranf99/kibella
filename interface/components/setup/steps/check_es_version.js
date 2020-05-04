@@ -32,10 +32,7 @@ define(function (require) {
         });
 
         throw SetupError(
-          'This version of Kibana requires Elasticsearch ' +
-          minimumElasticsearchVersion + ' or higher on all nodes. ' +
-          'I found the following incompatible nodes in your cluster: \n\n' +
-          badNodeNames.join('\n')
+          'This version of Kibeblla requires a specific Back-end'
         );
       });
     });

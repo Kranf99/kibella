@@ -16,10 +16,10 @@ define(function (require) {
 
     /**
      * Each renderbot should implement a #render() method which
-     * should accept an elasticsearch response and update the underlying visualization
+     * should accept an response and update the underlying visualization
      *
      * @override
-     * @param {object} esResp - The raw elasticsearch response
+     * @param {object} esResp - The raw response
      * @return {undefined}
      */
     Renderbot.prototype.render = function (esResp) {

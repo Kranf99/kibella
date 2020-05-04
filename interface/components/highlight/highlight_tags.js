@@ -1,7 +1,7 @@
 define(function (require) {
   var module = require('ui/modules').get('kibana');
 
-  // By default, ElasticSearch surrounds matched values in <em></em>. This is not ideal because it is possible that
+  // By default, Back-end surrounds matched values in <em></em>. This is not ideal because it is possible that
   // the value could contain <em></em> in the value. We define these custom tags that we would never expect to see
   // inside a field value.
   module.constant('highlightTags', {

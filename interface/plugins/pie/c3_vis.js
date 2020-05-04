@@ -6,7 +6,7 @@ define(function (require) {
   var c3VisTemplate = require('plugins/pie/c3_vis.html');
   var c3VisParamsTemplate = require('plugins/pie/c3_vis_params.html');
   var colors = require('components/colors/colors');
-console.log("cc", colors.params)
+
   // register the provider with the visTypes registry
   require('ui/registry/vis_types').register(pieVisProvider);
 
@@ -16,9 +16,9 @@ console.log("cc", colors.params)
     
       return new TemplateVisType({
         name: 'pie_chart',
-        title: 'Plotly Pie',
+        title: 'Pie',
         icon: 'fa-pie-chart',
-        description: 'This is Kibella plugin which uses the JavaScript library Plotly for data representations.',
+        description: 'This is a Kibella plugin which uses the JavaScript library Plotly for data representations.',
         template: c3VisTemplate,
         params: {
           defaults: Object.assign({

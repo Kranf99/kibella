@@ -11,19 +11,33 @@ define(function (require) {
   require('elasticsearch');
   require('angular-route');
   require('angular-bindonce');
+  require('angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js')
 
   var Cookies = require('js-cookie');
   
   var configFile = JSON.parse(require('text!config'));
   
-  var secondSlash = window.location.pathname.indexOf('/', 1);
-  var kbnPath = window.location.pathname.substr(0, secondSlash) || '/kibella';
+  function getKibellaDirectory() {
+    var pathname_root = window.location.pathname;
+    var pathname_after_slash_index = pathname_root.indexOf('/', 1);
+    var kibella_root_directory = window.location.pathname.substr(0, pathname_after_slash_index);
+    
+    if(!kibella_root_directory) {
+      console.error("Failed to extract the path of kibella root directory from the '" + pathname_root + "' url")
+      return null;
+    }
+
+    return kibella_root_directory;
+  }
+
+  var kbnPath = getKibellaDirectory();
     
   var kibana = modules.get('kibana', [
     // list external requirements here
     'elasticsearch',
     'pasvaz.bindonce',
-    'ngRoute'
+    'ngRoute',
+    'dndLists'
   ]);
 
 
@@ -38,7 +52,7 @@ define(function (require) {
     .constant('commitSha', window.KIBANA_COMMIT_SHA)
     // Use this for cache busting partials
     .constant('cacheBust', window.KIBANA_COMMIT_SHA)
-    // The minimum Elasticsearch version required to run Kibana
+    // The minimum Back-end version required to run Kibella
     .constant('minimumElasticsearchVersion', '1.4.4')
     // When we need to identify the current session of the app, ef shard preference
     .constant('sessionId', Date.now())

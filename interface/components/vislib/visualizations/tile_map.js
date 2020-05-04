@@ -25,7 +25,7 @@ define(function (require) {
      * @extends Chart
      * @param handler {Object} Reference to the Handler Class Constructor
      * @param chartEl {HTMLElement} HTML element to which the map will be appended
-     * @param chartData {Object} Elasticsearch query results for this map
+     * @param chartData {Object} query results for this map
      */
     _(TileMap).inherits(Chart);
     function TileMap(handler, chartEl, chartData) {

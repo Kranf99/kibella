@@ -42,14 +42,22 @@ define(function (require) {
 
 		return '<table><tr><td><b>field</b></td><td><b>value</b></td><td><b>' + total_data.raw.columns[1].label + '</b></td></tr>'+ v.map(line).join('')+'</table>';
 	}
+
+	function createTableWF(data) {
+		var reversed = data.points[0].data.orientation === 'h';
+		var line = function(point) {
+			return '<tr><td><b>'+point.data.name+'</b></td><td>' + (reversed ? point.y : point.x) + '</td></tr>';
+		}
+		return '<table><tr><td><b>'+data.points[0].data.y_label+'</b></td><td>' + d3.format(',.'+(isInt(reversed ? data.points[0].data.x : data.points[0].data.y)?'0':'3')+'f')(reversed ? data.points[0].x : data.points[0].y) + '</td></tr>' + data.points.map(line).join('') + '</table>';
+	}
 	
 	var hoverInfo;
 
 	return {
 		init: function(viscontainer, gd, total_data, tot) {
 			hoverInfo = document.createElement('div');
-		  	hoverInfo.setAttribute('class', 'hoverinfo');
-		  	document.body.after(hoverInfo);
+			hoverInfo.setAttribute('class', 'hoverinfo');
+			document.body.appendChild(hoverInfo);
 
 		  	viscontainer.onmousemove = function(event) {
 				var body = document.body;
@@ -74,7 +82,7 @@ define(function (require) {
 
 			gd.on('plotly_hover', function(data) {
 				hoverInfo.style.display = "inline";
-			    hoverInfo.innerHTML = data.points[0].data.type === "pie" ? createTablePie(data, total_data, tot) : createTable(data);
+			    hoverInfo.innerHTML = data.points[0].data.type === "pie" ? createTablePie(data, total_data, tot) : data.points[0].data.type === "waterfall" ? createTableWF(data) : createTable(data);
 			});
 			gd.on('plotly_unhover', function(data) {
 				hoverInfo.style.display = "none";

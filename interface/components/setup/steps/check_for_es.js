@@ -12,7 +12,7 @@ define(function (require) {
         if (err.body && err.body.message) {
           throw new SetupError(err.body.message, err);
         } else {
-          throw new SetupError('Unknown error while connecting to Elasticsearch', err);
+          throw new SetupError('Unknown error while connecting to Back-end server', err);
         }
       })
       .then(complete, complete.failure);

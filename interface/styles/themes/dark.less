@@ -161,6 +161,15 @@ body.dark.application-dashboard {
   .main-nav .navbar-wrapper #nav-head {
     background-color:  @dark-bg-color;
   }
+  #rect4694 {
+    fill: @dark-bg-color !important;
+  }
+  #kibana-primary-navbar {
+    background-color: @dark-bg-color;
+  }
+  .navbar-wrapper {
+    border-color: @dark-dashboard-panel-bg-color;
+  }
   .main-nav .navbar-wrapper #kibana-primary-navbar > ul li a, .main-nav .navbar-wrapper #kibana-primary-navbar .bottom-menu > ul li a, .main-nav .navbar-wrapper #kibana-primary-navbar .bottom-menu > ul > li, .main-nav .navbar-wrapper #kibana-primary-navbar .expander a {
     color: #7b3c96 !important;
   }
@@ -175,6 +184,14 @@ body.dark.application-dashboard {
   }
   .wizard-vis-types .wizard-vis-type .ktooltip:after {
     border-right-color:  @dark-dashboard-panel-bg-color;
+  }
+  div.vis-tooltip, div.vis-tooltip table, div.vis-tooltip table thead, div.vis-tooltip table tr, div.vis-tooltip table th, div.vis-tooltip table td {
+    background:  @dark-dashboard-panel-bg-color !important;
+    color: #eee !important;
+  }
+  .hoverinfo {
+    background-color:  @dark-dashboard-panel-bg-color !important;
+    color: #eee !important;
   }
   .btn-default.active {
     background: #6b6b6b;
@@ -289,6 +306,13 @@ nav > ul > li.active > a, nav > ul > li > a:hover {
     .crisp {
       stroke: #5f5f5f !important;
     }
+  }
+
+  .plotly .legend rect.bg {
+    fill: @dark-dashboard-panel-bg-color !important;
+  }
+  .plotly .legend text {
+    fill: #fff !important;
   }
 }
 

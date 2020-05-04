@@ -178,8 +178,8 @@ define(function (require) {
      *     - "10 days"
      *     - "3 years"
      *
-     * interval.expr: the elasticsearch expression that creates this
-     *   interval. If the interval does not properly form an elasticsearch
+     * interval.expr: the expression that creates this
+     *   interval. If the interval does not properly form an 
      *   expression it will be forced into one.
      *
      * interval.scaled: the interval was adjusted to
