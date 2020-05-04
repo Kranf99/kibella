@@ -9,7 +9,7 @@ Kibella is so efficient that it runs easily on any basic WebHosting platform. Fo
 The design tool (to create new dashboard or to edit/customize existing dashboards) is running 100% in the Browser so that there can be an unlimited number of dashboard designers.
 
 The Front-End is coded with Angular.js & Webpack + Grunt.
-The Back-End is running on a simple Apache Server and a SQL (e.g. SQLite or SQLServer) database.
+The Back-End is running on a simple Apache Server and a SQL (e.g. SQLite, Oracle or SQLServer) database.
 
 Kibella should run in any setup composed of the "Apache Web Server" and PHP.
 Typical examples of such setup includes:
@@ -245,7 +245,7 @@ A good place to find what could be interesting as a contribution is inside the <
 
 2. Regarding the Back-End code.
 
-We are not interested in any help regarding the back-end code (i.e. the back-end code is the code that is runnning on the Web Server). The back-end code is pure PHP code that interfaces with a classical database (SQLite, MS-SQLServer) through SQL. We don't want to change that: For us, PHP+SQL is already the best solution because it offers:
+We are not interested in any help regarding the back-end code (i.e. the back-end code is the code that is runnning on the Web Server). The back-end code is pure PHP code that interfaces with a classical database (SQLite, Oracle, MS-SQLServer) through SQL. We don't want to change that: For us, PHP+SQL is already the best solution because it offers:
 * ..the highest portability (i.e. you can deploy PHP almost everywhere)
 * ..the highest level of security (i.e. By default, Kibella runs inside Apache and Apache is the most secure Web server currently available)
 * ..the easiest to maintain & support solution (i.e. what's easier to maintain than a simple Apache+PHP server?)
