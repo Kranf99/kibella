@@ -7,15 +7,17 @@
 
 // Navbar =====================================================================
 
+
 .main-nav
 {
     .navbar-wrapper
     {
-        background: @kibella-primary-color;
-        .box-shadow(rgba(0, 0, 0, 0.23) 1px 0px 10px);
+        background: #FCFCFC;
+        // .box-shadow(rgba(0, 0, 0, 0.23) 1px 0px 10px);
+        border-right: 1px solid #e2e2e2;
 
         #nav-head {
-            background: #fdfdfd;
+            background: linear-gradient(0deg, #c471e8, #ce6ff9);
             font-size:0;
 
             #kibella-logo {
@@ -33,7 +35,7 @@
             #separator {
                 width: 100%;
                 height: auto;
-                margin-top: -5px;
+                margin: -1px;
             }
         }
 
@@ -75,7 +77,7 @@
                 li {
                     a {
                         padding: 10px 0;
-                        color: #fff;
+                        color: #c471e8;
                         transition: color .2s;
 
                         span { // Icons only have span
@@ -135,7 +137,10 @@
                   width: 100%;
                   color: #fff;
                   transition: color .2s;
-
+                
+                  svg {
+                    max-height: 35px;
+                }
                   &:hover {
                     color: #9f50c1;
                   }

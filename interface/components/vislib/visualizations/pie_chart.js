@@ -183,7 +183,6 @@ define(function (require) {
 
         selection.each(function (data) {
           var slices = data.slices;
-          console.log("s",this,selection,slices)
           var div = d3.select(this);
           var width = $(this).width();
           var height = $(this).height();

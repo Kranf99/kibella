@@ -2,6 +2,11 @@
   <input type="checkbox" ng-model="opts.isShared" id="shared" ng-change="opts.changeShared()">
   <label for="shared">Allow non-authenticated users to see this dashboard</label>
 
+  <br>
+  
+  <input type="checkbox" ng-model="opts.showRawTables" id="showTables" ng-change="opts.changeRawTables()">
+  <label for="showTables">Allow non-authenticated users to see raw Data-Tables</label>
+
   <p>
     <div class="input-group">
       <label>

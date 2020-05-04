@@ -27,7 +27,7 @@ define(function (require) {
       },
       config: function ($routeProvider) {
         var resolver = {
-          load: function(kbnPath, $q, $http, $location, $route) {
+          load: function(kbnPath, $q, $http, $location, $route, $rootScope) {
             var loginPath = kbnPath + '/public/users/login/index.php';
             var dashboard = false;
             
@@ -48,6 +48,7 @@ define(function (require) {
                     }
                   });
                 } else {
+                  
                   window.location = loginPath;
                   defer.resolve(false);
                 }

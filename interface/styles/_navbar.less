@@ -8,7 +8,7 @@ navbar {
   // margin-bottom: @navbar-margin-bottom;
   // 
   // top and bottom padding are normally calcuated and stored in @navbar-padding-vertical, but flexbox
-  padding: 5px 5px 5px 15px;
+  padding: 5px 5px 5px 5px;
   color: @navbar-default-color;
   // background-color: @navbar-default-bg;
   border-style: solid;
@@ -90,8 +90,8 @@ navbar {
     }
 
     &.inverse-color {
-      color: #fff;
-      background-color: @main-color;
+      color: @main-color;
+      // background-color: @main-color;
       border-radius: 5px !important;
       border: 1px solid @main-color;
       transition: background-color .3s;
@@ -106,16 +106,19 @@ navbar {
   .inline-form {
     .input-group {
       .form-control {
-        border: 1px solid @main-color;
-				border-radius: 20px 0 0 20px;
+        //border: 1px solid @main-color;
+        //border: 1px solid @main-color;
+        border: 1px solid #ddd;
+        background: #f2f2f2;
+				border-radius: 4px 0 0 4px;
 				border-right: 0;
       }
       button {
-        border: 1px solid @main-color !important;
+        border: 1px solid #ddd !important;
         border-left: 0 !important;
-				border-radius: 0 20px 20px 0 !important;
-        // background-color: @main-color !important;
-        color: @main-color !important;
+				border-radius: 0 4px 4px 0 !important;
+        background-color: #f2f2f2 !important;
+        color: #888 !important;
         // transition: color .3s, background-color .3s;
 
         // &:hover {

@@ -6,7 +6,6 @@ define(function (require) {
       // have the aggConfig write agg dsl params
       var dslFilters = _.deepGet(aggConfig.toDsl(), 'filters.filters');
       var filter = dslFilters[key];
-      console.log(filter)
       if (filter) {
         return buildQueryFilter(filter.query, aggConfig.vis.indexPattern.id);
       }

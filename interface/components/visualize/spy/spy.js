@@ -1,7 +1,7 @@
 define(function (require) {
   require('ui/modules')
     .get('app/visualize')
-    .directive('visualizeSpy', function (Private, $compile) {
+    .directive('visualizeSpy', function (Private, $compile, $http, kbnPath, $route, $rootScope) {
       var $ = require('jquery');
       var _ = require('lodash');
 
@@ -11,6 +11,7 @@ define(function (require) {
       var modes = Private(require('ui/registry/spy_modes'));
       var defaultMode = modes.inOrder[0];
 
+      
       return {
         restrict: 'E',
         template: require('text!components/visualize/spy/_spy.html'),
@@ -19,6 +20,12 @@ define(function (require) {
           var fullPageSpy = false;
           $scope.modes = modes;
 
+          $scope.spy.show = true;
+          
+          if($route.current.$$route.originalPath.includes("dashboard") && (!$rootScope.user || !$rootScope.user === "false")) {
+            $scope.spy.show = $rootScope.showSpy;
+          }
+        
           $scope.toggleDisplay = function () {
             $scope.setSpyMode($scope.spy.mode ? null : defaultMode);
           };

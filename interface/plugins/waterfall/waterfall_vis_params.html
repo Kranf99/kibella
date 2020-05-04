@@ -1,0 +1,73 @@
+<div class="form-group">
+	<form class="waterfall-config">
+		<h4>Chart Data</h4>
+		<div ng-repeat="list in $root.lists" style="margin-bottom: 10px;">
+			<div style="background: #ddd; padding: 4px 15px;">{{$root.fields[$index]}}</div>
+			<ul dnd-list="list" dnd-allowed-types="[$root.fields[index]]" ng-init="index = $index">
+				<li ng-repeat="item in list"
+					dnd-draggable="item"
+					dnd-moved="list.splice($index,1); vis.params.lists = $root.lists; vis.params.update = vis.params.update+1"
+					dnd-effect-allowed="move"
+					dnd-selected=""
+					dnd-type="$root.fields[index]"
+					ng-class="{'selected': $root.list_selected === item}"
+					>
+					{{item.name}}
+					<br>
+					<select ng-model="item.measure" ng-change="vis.params.lists = $root.lists; vis.params.update = vis.params.update+1">
+						<option value="relative">Relative</option>
+						<option value="absolute">Absolute</option>
+						<option value="total">Total</option>
+					</select>
+					<input type="checkbox" ng-model="item.negative" ng-change="vis.params.lists = $root.lists; vis.params.update = vis.params.update+1">
+					<label> Negative </label>
+				</li>
+			</ul>
+			<div style="background-color: #fff;border: 1px solid #ddd;padding: 10px 15px;">
+				Total {{$root.fields[$index]}}
+				<input type="checkbox" ng-model="$root.totals[$index]" ng-change="vis.params.totals = $root.totals; vis.params.update = vis.params.update+1">
+				<label> Display </label>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<div class="form-group">
+	<form>
+		<h4>Others</h4>
+		<div clas="show-if-chart" ng-show="$root.show_chart">
+			<div class="form-group">
+				<label> Vertical </label>
+				<input type="checkbox" ng-model="vis.params.vertical"> 
+			</div>
+
+			<div class="form-group">
+				<label> Show grid lines </label>
+				<input type="checkbox" ng-model="vis.params.gridlines"> 
+			</div>
+
+			<div class="form-group">
+				<label for="sel-legend">Choose legend position</label>
+				<select class="form-control" id="sel-legend" ng-model="vis.params.legend_position">
+					<option value="right">Right</option>
+					<option value="top">Top</option>
+					<option value="bottom">Bottom</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="threshold">Threshold</label>
+				<input type="checkbox" ng-model="vis.params.threshold"><br>
+			</div>
+			
+			<div class="form-group">
+				<label for="thresholdvalue">Threshold Value</label>
+				<input class="form-control" style="width: 100%;" id="thresholdvalue" type="number" ng-model="vis.params.threshold_value"><br>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+

@@ -365,42 +365,9 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 		if (viscontainer && bucket_type) {
 			toggleLegend();
 
-			//var lastClickTime = 0;
-			//var numClicks = 0;
 			gd.on('plotly_legendclick', function(d) {
 				return false;
-				// simulate a click on legend items of the same type, this is currently useless
-				/*if(d.event.natural === false) { return; }
-				clickTime = (new Date()).getTime();
-				if(clickTime - lastClickTime < gd._context.doubleClickDelay) {
-					numClicks = 2;
-					lastClickTime = 0;
-				} else {
-					numClicks = 1;
-					setTimeout(function() {
-						if(numClicks > 1) { numClicks = 1; return; }
-						$(gd).find('.groups > .traces').each(function(i) {
-							var text = $(this).find('.legendtext').text();
-							if(text !== d.label && text.trim() === d.label) {
-								var toggle = $(this).find('.legendtoggle')[0];
-	
-								var down = new MouseEvent("mousedown");
-								down.natural = false;
-								toggle.dispatchEvent(down);
-								gd._legendMouseDownTime = 0;
-								var up = new MouseEvent("mouseup");
-								up.natural = false;
-								toggle.dispatchEvent(up);
-							}
-						});
-					}, gd._context.doubleClickDelay)
-				}
-				lastClickTime = clickTime;*/
 			});
-
-			// gd.on('plotly_afterplot', function() {
-			// 	initLegend();
-			// });
 
 			gd.on('plotly_click', function (d) {
 				var pts = d.points[0];

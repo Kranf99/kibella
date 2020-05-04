@@ -106,12 +106,10 @@ define(function (require) {
                 console.error("Sequential function lacks proper colors arguments")
 
             colors.min = _hexToRGB(_colors.min) 
-            colors.max = _hexToRGB(_colors.max) 
-            console.log(colors)
+            colors.max = _hexToRGB(_colors.max)
             return _interpolation(_.min(sequence), _.max(sequence), sequence)
         },
         Categorical: function(sequence, _colors) {
-            console.log(_colors)
             return _colors.colorlist;
         },
     }

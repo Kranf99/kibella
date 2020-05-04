@@ -1,8 +1,15 @@
-<div class="html-vis-options form-group">
+<div class="html-vis-options form-group"  ng-controller="KbnHtmlEditController">
+  <div>
+    <b>Add variable:</b>
+    <select ng-model="selected_variable">
+      <option ng-repeat="v in variables" value="{{v.name}}">{{v.name}} ({{v.desc}})</option>
+    </select>
+  </div>
+  <br>
   <div>
     <label>HTML</label>
   </div>
-  <div ng-controller="KbnHtmlEditController">
+  <div>
     <ui-codemirror ui-codemirror-opts="editorOptions"></ui-codemirror>
   </div>
 </div>

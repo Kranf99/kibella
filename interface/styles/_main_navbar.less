@@ -20,6 +20,21 @@
           a {
             div.app-icon {
               font-size: 1.75em;
+
+              svg {
+                width: 30px;
+                max-height: 35px;
+                opacity: 0.6;
+              }
+            }
+          }
+        }
+        li.active {
+          a {
+            .app-icon {
+              svg {
+                opacity: 1;
+              }
             }
           }
         }
@@ -35,7 +50,7 @@
         left:0; right:0;
 
         a {
-          color: #fff;
+          color: #c471e8;
         }
       }
     }
@@ -72,9 +87,12 @@
               display: inline-block;
               width: 30px;
               text-align: center;
+              vertical-align: middle;
             }
             span.app-name {
+              vertical-align: middle;
               font-size: 1.1em;
+              margin-left: 5px;
             }
           }
         }
