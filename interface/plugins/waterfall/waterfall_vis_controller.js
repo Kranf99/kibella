@@ -300,10 +300,13 @@ module.controller('KbnWaterfallVisController', function($scope, $element, Privat
 		
 		// Legend Position & Orientation
 		var legend_v = {}
+		var showlegend = true
+
 		switch($scope.vis.params.legend_position) {
 			case "right": 	legend_v = { x: 1, y: 0.5, orientation: "v" }; 		break;
 			case "bottom": 	legend_v = { x: 0, y: -0.2, orientation: "h" }; 	break;
 			case "top": 	legend_v = { x: 0, y: 1.1, orientation: "h" }; 		break;
+			default:		showlegend = false;	
 		}
 
 		// Chart Layout
@@ -324,7 +327,7 @@ module.controller('KbnWaterfallVisController', function($scope, $element, Privat
 			xaxis: $scope.vis.params.vertical ? xaxis : yaxis,
 			yaxis: $scope.vis.params.vertical ? yaxis : xaxis,
 			autosize: true,
-			showlegend: true,
+			showlegend: showlegend,
 			margin: { t: 0, l: 35, r: 5, b: 18},
 			legend: legend_v
 		};

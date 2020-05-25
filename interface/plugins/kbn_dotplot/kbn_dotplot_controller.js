@@ -77,7 +77,7 @@ define(function (require) {
         var Colors = require('components/colors/colors');
 
         var defaultDotSize = 10
-        // compite size for single bucket
+        // compute size for single bucket
         if (metricsAgg_radius) {
           var firstBuketSized = resp.aggregations[firstFieldAggId].buckets.map(function (b) { return metricsAgg_radius.getValue(b) })
           var max = Math.max.apply(null, firstBuketSized)
@@ -90,15 +90,16 @@ define(function (require) {
 
         var sizes = resp.aggregations[firstFieldAggId].buckets.reduce(function (acc, bucket) {
           if (bucket[secondFieldAggId]) {
-            var s = bucket[secondFieldAggId].buckets.reduce(function (accc, buck) {
-              var size = defaultDotSize
-              if (metricsAgg_radius) {
-                size = ((metricsAgg_radius.getValue(buck) - min) / step) * chartDiff + chartMin
-              }
-              accc.push(size)
-              return accc;
-            }, []);
-            acc.push(s)
+            acc.push(
+              bucket[secondFieldAggId].buckets.reduce(function (accc, buck) {
+                var size = defaultDotSize
+                if (metricsAgg_radius) {
+                  size = ((metricsAgg_radius.getValue(buck) - min) / step) * chartDiff + chartMin
+                }
+                accc.push(size)
+                return accc;
+             }, [])
+            )
             return acc;
           } else {
             var size = defaultDotSize
@@ -109,6 +110,7 @@ define(function (require) {
             return acc;
           }
         }, []);
+
         function isColorUndefined() {
           return $scope.vis.aggs.bySchemaName['dotcolor'] === undefined || (
             resp.aggregations[firstFieldAggId].buckets[0][secondFieldAggId] === undefined ?
@@ -116,6 +118,7 @@ define(function (require) {
               resp.aggregations[firstFieldAggId].buckets[0][secondFieldAggId].buckets[0][$scope.vis.aggs.bySchemaName['dotcolor'][0].id] === undefined
           )
         }
+
         // dot color values, instanciate to 'dot size' values if metric is undefined
         var colors_b = isColorUndefined() ? sizes : resp.aggregations[firstFieldAggId].buckets.reduce(function (acc, bucket) {
           if (bucket[secondFieldAggId]) {
@@ -142,19 +145,19 @@ define(function (require) {
           var colors = Colors[$scope.vis.params.colors](colors_b, $scope.vis.params)
         }
 
+        var color_counter = 0
         var dataParsed = resp.aggregations[firstFieldAggId].buckets.map(function (bucket, bucket_i) {
-          var colorOrg = bucket_i < colors.length-1 ? colors[bucket_i] : randomColor();
 
           //If two buckets selected
           if (bucket[secondFieldAggId]) {
             var aux = bucket[secondFieldAggId].buckets.map(function (buck, buck_i, bucks) {
-
+              
               //Size
               var size = defaultDotSize
               if (metricsAgg_radius) {
                 size = ((metricsAgg_radius.getValue(buck) - min) / step) * chartDiff + chartMin
               }
-              
+
               return {
                 mode: 'markers',
                 name: '',
@@ -164,8 +167,7 @@ define(function (require) {
                 field1: bucket.key,
                 field2: buck.key,
                 marker: {
-                  color: colors[bucket_i * bucks.length + buck_i],
-         //                  color: colorOrg,
+                  color: colors[color_counter++],
                   sizemode: 'diameter',
                   size: size
                 }
@@ -203,26 +205,26 @@ define(function (require) {
           showlegend: false,
         };
 
-        var data = [];
-        for (var i = 0; i < dataParsed.length; i++) {
-          data = data.concat(dataParsed[i])
-        }
+        var data = dataParsed.reduce((acc, d) => acc.concat(d), [])
 
-        var viscontainer = $element[0].parentElement.parentElement;
-
-        function getSize() {
-          return { width: viscontainer.width,
+        function getSize(viscontainer) {
+          return {
+            width: viscontainer.width,
             'margin-left': (100 - viscontainer.width) / 2 + 'px',
-
             height: viscontainer.height,
             'margin-top': (100 - viscontainer.height) / 2 + 'px'
           }
         }
-        
+
+        var viscontainer = $element[0].parentElement.parentElement;
+
         if(viscontainer) {
-          var gd3 = Plotly.d3.select($element[0]).style(getSize());
+          var gd3 = Plotly.d3.select($element[0]).style(getSize(viscontainer));
           var gd = gd3.node()
+
           var plot = Plotly.plot(gd, data, layout, { showLink: false })
+
+          // On click event
           gd.on('plotly_click', function(d){
             var pts = d.points[0];
             var queryFilter = Private(require('ui/filter_bar/query_filter'));

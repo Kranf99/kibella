@@ -21,8 +21,8 @@ define(function (require) {
           $scope.modes = modes;
 
           $scope.spy.show = true;
-          
-          if($route.current.$$route.originalPath.includes("dashboard") && (!$rootScope.user || !$rootScope.user === "false")) {
+    
+          if($route.current.$$route.originalPath.includes("dashboard") && (!$rootScope.user || $rootScope.user === "false")) {
             $scope.spy.show = $rootScope.showSpy;
           }
         

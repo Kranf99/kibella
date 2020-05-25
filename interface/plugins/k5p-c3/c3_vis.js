@@ -65,7 +65,7 @@ define(function (require) {
                   title: 'X-Axis',
                   min: 1,
                   max: 1,
-                  aggFilter: ['!geohash_grid']
+                  aggFilter: ['!geohash_grid', '!ip_range', '!significant_terms'],
               }
         ])
       });

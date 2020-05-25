@@ -64,9 +64,11 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		//create data_colors object
 		var data_colors = {};
 		var data_types = {};
-		var i = 0;
-		var create_color_object = $scope.$root.label_keys.map(function(chart){
-			if (i == 0){
+
+		var create_color_object = $scope.$root.label_keys.map((chart, i) => {
+			data_colors[chart] = $scope.vis.params['color' + (i+1)];
+			data_types[chart] = $scope.vis.params['type' + (i+1)];
+			/*if (i == 0){
 				data_colors[chart] = $scope.vis.params.color1;
 				data_types[chart] = $scope.vis.params.type1;
 			} else if (i == 1){
@@ -84,17 +86,15 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 			} else if (i == 4){
 				data_colors[chart] = $scope.vis.params.color5;
 				data_types[chart] = $scope.vis.params.type5;
-			}
-			i++;
+			}*/
 		});
 
 		// count bar charts and change bar ratio
-		var the_types = $scope.$root.label_keys.map(function(l) { return data_types[l]; });
+		var the_types = $scope.$root.label_keys.map(l => data_types[l]);
 		var chart_count = {};
-		the_types.forEach(function(i){ chart_count[i] = (chart_count[i] || 0)+1; });
+		the_types.forEach(i => { chart_count[i] = (chart_count[i] || 0)+1 });
 
 		if (chart_count.bar){
-
 			var my_ratio = 5 / timeseries.length;
 			my_ratio = (my_ratio > 0.35) ? my_ratio = 0.3 : my_ratio;
 
@@ -144,7 +144,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 
 			if(bucket_type === "histogram" || bucket_type === "terms" || bucket_type === "filters") {
 				x_v = x_axis_values[0]
-			} else {	
+			} else {
 				x_v = range_array_to_string(x_axis_values[0])
 			}
 
@@ -199,10 +199,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 				tot.mode = tot.mode.concat("+text")
 			
 			total_data.push(tot)
-
-
 		})
-
 
 		// largest number possible in JavaScript.
 		var global_min = Number.MAX_VALUE;
@@ -260,13 +257,11 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 			var group_charts = [];
 			var i = 0;
 			var are_they = los_values.map(function(chart_type){
-			
 				if (chart_type == "bar"){
 					group_charts.push(los_keys[i]);
 				}
 
 				i++;
-
 			});
 
 			config.data.groups = [group_charts];
@@ -289,25 +284,29 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		
 		// Legend Position & Orientation
 		var legend_v = {}
+		var showlegend = true
+
 		switch($scope.vis.params.legend_position) {
 			case "right": 	legend_v = { x: 1, y: 0.5, orientation: "v" }; 		break;
 			case "bottom": 	legend_v = { x: 0, y: -0.2, orientation: "h" }; 	break;
 			case "top": 	legend_v = { x: 0, y: 1.1, orientation: "h" }; 		break;
+			default:		showlegend = false;	
 		}
 
 		// Chart Layout
 		var layout = {
 			autosize: true,
-			xaxis: { 
+			xaxis: {
 				title: x_label,
 				showgrid: $scope.vis.params.gridlines,
 				fixedrange: !$scope.vis.params.enableZoom,
-				automargin: true
+				type: 'category'
 			},
 			yaxis: { 
 				showgrid: $scope.vis.params.gridlines,
 				fixedrange: !$scope.vis.params.enableZoom,
-				automargin: true
+				automargin: true,
+				
 			},
 			yaxis2: {
 				overlaying: 'y',
@@ -316,7 +315,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 			},
 			margin: { t: 0, l: 35, r: 5, b: 50},
 			hovermode: 'closest',
-			showlegend: true,
+			showlegend: showlegend,
 			legend: legend_v,
 		};
 
