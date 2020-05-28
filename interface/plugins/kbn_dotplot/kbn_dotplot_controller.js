@@ -205,7 +205,7 @@ define(function (require) {
           showlegend: false,
         };
 
-        var data = dataParsed.reduce((acc, d) => acc.concat(d), [])
+        var data = dataParsed.reduce(function(acc, d) { return acc.concat(d);}, [])
 
         function getSize(viscontainer) {
           return {

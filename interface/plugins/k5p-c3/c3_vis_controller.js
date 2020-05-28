@@ -65,7 +65,7 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		var data_colors = {};
 		var data_types = {};
 
-		var create_color_object = $scope.$root.label_keys.map((chart, i) => {
+		var create_color_object = $scope.$root.label_keys.map(function(chart, i) {
 			data_colors[chart] = $scope.vis.params['color' + (i+1)];
 			data_types[chart] = $scope.vis.params['type' + (i+1)];
 			/*if (i == 0){
@@ -90,9 +90,9 @@ module.controller('KbnC3VisController', function($scope, $element, Private, $loc
 		});
 
 		// count bar charts and change bar ratio
-		var the_types = $scope.$root.label_keys.map(l => data_types[l]);
+		var the_types = $scope.$root.label_keys.map(function (l){ return data_types[l];});
 		var chart_count = {};
-		the_types.forEach(i => { chart_count[i] = (chart_count[i] || 0)+1 });
+		the_types.forEach(function (i){ chart_count[i] = (chart_count[i] || 0)+1 });
 
 		if (chart_count.bar){
 			var my_ratio = 5 / timeseries.length;
