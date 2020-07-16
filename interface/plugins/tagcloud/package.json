@@ -4,7 +4,7 @@
   "dependencies": {
     "d3": "3.5.12",
     "d3.layout.cloud": "1.2.0",
-    "lodash": "3.10.1"
+    "lodash": "4.17.19"
   },
   "devDependencies": {
     "bluebird": "3.1.1",
