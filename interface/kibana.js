@@ -20,6 +20,8 @@ define(function (require) {
   var secondSlash = window.location.pathname.indexOf('/', 1);
   var kbnPath = window.location.pathname.substr(0, secondSlash) || '/kibella';
     
+  require('elasticsearch.angular.js')
+
   var kibana = modules.get('kibana', [
     // list external requirements here
     'elasticsearch',

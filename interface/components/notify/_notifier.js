@@ -271,6 +271,21 @@ define(function (require) {
     };
   }
 
+  
+
+  Notifier.prototype.checkForMessage = function (data) {
+    function isCustomMessage (json) {
+      return "message" in json && "type" in json.message && "value" in json.message
+    }
+    function isValidMessageType (type) {
+      return type === "error" || type === "warning" || type === "info"
+    }
+
+    if (isCustomMessage(data) && isValidMessageType(data.message.type)) {
+      this[data.message.type](data.message.value)
+    }
+  }
+
   // general functionality used by .event() and .lifecycle()
   function createGroupLogger(type, opts) {
     // Track the groups managed by this logger
