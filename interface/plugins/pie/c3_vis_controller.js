@@ -169,7 +169,19 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 						return parents[i].real_value*arrays.percents[index][i];
 					});
 				}
-						
+
+				var color_values = values;
+				if ($scope.vis.params.equalizeGradient) {
+					var sorted_idx = color_values
+						.map(function (v,i) { return [v,i] })
+						.sort(function (a,b) { return a[0] - b[0] })
+					var normalized = Array(sorted_idx.length).fill(0)
+					sorted_idx.map(function (v,i) { normalized[v[1]] = i })
+					color_values = normalized
+				}
+				
+				var colors = require('components/colors/colors')[$scope.vis.params.colors](color_values, $scope.vis.params)
+				
 				var set = {
 					values: corrected_values,
 					real_values: values,
@@ -182,7 +194,7 @@ module.controller('KbnPieVisController', function ($scope, $element, Private, $l
 					type: 'pie',
 					sort: false,
 					marker: {
-						colors: require('components/colors/colors')[$scope.vis.params.colors](values, $scope.vis.params)
+						colors: colors
 					},
 					direction: 'clockwise',
 					textinfo: 'none',
