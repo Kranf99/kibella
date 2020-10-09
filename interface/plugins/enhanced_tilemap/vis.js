@@ -46,6 +46,7 @@ define(function (require) {
           scrollWheelZoom: true,
           isDesaturated: true,
           addTooltip: true,
+          autoZoom: true,
           heatMaxZoom: 16,
           heatMinOpacity: 0.4,
           heatRadius: 25,

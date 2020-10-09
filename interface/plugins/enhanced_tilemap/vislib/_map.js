@@ -199,6 +199,51 @@ define(function (require) {
       });
     };
 
+    /*TileMapMap.prototype.fitToData = function () {
+      var markers = []
+      var that = this;
+
+      Object.keys(this.map._layers).forEach(function (ml) {
+        let layer = that.map._layers[ml]
+        if (layer._latlngs) {
+          console.log(layer._latlngs)
+          if (layer._latlngs[0].lat && layer._latlngs[0].lng) {
+            var a = layer._latlngs.reduce((acc, latlng) => {
+              acc = acc.concat([[latlng.lat, latlng.lng]])
+              return acc
+            }, [])
+
+            markers = a
+          } else {
+            markers = markers.concat(layer._latlngs)
+          }
+        } else if (layer._latlng) {
+          markers = markers.concat([[layer._latlng.lat, layer._latlng.lng]])
+        }
+      })
+      // Object.keys(this.map._layers).forEach(function (ml) {
+      //   if (that.map._layers[ml]._latlngs) {
+      //     markers = markers.concat(that.map._layers[ml]._latlngs)
+      //   }
+      // })
+      if (markers.length <= 0) return;
+
+      var getBound = function (axis, min) {
+        return markers.reduce(function(acc, point) {
+          if (min) return point[axis] < acc ? point[axis] : acc;
+          return point[axis] > acc ? point[axis] : acc;
+        }, markers[0][axis]);
+      }
+
+      var xSize = Math.abs(getBound(0, true) - getBound(0, false));
+      var ySize = Math.abs(getBound(1, true) - getBound(1, false));
+      var x = xSize / 2 + getBound(0, true);
+      var y = ySize / 2 + getBound(1, true);
+      var size = xSize > ySize ? xSize : ySize;
+
+      this.map.setView([x, y], Math.round(size))
+    };*/
+
     TileMapMap.prototype.destroy = function () {
       if (this._label) this._label.removeFrom(this.map);
       if (this._fitControl) this._fitControl.removeFrom(this.map);
