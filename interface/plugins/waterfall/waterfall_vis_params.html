@@ -32,11 +32,35 @@
 	</form>
 </div>
 
-
+<div class="form-group">
+	<form>
+		<h4>Colors</h4>
+		<div class="colors form-group">
+			<div class="">
+				<label for="favcolor">Positive</label>
+				<div>
+					<input type="color" id="favcolor" name="favcolor" ng-model="vis.params.colors.positive">
+				</div>
+			</div>
+			<div class="">
+				<label for="favcolor">Negative</label>
+				<div>
+					<input type="color" id="favcolor" name="favcolor" ng-model="vis.params.colors.negative">
+				</div>
+			</div>
+			<div class="">
+				<label for="favcolor">Absolute</label>
+				<div>
+					<input type="color" id="favcolor" name="favcolor" ng-model="vis.params.colors.absolute">
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
 <div class="form-group">
 	<form>
 		<h4>Others</h4>
-		<div clas="show-if-chart" ng-show="$root.show_chart">
+		<div class="show-if-chart">
 			<div class="form-group">
 				<label> Vertical </label>
 				<input type="checkbox" ng-model="vis.params.vertical"> 

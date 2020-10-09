@@ -123,6 +123,15 @@ module.controller('KbnWaterfallVisController', function($scope, $element, Privat
 					color: "rgb(63, 63, 63)"
 				  }
 				},
+				decreasing: {
+					marker: {color: $scope.vis.params.colors.negative}
+				},
+				increasing: {
+					marker: {color: $scope.vis.params.colors.positive}
+				},
+				totals: {
+					marker: {color: $scope.vis.params.colors.absolute}
+				}
 			}
 		}
 
