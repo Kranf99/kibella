@@ -109,29 +109,22 @@ define(function (require) {
     //
     // WARNING
     //
-    // This watcher has not the conventionnal behavior/utility like in the others visualisations,
-    // It here uniquely serve when you "Apply Changes" in the Edit Visualisation (/visualize/edit/) for updating the data of the visualisation (here <select>)
+    // This watcher does not have the conventionnal behavior/utility,
+    // It is only useful when you "Apply Changes" in the Edit Visualisation (/visualize/edit/) for updating the data of the visualisation (here <select>)
     // Because this plugin has specifics needs, what we want to perform here is separate the response of request for this Plugin and those from the Kibella core.
     // Unless others visualisations plugin who only read and draw data all the times, this plugin need to read (For fill the <select>),
-    // but it also need to add/replace/delete filter WITHOUT(!) replace is own data.
+    // but it also need to add/replace/delete filter WITHOUT(!) replacing is own data.
     //
-    // In Resume we don't want this plugin edit himself when it add a filter, and the only way (For the moment) to do that is to manually create new request.
+    // We don't want this plugin edit/filter himself when it add a filter, and the best way to do that in a short amount of time is to manually create a new request.
     // 
     $scope.$watch('esResponse', function (resp) {
       if (resp) {
-        // debugger;
-        // if($scope.vis.is_change) {
           $scope.vis.is_change = false;
           $scope.Update();
-
           // purgeMetrics();
           // $scope.processTableGroups(tabifyAggResponse($scope.vis, resp));
-
           //saveParamsValues(); // save/override params
-        // }
-
         $scope.$emit('checkFilters');
-         
       }
     });
 
