@@ -36,7 +36,8 @@ define(function() {
     }
   }]);*/
 
-  app.controller('adminInsertController', function($scope, $route, $http, $sce, kbnPath) {
+  app.controller('adminInsertController', function($scope, $route, $http, $sce, kbnPath, Notifier) {
+    var notifier = new Notifier({ location: 'Add/Update Dataset' })
 
     $scope.table = {
         db: "",
@@ -49,6 +50,7 @@ define(function() {
 
     $scope.getDATADIR = function() {
       $http.get(kbnPath + '/JSON_SQL_Bridge/infos/getDataDir.php').then(function(response) {
+        notifier.checkForMessage(response)
         $scope.DATADIR = response.data;
       });
     }
@@ -59,13 +61,13 @@ define(function() {
       if(table === null) {
           return;
       }
+
       $http.post(kbnPath + '/JSON_SQL_Bridge/formRegisterTableSubmit.php', $.param(table)).then(function(response) {
-         $scope.success_msg =  $sce.trustAsHtml(response.data);
+        notifier.checkForMessage(response)
+        $scope.success_msg =  $sce.trustAsHtml(response.data);
       });
     }
     
-
     $scope.getDATADIR();
-
   });
 });
