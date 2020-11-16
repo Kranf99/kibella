@@ -224,10 +224,11 @@ define(function (require) {
 
           var plot = Plotly.plot(gd, data, layout, { showLink: false })
 
+          var queryFilter = Private(require('ui/filter_bar/query_filter'));
+
           // On click event
           gd.on('plotly_click', function(d){
             var pts = d.points[0];
-            var queryFilter = Private(require('ui/filter_bar/query_filter'));
             var buildQueryFilter = require('ui/filter_manager/lib/query');
             
             var field1 = $scope.vis.aggs.bySchemaName['field'][0].params.field.displayName;
@@ -244,6 +245,35 @@ define(function (require) {
           });
           new ResizeSensor(viscontainer, function() {
             Plotly.Plots.resize(gd)
+          });
+
+          var buildRangeFilter = require('components/filter_manager/lib/range');
+          gd.on('plotly_relayout',
+            function(eventdata) {
+                // The 'plotly_relayout' event is triggered when you load the visualisation
+                if (!eventdata['xaxis.range[0]'] || !eventdata['xaxis.range[1]']) return
+
+                // Removing all pre-existing filters with the same key/name as X and Y axis
+                queryFilter.getFilters().map((filter) => {
+                  if (filter.meta.key === $scope.vis.aggs.bySchemaName['x-axis'][0].params.field.name ||
+                      filter.meta.key === $scope.vis.aggs.bySchemaName['y-axis'][0].params.field.name) {
+                    queryFilter.removeFilter(filter)
+                  }
+                })
+                
+                if(eventdata['xaxis.range[0]'] && eventdata['xaxis.range[1]']) {
+                  queryFilter.addFilters(buildRangeFilter($scope.vis.aggs.bySchemaName['x-axis'][0].params.field, {
+                    gte: Math.round(Number(eventdata['xaxis.range[0]'])),
+                    lte: Math.round(Number(eventdata['xaxis.range[1]']))
+                  }, $scope.vis.aggs.vis.indexPattern));
+                }
+
+                if(eventdata['yaxis.range[0]'] && eventdata['yaxis.range[1]']) {
+                  queryFilter.addFilters(buildRangeFilter($scope.vis.aggs.bySchemaName['y-axis'][0].params.field, {
+                    gte: Math.round(Number(eventdata['yaxis.range[0]'])),
+                    lte: Math.round(Number(eventdata['yaxis.range[1]']))
+                  }, $scope.vis.aggs.vis.indexPattern));
+                }
           });
         }
       }

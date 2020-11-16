@@ -37300,9 +37300,10 @@ function AngularConnector(host, config) {
   ConnectionAbstract.call(this, host, config);
 
   var self = this;
-  config.$injector.invoke(['$http', '$q', function ($http, $q) {
+  config.$injector.invoke(['$http', '$q', 'Notifier', function ($http, $q, Notifier) {
     self.$q = $q;
     self.$http = $http;
+    self.notifier = new Notifier({ location: 'Back-End' });
   }]);
 
 }
@@ -37310,6 +37311,9 @@ _.inherits(AngularConnector, ConnectionAbstract);
 
 AngularConnector.prototype.request = function (params, cb) {
   var abort = this.$q.defer();
+
+  // Logging requests for testing purposes
+  // console.warn('HTTP', params.method, this.host.makeUrl(params), params.body)
 
   this.$http({
     method: params.method,
@@ -37321,8 +37325,16 @@ AngularConnector.prototype.request = function (params, cb) {
     transformResponse: [],
     // not actually for timing out, that's handled by the transport
     timeout: abort.promise
-  }).then(function (response) {
-    cb(null, response.data, response.status, response.headers());
+  }).then((response) => {
+      var data = response.data.length > 0 ? JSON.parse(response.data) : {}
+
+      // Injecting a message object for testing purposes
+      // data.message = { type: "warning", value: "This is a warning from the backend via an elasticsearch format request/response"}
+      // console.log(data)
+      
+      this.notifier.checkForMessage(data)
+
+      cb(null, response.data, response.status, response.headers());
   }, function (err) {
     if (err.status) {
       cb(null, err.data, err.status, err.headers());

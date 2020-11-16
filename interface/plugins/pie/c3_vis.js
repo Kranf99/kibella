@@ -25,7 +25,8 @@ define(function (require) {
             addTooltip: true,
             addLegend: true,
             isDonut: false,
-            displayOther: true },
+            displayOther: true,
+            equalizeGradient: false },
             colors.default_params),
           editor: c3VisParamsTemplate
         },

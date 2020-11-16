@@ -16,6 +16,7 @@ var options = {
             errors: path.resolve(__dirname + '/components/errors'),
             modules: path.resolve(__dirname + '/utils/modules'),
             lodash: path.resolve(__dirname + '/utils/_mixins'),
+            utils: path.resolve(__dirname + '/utils'),
             'angular-bindonce': 'angular-bindonce/bindonce',
             'angular-bootstrap': 'angular-bootstrap/ui-bootstrap-tpls',
             'angular-elastic': 'angular-elastic/elastic',

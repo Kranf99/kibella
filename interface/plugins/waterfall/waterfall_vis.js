@@ -29,7 +29,12 @@ define(function (require) {
             threshold_value: 0,
             lists: false,
             totals: false,
-            update: 0
+            update: 0,
+            colors: {
+              positive: '#3d9970',
+              negative: '#ff4136',
+              absolute: '#4499ff'
+            }
           },
           editor: waterfallVisParamsTemplate
         },
