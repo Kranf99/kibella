@@ -254,7 +254,7 @@ define(function (require) {
                 if (!eventdata['xaxis.range[0]'] || !eventdata['xaxis.range[1]']) return
 
                 // Removing all pre-existing filters with the same key/name as X and Y axis
-                queryFilter.getFilters().map((filter) => {
+                queryFilter.getFilters().map( function(filter) {
                   if (filter.meta.key === $scope.vis.aggs.bySchemaName['x-axis'][0].params.field.name ||
                       filter.meta.key === $scope.vis.aggs.bySchemaName['y-axis'][0].params.field.name) {
                     queryFilter.removeFilter(filter)
