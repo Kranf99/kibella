@@ -167,7 +167,7 @@
     "sinon": "^1.12.2",
     "sinon-as-promised": "^2.0.3",
     "style-loader": "^0.13.1",
-    "tar": "^1.0.1",
+    "tar": "^5.0.5",
     "webpack-angular-resource-plugin": "0.0.4"
   },
   "engines": {
